@@ -8,6 +8,7 @@ import { checkUser } from './reducers/user/user.actions';
 import Register from './containers/registration/registration';
 import Signin from './containers/registration/signin';
 import Signout from './containers/registration/signout';
+import Home from './containers/home/home';
 
 
 const App = (props) => {
@@ -34,6 +35,7 @@ const App = (props) => {
                     </Switch>
                     :
                     <Switch>
+                        <Route exact path='/' component={Home} />
                         <Route exact path='/register' component={Register} />
                         <Route exact path='/signin' component={Signin} />
                     </Switch>
