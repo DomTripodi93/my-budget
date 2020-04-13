@@ -1,17 +1,27 @@
+# My Budget - Personal Accounting Application
+
 An application for personal accounting.
 
 Starting with Income/Bill tracking and planning, with plans of expanding into accounting software with predictive analytics and financial reporting.
 
-API Endpoints:
-    Expense
-    Income
-    Asset
-    Liability
-    Account
+## Design
 
-Frontend Components:
-    OAuth Sign in
+### API Endpoints:
+ - Expense
+ - Income
+ - Asset
+ - Liability
+ - Account
 
+### Frontend Components:
+ - OAuth User Registration and Sign in
+ - Dashboard
+    - Alerts for Upcoming expenses
+    - Income and Expense Calendar
+ - Monthly Recurring Expenses
+    - Manage Monthly Expenses and Due Dates
+ - Income
+    - Manage Expected Recurring Income and 
 
 
 

@@ -7,12 +7,17 @@ from flask_jwt_extended import (
     get_raw_jwt,
     jwt_required
 )
-from backend.models.user import UserModel
-from backend.token_blacklist import TOKEN_BLACKLIST
+from models.user import UserModel
+from token_blacklist import TOKEN_BLACKLIST
 import hashlib, binascii, os
 
 _user_parser = reqparse.RequestParser()
-_user_parser.add_argument('username',
+_user_parser.add_argument('email',
+                          type=str,
+                          required=True,
+                          help="This field cannot be blank."
+                          )
+_user_parser.add_argument('name',
                           type=str,
                           required=True,
                           help="This field cannot be blank."
@@ -22,7 +27,7 @@ _user_parser.add_argument('password',
                           required=True,
                           help="This field cannot be blank."
                           )
-_user_parser.add_argument('password_confirmation',
+_user_parser.add_argument('confirmPassword',
                           type=str,
                           required=True,
                           help="This field cannot be blank."
@@ -41,13 +46,13 @@ class UserRegister(Resource):
     def post(self):
         user = _user_parser.parse_args()
 
-        if UserModel.find_by_username(user['username']):
-            return {"message": "A user with that username already exists"}, 400
+        if UserModel.find_by_email(user['email']):
+            return {"message": "A user with that email already exists"}, 400
 
-        if user['password'] != user['password_confirmation']:
+        if user['password'] != user['confirmPassword']:
             return {"message": "Input password does not match confirmation"}, 400
 
-        user_to_save = UserModel(user['username'], hash_password(user['password']))
+        user_to_save = UserModel(user['email'], user['name'], UserRegister.hash_password(user['password']))
         user_to_save.save_to_db()
 
         return {"message": "User created successfully."}, 201
@@ -68,7 +73,7 @@ class UserLogin(Resource):
     def post(self):
         data = _user_parser.parse_args()
 
-        user = UserModel.find_by_username(data['username'])
+        user = UserModel.find_by_email(data['email'])
 
         if user and verify_password(user.password, data['password']):
             access_token = create_access_token(identity=user.id, fresh=True)
