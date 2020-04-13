@@ -1,12 +1,14 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 from db import db
 from token_blacklist import TOKEN_BLACKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -75,8 +77,8 @@ def create_tables():
     db.create_all()
 
 
-api.add_resource(UserRegister, '/register')
-api.add_resource(UserLogin, '/login')
+api.add_resource(UserRegister, '/auth/register')
+api.add_resource(UserLogin, '/auth/login')
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(TokenRefresh, '/refresh')
 api.add_resource(UserLogout, '/logout')

@@ -19,7 +19,7 @@ _user_parser.add_argument('email',
                           )
 _user_parser.add_argument('name',
                           type=str,
-                          required=True,
+                          required=False,
                           help="This field cannot be blank."
                           )
 _user_parser.add_argument('password',
@@ -29,7 +29,7 @@ _user_parser.add_argument('password',
                           )
 _user_parser.add_argument('confirmPassword',
                           type=str,
-                          required=True,
+                          required=False,
                           help="This field cannot be blank."
                           )
 
@@ -75,12 +75,13 @@ class UserLogin(Resource):
 
         user = UserModel.find_by_email(data['email'])
 
-        if user and verify_password(user.password, data['password']):
+        if user and UserLogin.verify_password(user.password, data['password']):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)
             return {
                        'access_token': access_token,
-                       'refresh_token': refresh_token
+                       'refresh_token': refresh_token,
+                       'id': user.id
                    }, 200
 
         return {"message": "Invalid Credentials!"}, 401
