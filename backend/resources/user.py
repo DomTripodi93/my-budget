@@ -97,11 +97,15 @@ class UserLogout(Resource):
 
 class User(Resource):
     @classmethod
+    @jwt_required
     def get(cls, user_id: int):
         user = UserModel.find_by_id(user_id)
         if not user:
             return {'message': 'User Not Found'}, 404
-        return user.json(), 200
+        if user_id == get_jwt_identity():
+            return user.json(), 200
+        else:
+            return {'message': 'Invalid credentials'}, 401
 
     @classmethod
     def delete(cls, user_id: int):
