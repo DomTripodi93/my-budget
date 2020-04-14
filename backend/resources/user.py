@@ -108,12 +108,16 @@ class User(Resource):
             return {'message': 'Invalid credentials'}, 401
 
     @classmethod
+    @jwt_required
     def delete(cls, user_id: int):
         user = UserModel.find_by_id(user_id)
         if not user:
             return {'message': 'User Not Found'}, 404
-        user.delete_from_db()
-        return {'message': 'User deleted.'}, 200
+        if user_id == get_jwt_identity():
+            user.delete_from_db()
+            return {'message': 'User deleted.'}, 200
+        else:
+            return {'message': 'Invalid credentials'}, 401
 
 
 class TokenRefresh(Resource):
