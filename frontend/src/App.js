@@ -15,7 +15,7 @@ const App = (props) => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
 
     useEffect(() => {
-        let token = localStorage.getItem('token');
+        let token = localStorage.getItem('accessToken');
         let userId = localStorage.getItem('id');
         if (!props.isAuthenticated) {
             props.checkUser(userId, token);
@@ -26,9 +26,9 @@ const App = (props) => {
     return (
         <div id="page">
             <div>
-                <h1>
+                <h1 className="centered">
                     Welcome to My Budget!
-        </h1>
+                </h1>
                 {authValue ?
                     <Switch>
                         <Route exact path='/signout' component={Signout} />

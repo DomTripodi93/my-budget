@@ -3,7 +3,7 @@ import axios from 'axios';
 import helpers from '../../shared/helpers';
 
 const helper = new helpers();
-const ROOT_URL = 'http://localhost:5000/api';
+const ROOT_URL = 'http://localhost:5000';
 
 export const registerUser = (user, callback) => {
     user.name = helper.capitalizeAll(user.name);
@@ -25,17 +25,33 @@ export const signInUser = (user, callback) => {
 };
 
 export const setUserData = (user) => {
-    localStorage.setItem('token', user.token);
+    if (user.access_token){
+        user.accessToken = user.access_token;
+    }
+    localStorage.setItem('accessToken', user.accessToken);
+
+    if (user.refresh_token){
+        user.refreshToken = user.refresh_token;
+    } else {
+        user.refreshToken = localStorage.getItem('refreshToken');
+    }
+    localStorage.setItem('refreshToken', user.refreshToken);
+
     localStorage.setItem('id', user.id);
 
     return {
         type: UserActionTypes.SIGNIN_USER,
-        payload: user
+        payload: {
+            token: user.accessToken,
+            refresh: user.refreshToken,
+            id: user.id
+        }
     };
 };
 
 export const signOutUser = (callback) => {
-    localStorage.setItem('token', "");
+    localStorage.setItem('accessToken', "");
+    localStorage.setItem('refreshToken', "");
     localStorage.setItem('id', "");
     callback();
 
@@ -54,7 +70,7 @@ export const checkUser = (id, token) => {
             .then(() => {
                 dispatch(
                     setUserData({
-                        token: token,
+                        accessToken: token,
                         id: id
                     })
                 )

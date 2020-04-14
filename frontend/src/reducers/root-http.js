@@ -5,14 +5,14 @@ import store from './store';
 
 class rootHttp {
     store = store;
-    rootUrl = 'http://localhost:5000/api/' + localStorage.getItem('id');
+    rootUrl = 'http://localhost:5000/' + localStorage.getItem('id');
     headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     helper = new helpers();
 
     constructor() {
         store.subscribe(() => {
             this.headers = { 'Authorization': `Bearer ${this.store.getState().user.userToken}` };
-            this.rootUrl = 'http://localhost:5000/api/' + this.store.getState().user.userId;
+            this.rootUrl = 'http://localhost:5000/' + this.store.getState().user.userId;
         })
     }
 
