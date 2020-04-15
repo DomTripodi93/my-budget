@@ -1,8 +1,8 @@
 from db import db
 
 
-class ExpenseModel(db.Model):
-    __tablename__ = 'expenses'
+class TransactionModel(db.Model):
+    __tablename__ = 'transactions'
 
     id = db.Column(db.Integer, primary_key=True)
     date_time = db.Column(db.DateTime)

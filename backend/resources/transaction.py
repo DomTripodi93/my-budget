@@ -1,10 +1,10 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from models.expense import ExpenseModel
+from models.transaction import TransactionModel
 import datetime
 
 
-class Expense(Resource):
+class Transaction(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
         'date_time',
@@ -33,30 +33,30 @@ class Expense(Resource):
     def post(self, user_id):
         data = self.parser.parse_args()
 
-        expense = ExpenseModel(user_id, **data)
+        transaction = TransactionModel(user_id, **data)
 
         try:
-            expense.save_to_db()
+            transaction.save_to_db()
         except:
             return {"message": "An error occurred while adding the transaction."}, 500
 
-        return expense.json(), 201
+        return transaction.json(), 201
 
     @jwt_required
     def get(self, _id):
-        expense = ExpenseModel.find_by_id(_id)
+        transaction = TransactionModel.find_by_id(_id)
 
-        if expense:
-            return expense.json()
-            
+        if transaction:
+            return transaction.json()
+
         return {'message': 'Transaction not found'}
 
     @jwt_required
     def delete(self, _id):
-        expense = ExpenseModel.find_by_id(_id)
+        transaction = TransactionModel.find_by_id(_id)
 
-        if expense:
-            expense.delete_from_db()
+        if transaction:
+            transaction.delete_from_db()
             return {'message': f'Transaction with id:{_id} deleted'}
 
         return {'message': 'Transaction not found'}
@@ -65,12 +65,12 @@ class Expense(Resource):
     def put(self, _id):
         data = self.parser.parse_args()
 
-        expense = ExpenseModel.find_by_id(_id)
+        transaction = TransactionModel.find_by_id(_id)
 
-        if expense:
+        if transaction:
             for key in data:
-                expense[key] = data[key]
-            expense.save_to_db() 
-            return expense.json()
+                transaction[key] = data[key]
+            transaction.save_to_db() 
+            return transaction.json()
 
         return {'message': 'Transaction not found'}

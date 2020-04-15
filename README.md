@@ -7,16 +7,15 @@ Starting with Income/Bill tracking and planning, with plans of expanding into ac
 ## Design
 
 ### API Endpoints:
- - Expense
- - Income
+ - Transaction
+ - Account
  - Asset
  - Liability
- - Account
 
 ### Frontend Components:
  - OAuth User Registration and Sign in
  - Dashboard
-    - Alerts for Upcoming expenses
+    - Alerts for Upcoming transactions
     - Income and Expense Calendar
  - Monthly Recurring Expenses
     - Manage Monthly Expenses and Due Dates
