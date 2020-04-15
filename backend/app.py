@@ -20,14 +20,6 @@ app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 jwt = JWTManager(app)
 
 
-
-@jwt.user_claims_loader
-def add_claims_to_jwt(identity):
-    if identity == 1:
-        return {'is_admin': True}
-    return {'is_admin': False}
-
-
 @jwt.token_in_blacklist_loader
 def check_if_token_in_blacklist(decrypted_token):
     return decrypted_token['jti'] in TOKEN_BLACKLIST

@@ -13,7 +13,7 @@ class ExpenseModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('UserModel')
 
-    def __init__(self, date_time, user_id, account_from, account_to, cost):
+    def __init__(self, user_id, date_time, account_from, account_to, cost):
         self.date_time = date_time
         self.reconciled = False
         self.account_from = account_from
@@ -32,19 +32,19 @@ class ExpenseModel(db.Model):
         }
 
     @classmethod
-    def find_by_reconciled(cls, reconciled):
-        return cls.query.filter_by(reconciled==reconciled).all()
+    def find_by_reconciled(cls, user_id, reconciled):
+        return cls.query.filter_by(user_id==user_id & reconciled==reconciled).all()
 
     @classmethod
-    def find_by_date(cls, date):
-        return cls.query.filter_by(date_time.date()==date).all()
+    def find_by_date(cls, user_id, date):
+        return cls.query.filter_by(user_id==user_id & date_time.date()==date).all()
 
     @classmethod
-    def find_by_month(cls, month, year):
-        return cls.query.filter_by(date_time.month==month & date_time.year==year).all()
+    def find_by_month(cls, user_id, month, year):
+        return cls.query.filter_by(user_id==user_id & date_time.month==month & date_time.year==year).all()
 
     @classmethod
-    def find_by_id(cls, _id):
+    def find_by_id(cls, user_id, _id):
         return cls.query.filter_by(id=_id).first()
 
     @classmethod

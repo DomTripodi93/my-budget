@@ -9,40 +9,46 @@ from flask_jwt_extended import (
 )
 from models.user import UserModel
 from token_blacklist import TOKEN_BLACKLIST
-import hashlib, binascii, os
+import hashlib
+import binascii
+import os
 
 _user_parser = reqparse.RequestParser()
-_user_parser.add_argument('email',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('name',
-                          type=str,
-                          required=False,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('password',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('confirmPassword',
-                          type=str,
-                          required=False,
-                          help="This field cannot be blank."
-                          )
+_user_parser.add_argument(
+    'email',
+    type=str,
+    required=True,
+    help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    'name',
+    type=str,
+    required=False,
+    help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    'password',
+    type=str,
+    required=True,
+    help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    'confirmPassword',
+    type=str,
+    required=False,
+    help="This field cannot be blank."
+)
 
 
 class UserRegister(Resource):
     @staticmethod
     def hash_password(password):
         salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
-        pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), 
-                                    salt, 100000)
+        pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
+                                      salt, 100000)
         pwdhash = binascii.hexlify(pwdhash)
         return (salt + pwdhash).decode('ascii')
-        
+
     def post(self):
         user = _user_parser.parse_args()
 
@@ -52,7 +58,8 @@ class UserRegister(Resource):
         if user['password'] != user['confirmPassword']:
             return {"message": "Input password does not match confirmation"}, 400
 
-        user_to_save = UserModel(user['email'], user['name'], UserRegister.hash_password(user['password']))
+        user_to_save = UserModel(
+            user['email'], user['name'], UserRegister.hash_password(user['password']))
         user_to_save.save_to_db()
 
         return {"message": "User created successfully."}, 201
@@ -63,10 +70,10 @@ class UserLogin(Resource):
     def verify_password(stored_password, provided_password):
         salt = stored_password[:64]
         stored_password = stored_password[64:]
-        pwdhash = hashlib.pbkdf2_hmac('sha512', 
-                                    provided_password.encode('utf-8'), 
-                                    salt.encode('ascii'), 
-                                    100000)
+        pwdhash = hashlib.pbkdf2_hmac('sha512',
+                                      provided_password.encode('utf-8'),
+                                      salt.encode('ascii'),
+                                      100000)
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
         return pwdhash == stored_password
 
@@ -79,10 +86,10 @@ class UserLogin(Resource):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)
             return {
-                       'access_token': access_token,
-                       'refresh_token': refresh_token,
-                       'id': user.id
-                   }, 200
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+                'id': user.id
+            }, 200
 
         return {"message": "Invalid Credentials!"}, 401
 
