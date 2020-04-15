@@ -46,7 +46,7 @@ class Transaction(Resource):
     def get(self, _id):
         transaction = TransactionModel.find_by_id(_id)
 
-        if transaction:
+        if transaction & transaction.user_id == get_jwt_identity():
             return transaction.json()
 
         return {'message': 'Transaction not found'}
@@ -55,7 +55,7 @@ class Transaction(Resource):
     def delete(self, _id):
         transaction = TransactionModel.find_by_id(_id)
 
-        if transaction:
+        if transaction & transaction.user_id == get_jwt_identity():
             transaction.delete_from_db()
             return {'message': f'Transaction with id:{_id} deleted'}
 
