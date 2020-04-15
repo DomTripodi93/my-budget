@@ -16,7 +16,7 @@ class UserModel(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'email': self.email
+            'name': self.name
         }
 
     @classmethod
