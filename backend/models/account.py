@@ -27,15 +27,15 @@ class AccountModel(db.Model):
 
     @classmethod
     def find_by_active(cls, user_id, active):
-        return cls.query.filter_by(user_id==user_id & active==active).all()
+        return cls.query.filter_by(user_id==user_id and active==active).all()
 
     @classmethod
     def find_by_type(cls, user_id, account_type):
-        return cls.query.filter_by(user_id==user_id & account_type==account_type).all()
+        return cls.query.filter_by(user_id==user_id and account_type==account_type).all()
 
     @classmethod
     def find_by_type_and_active(cls, user_id, account_type, active):
-        return cls.query.filter_by(user_id==user_id & account_type==account_type & active==active).all()
+        return cls.query.filter_by(user_id==user_id and account_type==account_type and active==active).all()
 
     @classmethod
     def find_by_id(cls, user_id, _id):

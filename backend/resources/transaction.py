@@ -34,7 +34,9 @@ class Transaction(Resource):
     @jwt_required
     def post(self, user_id):
         data = parser.parse_args()
-        data.date_time = datetime.datetime.strptime(parser.parse_args().date_time, '%Y-%m-%dT%H:%M:%S')
+        data.date_time = datetime.datetime.strptime(
+            parser.parse_args().date_time, '%Y-%m-%dT%H:%M:%S'
+        )
 
         transaction = TransactionModel(user_id, **data)
 
@@ -45,13 +47,14 @@ class Transaction(Resource):
 
         return transaction.json(), 201
 
+
 class TransactionById(Resource):
     @jwt_required
     def get(self, user_id, _id):
         if user_id == get_jwt_identity():
-            transaction = TransactionModel.find_by_id(_id)
+            transaction = TransactionModel.find_by_id(user_id, _id)
 
-            if transaction & transaction.user_id == get_jwt_identity():
+            if transaction and transaction.user_id == get_jwt_identity():
                 return transaction.json()
 
             return {'message': 'Transaction not found'}
@@ -61,9 +64,9 @@ class TransactionById(Resource):
     @jwt_required
     def delete(self, user_id, _id):
         if user_id == get_jwt_identity():
-            transaction = TransactionModel.find_by_id(_id)
+            transaction = TransactionModel.find_by_id(user_id, _id)
 
-            if transaction & transaction.user_id == get_jwt_identity():
+            if transaction and transaction.user_id == get_jwt_identity():
                 transaction.delete_from_db()
                 return {'message': f'Transaction with id:{_id} deleted'}
 
@@ -75,11 +78,14 @@ class TransactionById(Resource):
     def put(self, user_id, _id):
         if user_id == get_jwt_identity():
             data = parser.parse_args()
-            transaction = TransactionModel.find_by_id(_id)
+            data.date_time = datetime.datetime.strptime(
+                parser.parse_args().date_time, '%Y-%m-%dT%H:%M:%S'
+            )
+            transaction = TransactionModel.find_by_id(user_id, _id)
 
             if transaction:
                 for key in data:
-                    transaction[key] = data[key]
+                    setattr(transaction, key, data[key])
                 transaction.save_to_db()
                 return transaction.json()
 
@@ -91,8 +97,9 @@ class TransactionById(Resource):
 class TransactionList(Resource):
     @jwt_required
     def get(self, user_id):
-        transactions = {transaction.json()
-                        for transaction in TransactionModel.find_all(user_id)}
+        transactions = {
+            transaction.json() for transaction in TransactionModel.find_all(user_id)
+        }
         if transactions:
             return transactions, 200
         return {'message': 'no transactions available'}, 200

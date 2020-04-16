@@ -25,23 +25,23 @@ class TransactionModel(db.Model):
         return {
             'date_time': self.date_time.strftime('%Y-%m-%dT%H:%M:%S'),
             'id': self.id,
+            'reconciled': self.reconciled,
             'account_from': self.account_from,
             'account_to': self.account_to,
-            'cost': self.cost,
-            'user_id': self.user_id
+            'cost': self.cost
         }
 
     @classmethod
     def find_by_reconciled(cls, user_id, reconciled):
-        return cls.query.filter_by(user_id==user_id & reconciled==reconciled).all()
+        return cls.query.filter_by(user_id==user_id and reconciled==reconciled).all()
 
     @classmethod
     def find_by_date(cls, user_id, date):
-        return cls.query.filter_by(user_id==user_id & date_time.date()==date).all()
+        return cls.query.filter_by(user_id==user_id and date_time.date()==date).all()
 
     @classmethod
     def find_by_month(cls, user_id, month, year):
-        return cls.query.filter_by(user_id==user_id & date_time.month==month & date_time.year==year).all()
+        return cls.query.filter_by(user_id==user_id and date_time.month==month and date_time.year==year).all()
 
     @classmethod
     def find_by_id(cls, user_id, _id):

@@ -39,7 +39,7 @@ class Account(Resource):
     def get(self, _id):
         account = AccountModel.find_by_id(_id)
 
-        if account & account.user_id == get_jwt_identity():
+        if account and account.user_id == get_jwt_identity():
             return account.json()
 
         return {'message': 'Account not found'}
@@ -48,7 +48,7 @@ class Account(Resource):
     def delete(self, _id):
         account = AccountModel.find_by_id(_id)
 
-        if account & account.user_id == get_jwt_identity():
+        if account and account.user_id == get_jwt_identity():
             account.delete_from_db()
             return {'message': f'Account with id:{_id} deleted'}
 
@@ -57,13 +57,12 @@ class Account(Resource):
     @jwt_required
     def put(self, _id):
         data = self.parser.parse_args()
-
         account = AccountModel.find_by_id(_id)
 
         if account:
             for key in data:
-                account[key] = data[key]
-            account.save_to_db() 
+                setattr(account, key, data[key])
+            account.save_to_db()
             return account.json()
 
         return {'message': 'Account not found'}
