@@ -6,6 +6,7 @@ from flask_cors import CORS
 from db import db
 from token_blacklist import TOKEN_BLACKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
+from resources.transaction import Transaction, TransactionById, TransactionList
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -75,6 +76,10 @@ api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(TokenRefresh, '/refresh')
 api.add_resource(UserLogout, '/logout')
 
+api.add_resource(Transaction, '/transaction/<int:user_id>')
+api.add_resource(TransactionById, '/transaction/<int:user_id>/<int:_id>')
+api.add_resource(TransactionList, '/transaction/<int:user_id>/all')
+
 if __name__ == '__main__':
     db.init_app(app)
-    app.run(port=5000, debug=True)
+    app.run(port=5001, debug=True)

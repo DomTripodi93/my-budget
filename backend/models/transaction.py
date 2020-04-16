@@ -10,7 +10,7 @@ class TransactionModel(db.Model):
     account_from = db.Column(db.String(80))
     account_to = db.Column(db.String(80))
     cost = db.Column(db.Float)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('UserModel')
 
     def __init__(self, user_id, date_time, account_from, account_to, cost):
@@ -23,7 +23,7 @@ class TransactionModel(db.Model):
 
     def json(self):
         return {
-            'date_time': self.date_time,
+            'date_time': self.date_time.strftime('%Y-%m-%dT%H:%M:%S'),
             'id': self.id,
             'account_from': self.account_from,
             'account_to': self.account_to,
