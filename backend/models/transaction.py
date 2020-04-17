@@ -33,15 +33,15 @@ class TransactionModel(db.Model):
 
     @classmethod
     def find_by_reconciled(cls, user_id, reconciled):
-        return cls.query.filter_by(user_id==user_id and reconciled==reconciled).all()
+        return cls.query.filter(db.transactions.user_id==user_id & db.transactions.reconciled==reconciled).all()
 
     @classmethod
     def find_by_date(cls, user_id, date):
-        return cls.query.filter_by(user_id==user_id and date_time.date()==date).all()
+        return cls.query.filter(db.transactions.user_id==user_id & db.transactions.date_time.date()==date).all()
 
     @classmethod
     def find_by_month(cls, user_id, month, year):
-        return cls.query.filter_by(user_id==user_id and date_time.month==month and date_time.year==year).all()
+        return cls.query.filter(db.transactions.user_id==user_id & db.transactions.date_time.month==month & db.transactions.date_time.year==year).all()
 
     @classmethod
     def find_by_id(cls, user_id, _id):
@@ -49,7 +49,7 @@ class TransactionModel(db.Model):
 
     @classmethod
     def find_all(cls, user_id):
-        return cls.query.filter_by(user_id==user_id).all()
+        return cls.query.filter_by(user_id=user_id).all()
 
     def save_to_db(self):
         db.session.add(self)

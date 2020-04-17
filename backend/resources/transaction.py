@@ -97,9 +97,9 @@ class TransactionById(Resource):
 class TransactionList(Resource):
     @jwt_required
     def get(self, user_id):
-        transactions = {
+        transactions = [
             transaction.json() for transaction in TransactionModel.find_all(user_id)
-        }
+        ]
         if transactions:
             return transactions, 200
         return {'message': 'no transactions available'}, 200
