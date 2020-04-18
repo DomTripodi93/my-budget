@@ -8,17 +8,6 @@ class UserModel(db.Model):
     name = db.Column(db.String(80))
     password = db.Column(db.String(200))
 
-    def __init__(self, email, name, password):
-        self.email = email
-        self.name = name
-        self.password = password
-
-    def json(self):
-        return {
-            'id': self.id,
-            'name': self.name
-        }
-
     @classmethod
     def find_by_email(cls, email):
         return cls.query.filter_by(email=email).first()

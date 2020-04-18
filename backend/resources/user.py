@@ -1,4 +1,5 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
+from flask import request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -8,36 +9,13 @@ from flask_jwt_extended import (
     jwt_required
 )
 from models.user import UserModel
+from schemas.user import UserSchema
 from token_blacklist import TOKEN_BLACKLIST
 import hashlib
 import binascii
 import os
 
-_user_parser = reqparse.RequestParser()
-_user_parser.add_argument(
-    'email',
-    type=str,
-    required=True,
-    help="This field cannot be blank."
-)
-_user_parser.add_argument(
-    'name',
-    type=str,
-    required=False,
-    help="This field cannot be blank."
-)
-_user_parser.add_argument(
-    'password',
-    type=str,
-    required=True,
-    help="This field cannot be blank."
-)
-_user_parser.add_argument(
-    'confirmPassword',
-    type=str,
-    required=False,
-    help="This field cannot be blank."
-)
+user_schema = UserSchema()
 
 
 class UserRegister(Resource):
@@ -50,17 +28,16 @@ class UserRegister(Resource):
         return (salt + pwdhash).decode('ascii')
 
     def post(self):
-        user = _user_parser.parse_args()
+        user_json = request.get_json()
+        user = user_schema.load(user_json)
 
-        if UserModel.find_by_email(user['email']):
+        if UserModel.find_by_email(user.email):
             return {"message": "A user with that email already exists"}, 400
 
         if user['password'] != user['confirmPassword']:
             return {"message": "Input password does not match confirmation"}, 400
 
-        user_to_save = UserModel(
-            user['email'], user['name'], UserRegister.hash_password(user['password']))
-        user_to_save.save_to_db()
+        user.save_to_db()
 
         return {"message": "User created successfully."}, 201
 
@@ -78,11 +55,12 @@ class UserLogin(Resource):
         return pwdhash == stored_password
 
     def post(self):
-        data = _user_parser.parse_args()
+        user_json = request.get_json()
+        user_data = user_schema.load(user_json)
 
-        user = UserModel.find_by_email(data['email'])
+        user = UserModel.find_by_email(user_data.email)
 
-        if user and UserLogin.verify_password(user.password, data['password']):
+        if user and UserLogin.verify_password(user.password, user_data.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)
             return {

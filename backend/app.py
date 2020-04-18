@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
 from db import db
+from ma import ma
 from token_blacklist import TOKEN_BLACKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
 from resources.transaction import Transaction, TransactionById, TransactionList
@@ -82,4 +83,5 @@ api.add_resource(TransactionList, '/transaction/<int:user_id>/all')
 
 if __name__ == '__main__':
     db.init_app(app)
+    ma.init_app(app)
     app.run(port=5001, debug=True)
