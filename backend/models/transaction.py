@@ -13,24 +13,6 @@ class TransactionModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('UserModel')
 
-    def __init__(self, user_id, date_time, account_from, account_to, cost):
-        self.date_time = date_time
-        self.reconciled = False
-        self.account_from = account_from
-        self.account_to = account_to
-        self.cost = cost
-        self.user_id = user_id
-
-    def json(self):
-        return {
-            'date_time': self.date_time.strftime('%Y-%m-%dT%H:%M:%S'),
-            'id': self.id,
-            'reconciled': self.reconciled,
-            'account_from': self.account_from,
-            'account_to': self.account_to,
-            'cost': self.cost
-        }
-
     @classmethod
     def find_by_reconciled(cls, user_id, reconciled):
         return cls.query.filter(db.transactions.user_id==user_id & db.transactions.reconciled==reconciled).all()

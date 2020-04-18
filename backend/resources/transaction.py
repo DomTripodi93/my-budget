@@ -1,42 +1,23 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
+from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from models.transaction import TransactionModel
+from schemas.transaction import TransactionSchema
 import datetime
 
 
-parser = reqparse.RequestParser()
-parser.add_argument(
-    'date_time',
-    type=str,
-    required=True,
-    help="Transaction date and time are required"
-)
-parser.add_argument(
-    'account_from',
-    type=str,
-    required=False
-)
-parser.add_argument(
-    'account_to',
-    type=str,
-    required=False
-)
-parser.add_argument(
-    'cost',
-    type=float,
-    required=True,
-    help="Transaction value is required"
-)
+transaction_schema = TransactionSchema()
 
 
 class Transaction(Resource):
 
     @jwt_required
     def post(self, user_id):
-        data = parser.parse_args()
-        data.date_time = datetime.datetime.strptime(
-            parser.parse_args().date_time, '%Y-%m-%dT%H:%M:%S'
+        transaction_json = request.get_json()
+        transaction_json.date_time = datetime.datetime.strptime(
+            transaction_json.date_time, '%Y-%m-%dT%H:%M:%S'
         )
+        data = transaction_schema.load(transaction_json)
 
         transaction = TransactionModel(user_id, **data)
 
@@ -77,10 +58,11 @@ class TransactionById(Resource):
     @jwt_required
     def put(self, user_id, _id):
         if user_id == get_jwt_identity():
-            data = parser.parse_args()
-            data.date_time = datetime.datetime.strptime(
-                parser.parse_args().date_time, '%Y-%m-%dT%H:%M:%S'
+            transaction_json = request.get_json()
+            transaction_json.date_time = datetime.datetime.strptime(
+                transaction_json.date_time, '%Y-%m-%dT%H:%M:%S'
             )
+            data = transaction_schema.load(transaction_json)
             transaction = TransactionModel.find_by_id(user_id, _id)
 
             if transaction:
