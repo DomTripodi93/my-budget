@@ -20,14 +20,14 @@ class Account(Resource):
         except:
             return {"message": "An error occurred while adding the account."}, 500
 
-        return account.json(), 201
+        return account_schema.dump(account), 201
 
     @jwt_required
     def get(self, _id):
         account = AccountModel.find_by_id(_id)
 
         if account and account.user_id == get_jwt_identity():
-            return account.json()
+            return account_schema.dump(account)
 
         return {'message': 'Account not found'}
 
@@ -51,6 +51,6 @@ class Account(Resource):
             for key in data:
                 setattr(account, key, data[key])
             account.save_to_db()
-            return account.json()
+            return account_schema.dump(account), 200
 
         return {'message': 'Account not found'}

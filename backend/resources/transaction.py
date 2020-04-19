@@ -26,7 +26,7 @@ class Transaction(Resource):
         except:
             return {"message": "An error occurred while adding the transaction."}, 500
 
-        return transaction.json(), 201
+        return transaction_schema.dump(transaction), 201
 
 
 class TransactionById(Resource):
@@ -36,7 +36,7 @@ class TransactionById(Resource):
             transaction = TransactionModel.find_by_id(user_id, _id)
 
             if transaction and transaction.user_id == get_jwt_identity():
-                return transaction.json()
+                return transaction_schema.dump(transaction), 200
 
             return {'message': 'Transaction not found'}
 
@@ -49,11 +49,11 @@ class TransactionById(Resource):
 
             if transaction and transaction.user_id == get_jwt_identity():
                 transaction.delete_from_db()
-                return {'message': f'Transaction with id:{_id} deleted'}
+                return {'message': f'Transaction with id:{_id} deleted'}, 200
 
-            return {'message': 'Transaction not found'}
+            return {'message': 'Transaction not found'}, 404
 
-        return {'message': 'You can only delete your own transactions'}
+        return {'message': 'You can only delete your own transactions'}, 401
 
     @jwt_required
     def put(self, user_id, _id):
@@ -69,18 +69,18 @@ class TransactionById(Resource):
                 for key in data:
                     setattr(transaction, key, data[key])
                 transaction.save_to_db()
-                return transaction.json()
+                return transaction_schema.dump(transaction), 200
 
-            return {'message': 'Transaction not found'}
+            return {'message': 'Transaction not found'}, 404
 
-        return {'message': 'You can only edit your own transactions'}
+        return {'message': 'You can only edit your own transactions'}, 401
 
 
 class TransactionList(Resource):
     @jwt_required
     def get(self, user_id):
         transactions = [
-            transaction.json() for transaction in TransactionModel.find_all(user_id)
+            transaction_schema.dump(transaction) for transaction in TransactionModel.find_all(user_id)
         ]
         if transactions:
             return transactions, 200

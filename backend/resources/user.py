@@ -88,7 +88,7 @@ class User(Resource):
         if not user:
             return {'message': 'User Not Found'}, 404
         if user_id == get_jwt_identity():
-            return user.json(), 200
+            return user_schema.dump(user), 200
         else:
             return {'message': 'Invalid credentials'}, 401
 
