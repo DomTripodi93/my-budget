@@ -1,30 +1,17 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from models.account import AccountModel
+from schemas.account import AccountSchema
+
+
+account_schema = AccountSchema()
 
 
 class Account(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument(
-        'name',
-        type=str,
-        required=True,
-        help="Account date and time are required"
-    )
-    parser.add_argument(
-        'account_type',
-        type=str,
-        required=True
-    )
-    parser.add_argument(
-        'active',
-        type=bool,
-        required=False
-    )
-
     @jwt_required
     def post(self, user_id):
-        data = self.parser.parse_args()
+        account_json = resource.get_json()
+        data = account_schema.load(account_json)
 
         account = AccountModel(user_id, **data)
 
@@ -56,7 +43,8 @@ class Account(Resource):
 
     @jwt_required
     def put(self, _id):
-        data = self.parser.parse_args()
+        account_json = resource.get_json()
+        data = account_schema.load(account_json)
         account = AccountModel.find_by_id(_id)
 
         if account:

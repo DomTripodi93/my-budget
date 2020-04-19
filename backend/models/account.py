@@ -11,20 +11,6 @@ class AccountModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('UserModel')
 
-    def __init__(self, user_id, name, account_type, account_to, cost):
-        self.name = name
-        self.account_type = account_type
-        self.active = True
-        self.user_id = user_id
-
-    def json(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'account_type': self.account_type,
-            'active': self.active
-        }
-
     @classmethod
     def find_by_active(cls, user_id, active):
         return cls.query.filter_by(user_id==user_id and active==active).all()
