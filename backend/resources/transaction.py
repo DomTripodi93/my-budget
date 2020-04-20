@@ -76,11 +76,35 @@ class TransactionById(Resource):
         return {'message': 'You can only edit your own transactions'}, 401
 
 
-class TransactionList(Resource):
+class TransactionFullList(Resource):
     @jwt_required
     def get(self, user_id):
         transactions = [
             transaction_schema.dump(transaction) for transaction in TransactionModel.find_all(user_id)
+        ]
+        if transactions:
+            return transactions, 200
+        return {'message': 'no transactions available'}, 200
+
+
+
+class TransactionDateList(Resource):
+    @jwt_required
+    def get(self, user_id, date):
+        transactions = [
+            transaction_schema.dump(transaction) for transaction in TransactionModel.find_by_date(user_id, date)
+        ]
+        if transactions:
+            return transactions, 200
+        return {'message': 'no transactions available'}, 200
+
+
+
+class TransactionMonthList(Resource):
+    @jwt_required
+    def get(self, user_id, month, year):
+        transactions = [
+            transaction_schema.dump(transaction) for transaction in TransactionModel.find_by_month(user_id, month, year)
         ]
         if transactions:
             return transactions, 200

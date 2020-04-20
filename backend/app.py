@@ -7,7 +7,7 @@ from db import db
 from ma import ma
 from token_blacklist import TOKEN_BLACKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
-from resources.transaction import Transaction, TransactionById, TransactionList
+from resources.transaction import Transaction, TransactionById, TransactionFullList, TransactionDateList, TransactionMonthList
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -26,6 +26,7 @@ jwt = JWTManager(app)
 def check_if_token_in_blacklist(decrypted_token):
     return decrypted_token['jti'] in TOKEN_BLACKLIST
 
+
 @jwt.expired_token_loader
 def expired_token_callback():
     return jsonify({
@@ -35,7 +36,7 @@ def expired_token_callback():
 
 
 @jwt.invalid_token_loader
-def invalid_token_callback(error): 
+def invalid_token_callback(error):
     return jsonify({
         'message': 'Signature verification failed.',
         'error': 'invalid_token'
@@ -79,7 +80,9 @@ api.add_resource(UserLogout, '/logout')
 
 api.add_resource(Transaction, '/transaction/<int:user_id>')
 api.add_resource(TransactionById, '/transaction/<int:user_id>/<int:_id>')
-api.add_resource(TransactionList, '/transaction/<int:user_id>/all')
+api.add_resource(TransactionFullList, '/transaction/<int:user_id>/all')
+api.add_resource(TransactionDateList, '/transaction/<int:user_id>/date/<str: date>')
+api.add_resource(TransactionMonthList, '/transaction/<int:user_id>/month/<str:month>/<str:year>')
 
 if __name__ == '__main__':
     db.init_app(app)
