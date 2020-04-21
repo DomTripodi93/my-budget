@@ -5,5 +5,5 @@ from models.user import UserModel
 class UserSchema(CamelSchema):
     class Meta:
         model = UserModel
-        load_only = ("password",)
+        load_only = ("password")
         dump_only = ("id",)

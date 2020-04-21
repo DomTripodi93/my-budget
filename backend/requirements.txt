@@ -3,4 +3,5 @@ Flask-RESTful
 Flask-SQLAlchemy
 Flask-CORS
 Marshmallow
-Flask-marshmallow
+Flask-Marshmallow
+Marshmallow-SQLAlchemy

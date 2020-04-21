@@ -29,15 +29,19 @@ class UserRegister(Resource):
 
     def post(self):
         user_json = request.get_json()
+        confirm_password = user_json['confirmPassword']
+        del user_json['confirmPassword']
         user = user_schema.load(user_json)
 
         if UserModel.find_by_email(user.email):
             return {"message": "A user with that email already exists"}, 400
 
-        if user['password'] != user['confirmPassword']:
+        elif user.password != confirm_password:
             return {"message": "Input password does not match confirmation"}, 400
 
-        user.save_to_db()
+        else:
+            user.password = UserRegister.hash_password(user.password)
+            user.save_to_db()
 
         return {"message": "User created successfully."}, 201
 
