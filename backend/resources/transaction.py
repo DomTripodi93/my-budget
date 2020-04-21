@@ -13,8 +13,10 @@ class Transaction(Resource):
     @jwt_required
     def post(self, user_id):
         transaction_json = request.get_json()
-
+        transaction_json['reconciled'] = False
         transaction = transaction_schema.load(transaction_json)
+        transaction.user_id = user_id
+
 
         try:
             transaction.save_to_db()
