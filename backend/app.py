@@ -7,7 +7,7 @@ from db import db
 from ma import ma
 from token_blacklist import TOKEN_BLACKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
-from resources.transaction import Transaction, TransactionById, TransactionFullList, TransactionDateList, TransactionMonthList
+from resources.transaction import Transaction, TransactionById, TransactionDateList, TransactionMonthList
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -80,7 +80,6 @@ api.add_resource(UserLogout, '/logout')
 
 api.add_resource(Transaction, '/transaction/<int:user_id>')
 api.add_resource(TransactionById, '/transaction/<int:user_id>/<int:_id>')
-api.add_resource(TransactionFullList, '/transaction/<int:user_id>/all')
 api.add_resource(TransactionDateList, '/transaction/<int:user_id>/date/<string:date>')
 api.add_resource(TransactionMonthList, '/transaction/<int:user_id>/month/<string:month>/<string:year>')
 

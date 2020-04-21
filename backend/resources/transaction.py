@@ -10,16 +10,11 @@ transaction_schema = TransactionSchema()
 
 
 class Transaction(Resource):
-
     @jwt_required
     def post(self, user_id):
         transaction_json = request.get_json()
-        transaction_json.date_time = datetime.datetime.strptime(
-            transaction_json.date_time, '%Y-%m-%dT%H:%M:%S'
-        )
-        data = transaction_schema.load(transaction_json)
 
-        transaction = TransactionModel(user_id, **data)
+        transaction = transaction_schema.load(transaction_json)
 
         try:
             transaction.save_to_db()
@@ -27,6 +22,15 @@ class Transaction(Resource):
             return {"message": "An error occurred while adding the transaction."}, 500
 
         return transaction_schema.dump(transaction), 201
+
+    @jwt_required
+    def get(self, user_id):
+        transactions = [
+            transaction_schema.dump(transaction) for transaction in TransactionModel.find_all(user_id)
+        ]
+        if transactions:
+            return transactions, 200
+        return {'message': 'no transactions available'}, 200
 
 
 class TransactionById(Resource):
@@ -76,18 +80,6 @@ class TransactionById(Resource):
         return {'message': 'You can only edit your own transactions'}, 401
 
 
-class TransactionFullList(Resource):
-    @jwt_required
-    def get(self, user_id):
-        transactions = [
-            transaction_schema.dump(transaction) for transaction in TransactionModel.find_all(user_id)
-        ]
-        if transactions:
-            return transactions, 200
-        return {'message': 'no transactions available'}, 200
-
-
-
 class TransactionDateList(Resource):
     @jwt_required
     def get(self, user_id, date):
@@ -97,7 +89,6 @@ class TransactionDateList(Resource):
         if transactions:
             return transactions, 200
         return {'message': 'no transactions available'}, 200
-
 
 
 class TransactionMonthList(Resource):
