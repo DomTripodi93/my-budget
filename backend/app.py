@@ -81,10 +81,10 @@ api.add_resource(UserLogout, '/logout')
 api.add_resource(Transaction, '/transaction/<int:user_id>')
 api.add_resource(TransactionById, '/transaction/<int:user_id>/<int:_id>')
 api.add_resource(TransactionFullList, '/transaction/<int:user_id>/all')
-api.add_resource(TransactionDateList, '/transaction/<int:user_id>/date/<str: date>')
-api.add_resource(TransactionMonthList, '/transaction/<int:user_id>/month/<str:month>/<str:year>')
+api.add_resource(TransactionDateList, '/transaction/<int:user_id>/date/<string:date>')
+api.add_resource(TransactionMonthList, '/transaction/<int:user_id>/month/<string:month>/<string:year>')
 
 if __name__ == '__main__':
     db.init_app(app)
     ma.init_app(app)
-    app.run(port=5001, debug=True)
+    app.run(port=5000, debug=True)

@@ -1,4 +1,4 @@
-from camel import CamelSchema
+from schemas.camel import CamelSchema
 from models.user import UserModel
 
 
