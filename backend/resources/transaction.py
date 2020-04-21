@@ -65,15 +65,11 @@ class TransactionById(Resource):
     def put(self, user_id, _id):
         if user_id == get_jwt_identity():
             transaction_json = request.get_json()
-            transaction_json.date_time = datetime.datetime.strptime(
-                transaction_json.date_time, '%Y-%m-%dT%H:%M:%S'
-            )
-            data = transaction_schema.load(transaction_json)
             transaction = TransactionModel.find_by_id(user_id, _id)
 
             if transaction:
-                for key in data:
-                    setattr(transaction, key, data[key])
+                for key in transaction_json:
+                    setattr(transaction, key, transaction_json[key])
                 transaction.save_to_db()
                 return transaction_schema.dump(transaction), 200
 
