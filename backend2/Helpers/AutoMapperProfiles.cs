@@ -12,6 +12,9 @@ namespace backend.Helpers
             CreateMap<TransactionForCreationDto, Transaction>().ReverseMap();
             CreateMap<TransactionForUpdateDto, Transaction>().ReverseMap();
             CreateMap<Transaction, TransactionForReturnDto>();
+            CreateMap<AccountForCreationDto, Account>().ReverseMap();
+            CreateMap<AccountForUpdateDto, Account>().ReverseMap();
+            CreateMap<Account, AccountForReturnDto>();
         }
     }
 }

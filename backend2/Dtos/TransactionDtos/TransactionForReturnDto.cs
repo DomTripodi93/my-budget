@@ -1,3 +1,5 @@
+using System;
+
 namespace backend.Dtos
 {
     public class TransactionForReturnDto
