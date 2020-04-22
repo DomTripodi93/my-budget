@@ -19,7 +19,7 @@ class TransactionModel(db.Model):
 
     @classmethod
     def find_by_date(cls, user_id, date):
-        return cls.query.filter(db.transactions.user_id==user_id & db.transactions.date_time.date()==date).all()
+        return cls.query.filter(cls.user_id==user_id & cls.date_time==date.date()).all()
 
     @classmethod
     def find_by_month(cls, user_id, month, year):

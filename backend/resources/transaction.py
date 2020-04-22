@@ -81,8 +81,9 @@ class TransactionById(Resource):
 class TransactionDateList(Resource):
     @jwt_required
     def get(self, user_id, date):
+        date_for_filter= datetime.datetime.strptime(date, "%Y-%m-%d")
         transactions = [
-            transaction_schema.dump(transaction) for transaction in TransactionModel.find_by_date(user_id, date)
+            transaction_schema.dump(transaction) for transaction in TransactionModel.find_by_date(user_id, date_for_filter)
         ]
         if transactions:
             return transactions, 200
