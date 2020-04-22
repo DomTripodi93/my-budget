@@ -9,6 +9,9 @@ namespace backend.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForReturnDto>();
+            CreateMap<TransactionForCreationDto, Transaction>().ReverseMap();
+            CreateMap<TransactionForUpdateDto, Transaction>().ReverseMap();
+            CreateMap<Transaction, TransactionForReturnDto>();
         }
     }
 }

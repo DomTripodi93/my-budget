@@ -7,13 +7,17 @@ namespace backend.Dtos
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(25, MinimumLength=6, ErrorMessage="Password must be at least 6 characters")]
-
+        [
+            StringLength(
+                25,
+                MinimumLength = 6,
+                ErrorMessage = "Password must be at least 6 characters")
+        ]
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }

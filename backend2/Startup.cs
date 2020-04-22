@@ -1,16 +1,16 @@
+using System.Text;
 using AutoMapper;
-using backend.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Newtonsoft.Json;
+using backend.Data;
 
 namespace backend
 {
@@ -27,39 +27,55 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-                .AddNewtonsoftJson(options => {
-                    options.SerializerSettings.ReferenceLoopHandling
-                    = ReferenceLoopHandling.Ignore;
-                }) ;
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MyCors",
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:3000", "http://localhost:4200")
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-                            .AllowCredentials();
-                    }
-                );
-            });
-            services.AddAutoMapper(typeof(Startup));
+            services
+                .AddDbContext<DataContext>(x =>
+                    x
+                        .UseSqlite(Configuration
+                            .GetConnectionString("DefaultConnection")));
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling =
+                        ReferenceLoopHandling.Ignore;
+                });
+            services
+                .AddCors(options =>
+                {
+                    options
+                        .AddPolicy("MyCors",
+                        builder =>
+                        {
+                            builder
+                                .WithOrigins("http://localhost:3000",
+                                "http://localhost:4200")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials();
+                        });
+                });
+            services.AddAutoMapper(typeof (Startup));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters =
+                        new TokenValidationParameters {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey =
+                                new SymmetricSecurityKey(Encoding
+                                        .ASCII
+                                        .GetBytes(Configuration
+                                            .GetSection("AppSettings:Token")
+                                            .Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
                 });
         }
 
@@ -74,17 +90,17 @@ namespace backend
             }
 
             //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
         }
     }
 }
