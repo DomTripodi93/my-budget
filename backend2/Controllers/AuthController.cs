@@ -51,8 +51,6 @@ namespace backend.Controllers
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            await _repo.InitializeEmployeeIdForIncrement(createdUser);
-
             return StatusCode(201);
         }
 
