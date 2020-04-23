@@ -9,16 +9,15 @@ namespace backend.Dtos
         public float Cost { get; set; }
 
         [Required]
-        public string Date { get; set; }
+        public string LastDate { get; set; }
 
+        [Required]
         public string AccountTo { get; set; }
 
+        [Required]
         public string AccountFrom { get; set; }
 
-        public bool Reconciled { get; set; }
-
+        [Required]
         public int RecurringInterval { get; set; }
-
-        public Date LastDate { get; set; }
     }
 }

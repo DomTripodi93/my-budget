@@ -10,7 +10,7 @@ namespace backend.Dtos
 
         public string AccountFrom { get; set; }
 
-        public int Cost { get; set; }
+        public float Cost { get; set; }
 
         public bool Reconciled { get; set; }
 

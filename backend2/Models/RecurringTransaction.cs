@@ -2,7 +2,7 @@ using System;
 
 namespace backend.Models
 {
-    public class Transaction
+    public class RecurringTransaction
     {
         public int Id { get; set; }
 
@@ -16,8 +16,10 @@ namespace backend.Models
 
         public float Cost { get; set; }
 
-        public bool Reconciled { get; set; }
+        public int RecurringInterval { get; set; }
 
-        public DateTime Date { get; set; }
+        public Date LastDate { get; set; }
+
+        public Date NextDate { get; set; }
     }
 }
