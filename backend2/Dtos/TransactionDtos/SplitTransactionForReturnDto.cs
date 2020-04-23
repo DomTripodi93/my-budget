@@ -1,20 +1,19 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace backend.Dtos
 {
     public class TransactionForCreationDto
     {
-        [Required]
+        public int Id { get; set; }
+
         public float Cost { get; set; }
 
-        [Required]
         public DateTime Date { get; set; }
 
         public string AccountTo { get; set; }
 
         public string AccountFrom { get; set; }
 
-        public bool Reconciled { get; set; }
+        public int SplitFrom { get; set; }
     }
 }

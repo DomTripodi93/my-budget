@@ -16,6 +16,8 @@ namespace backend.Data
 
         public DbSet<RecurringTransaction> RecurringTransactions { get; set; }
 
+        public DbSet<SplitTransaction> SplitTransactions { get; set; }
+
         public DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

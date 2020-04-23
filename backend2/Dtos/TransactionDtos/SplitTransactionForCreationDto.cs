@@ -11,10 +11,13 @@ namespace backend.Dtos
         [Required]
         public DateTime Date { get; set; }
 
+        [Required]
         public string AccountTo { get; set; }
 
+        [Required]
         public string AccountFrom { get; set; }
 
-        public bool Reconciled { get; set; }
+        [Required]
+        public int SplitFrom { get; set; }
     }
 }
