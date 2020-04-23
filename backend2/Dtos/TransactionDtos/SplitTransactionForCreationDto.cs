@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.Dtos
 {
-    public class TransactionForCreationDto
+    public class SplitTransactionForCreationDto
     {
         [Required]
         public float Cost { get; set; }

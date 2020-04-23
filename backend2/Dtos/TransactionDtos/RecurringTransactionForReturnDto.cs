@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.Dtos
 {
-    public class TransactionForReturnDto
+    public class RecurringTransactionForReturnDto
     {
         public int Id { get; set; }
 
@@ -11,7 +11,7 @@ namespace backend.Dtos
 
         public string LastDate { get; set; }
 
-        public Date NextDate { get; set; }
+        public DateTime NextDate { get; set; }
 
         public string AccountTo { get; set; }
 

@@ -20,14 +20,12 @@ namespace backend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
-        private readonly IScheduleRepository _schedRepo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        public AuthController(IAuthRepository repo, IMapper mapper, IConfiguration config, IScheduleRepository schedRepo)
+        public AuthController(IAuthRepository repo, IMapper mapper, IConfiguration config)
         {
             _mapper = mapper;
             _repo = repo;
-            _schedRepo = schedRepo;
             _config = config;
         }
 
@@ -45,8 +43,7 @@ namespace backend.Controllers
             var userToCreate = new User
             {
                 Email = userForRegisterDto.Email,
-                Name = userForRegisterDto.Name,
-                EmployeeIdIncrement = 1
+                Name = userForRegisterDto.Name
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);

@@ -18,8 +18,8 @@ namespace backend.Models
 
         public int RecurringInterval { get; set; }
 
-        public Date LastDate { get; set; }
+        public DateTime LastDate { get; set; }
 
-        public Date NextDate { get; set; }
+        public DateTime NextDate { get; set; }
     }
 }

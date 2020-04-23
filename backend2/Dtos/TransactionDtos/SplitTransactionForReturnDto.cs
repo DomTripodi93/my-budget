@@ -2,7 +2,7 @@ using System;
 
 namespace backend.Dtos
 {
-    public class TransactionForCreationDto
+    public class SplitTransactionForReturnDto
     {
         public int Id { get; set; }
 

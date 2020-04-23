@@ -59,7 +59,6 @@ namespace backend
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
-            services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
