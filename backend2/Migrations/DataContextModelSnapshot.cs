@@ -75,37 +75,6 @@ namespace backend2.Migrations
                     b.ToTable("RecurringTransactions");
                 });
 
-            modelBuilder.Entity("backend.Models.SplitTransaction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AccountFrom")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AccountTo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("Cost")
-                        .HasColumnType("REAL");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SplitFrom")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("userId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("SplitTransactions");
-                });
-
             modelBuilder.Entity("backend.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
@@ -170,15 +139,6 @@ namespace backend2.Migrations
                 });
 
             modelBuilder.Entity("backend.Models.RecurringTransaction", b =>
-                {
-                    b.HasOne("backend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("backend.Models.SplitTransaction", b =>
                 {
                     b.HasOne("backend.Models.User", "User")
                         .WithMany()

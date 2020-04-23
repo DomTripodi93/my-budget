@@ -71,30 +71,6 @@ namespace backend2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SplitTransactions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    userId = table.Column<int>(nullable: false),
-                    AccountTo = table.Column<string>(nullable: true),
-                    AccountFrom = table.Column<string>(nullable: true),
-                    SplitFrom = table.Column<int>(nullable: false),
-                    Cost = table.Column<float>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SplitTransactions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SplitTransactions_Users_userId",
-                        column: x => x.userId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -129,11 +105,6 @@ namespace backend2.Migrations
                 column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SplitTransactions_userId",
-                table: "SplitTransactions",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_userId",
                 table: "Transactions",
                 column: "userId");
@@ -146,9 +117,6 @@ namespace backend2.Migrations
 
             migrationBuilder.DropTable(
                 name: "RecurringTransactions");
-
-            migrationBuilder.DropTable(
-                name: "SplitTransactions");
 
             migrationBuilder.DropTable(
                 name: "Transactions");
