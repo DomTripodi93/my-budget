@@ -10,7 +10,7 @@ namespace backend.Data
         void Delete<T>(T entity) where T: class;
         Task<bool> SaveAll();
         Task<Account> GetAccount(int id);
-        Task<IEnumerable<Account>> GetAccountsForUser(int userId);
+        Task<IEnumerable<Account>> GetAccountsByUser(int userId);
         Task<IEnumerable<Account>> GetAccountsByType(int userId, string type);
         Task<Transaction> GetTransaction(int id);
         Task<IEnumerable<Transaction>> GetTransactionsByDate(int userId, int year, int month, int day);

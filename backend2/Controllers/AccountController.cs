@@ -20,7 +20,8 @@ namespace backend.Controllers
         private readonly ITransactionRepository _repo;
         private readonly IUserRepository _userRepo;
 
-        public AccountController(IMapper mapper, ITransactionRepository repo, IUserRepository userRepo){
+        public AccountController(IMapper mapper, ITransactionRepository repo, IUserRepository userRepo)
+        {
             _mapper = mapper;
             _repo = repo;
             _userRepo = userRepo;
@@ -43,14 +44,14 @@ namespace backend.Controllers
             if (await _repo.SaveAll())
             {
                 var jobToReturn = _mapper.Map<AccountForReturnDto>(Account);
-                return CreatedAtRoute("GetAccount", new {Id = Account.Id, userId = userId }, jobToReturn);
+                return CreatedAtRoute("GetAccount", new { Id = Account.Id, userId = userId }, jobToReturn);
             }
-            
+
             throw new Exception("Creation of Account item failed on save");
 
         }
 
-        [HttpGet("{Id}", Name="GetAccount")]
+        [HttpGet("{Id}", Name = "GetAccount")]
         public async Task<IActionResult> GetAccount(int userId, int Id)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -65,12 +66,12 @@ namespace backend.Controllers
         }
 
         [HttpGet("byUser")]
-        public async Task<IActionResult> GetAccountsByEmployee(int userId)
+        public async Task<IActionResult> GetAccountsForUser(int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            IEnumerable<Account> AccountsFromRepo = await _repo.GetAccountsForUser(userId);
+            IEnumerable<Account> AccountsFromRepo = await _repo.GetAccountsByUser(userId);
 
             IEnumerable<AccountForReturnDto> AccountsForReturn = _mapper.Map<IEnumerable<AccountForReturnDto>>(AccountsFromRepo);
 
@@ -79,7 +80,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("byType/{Type}")]
-        public async Task<IActionResult> GetAccounts(int userId, string Type)
+        public async Task<IActionResult> GetAccountsForType(int userId, string Type)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -103,7 +104,7 @@ namespace backend.Controllers
             _mapper.Map(AccountForUpdateDto, AccountFromRepo);
 
             if (await _repo.SaveAll())
-                return CreatedAtRoute("GetAccount", new {Id = AccountFromRepo.Id, userId = userId }, AccountFromRepo);
+                return CreatedAtRoute("GetAccount", new { Id = AccountFromRepo.Id, userId = userId }, AccountFromRepo);
 
             throw new Exception($"Updating Account item {Id} failed on save");
         }
@@ -113,14 +114,14 @@ namespace backend.Controllers
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+
             var AccountFromRepo = await _repo.GetAccount(Id);
-            
+
             _repo.Delete(AccountFromRepo);
-            
+
             if (await _repo.SaveAll())
                 return Ok("Account item " + AccountFromRepo.Id + " was deleted!");
-        
+
             throw new Exception($"Deleting Account {Id} failed on save");
         }
     }

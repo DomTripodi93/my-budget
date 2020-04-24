@@ -51,7 +51,7 @@ namespace backend.Data
             return accounts.OrderBy(account => account.Name);
         }
 
-        public async Task<IEnumerable<Account>> GetAccountsForUser(int userId)
+        public async Task<IEnumerable<Account>> GetAccountsByUser(int userId)
         {
             var accounts = await _context.Accounts
                 .Where(account => account.userId == userId)
