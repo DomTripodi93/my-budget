@@ -79,9 +79,9 @@ api.add_resource(TokenRefresh, '/api/refresh')
 api.add_resource(UserLogout, '/api/logout')
 
 api.add_resource(Transaction, '/api/<int:user_id>/transaction')
-api.add_resource(TransactionById, '/api/<int:user_id>/transaction/<int:_id>')
-api.add_resource(TransactionDateList, '/api/<int:user_id>/transaction/date/<string:date>')
-api.add_resource(TransactionMonthList, '/api/<int:user_id>/transaction/month/<string:month>/<string:year>')
+api.add_resource(TransactionById, '/api/<int:user_id>/transaction/byAccount/<int:_id>')
+api.add_resource(TransactionDateList, '/api/<int:user_id>/transaction/byDate/<string:date>')
+api.add_resource(TransactionMonthList, '/api/<int:user_id>/transaction/byMonth/<string:month>/<string:year>')
 
 if __name__ == '__main__':
     db.init_app(app)

@@ -50,7 +50,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 action.payload,
                 ...accountsHold[action.type]
                     .filter((value) => {
-                        return value.accountNumber !== action.payload.accountNumber;
+                        return value.id !== action.payload.id;
                     })
             ]);
             return {
@@ -61,7 +61,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             accountsHold[action.type] = [
                 ...accountsHold[action.type]
                     .filter((value) => {
-                        return value.accountNumber !== action.payload;
+                        return value.id !== action.payload;
                     })
             ]
             return {
