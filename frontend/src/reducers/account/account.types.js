@@ -1,0 +1,9 @@
+const AccountActionTypes = {
+    SET_ACCOUNTS: 'SET_ACCOUNTS',
+    ADD_ACCOUNT: 'ADD_ACCOUNT',
+    UPDATE_ACCOUNTS: 'UPDATE_ACCOUNTS',
+    DELETE_ACCOUNT: 'DELETE_ACCOUNT',
+    SIGNOUT_USER: 'SIGNOUT_USER'
+};
+
+export default AccountActionTypes;
