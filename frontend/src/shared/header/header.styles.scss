@@ -1,0 +1,73 @@
+.header-cover{
+    background: rgb(52, 73, 56);
+}
+
+.header{
+    background: rgb(52, 73, 56);
+    width: 93%;
+    max-width: 850px;
+    margin: auto;
+    height: 4.25rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    .logo-holder {
+        width: 3rem;
+        padding: .25rem 0 .25rem .25rem;
+    }
+
+    .route {
+      padding: 10px 10px;
+    }
+
+    .route:hover {
+        cursor: pointer;
+    }
+
+    .routes{
+        width: 61%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .edge{
+        width: 17%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0px 10px;
+    }
+
+    .drop-down{
+        position: absolute;
+        border: 1px solid black;
+        top: 62px;
+        padding:5px 0px 5px 0px;
+        background: rgb(52, 73, 56);
+
+        .drop-down-item{
+            text-align: center;
+            margin: 10px 10px 10px 10px;
+        }
+    }
+
+
+    @media only screen and (max-width: 700px){
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 500px){
+
+        a, ul{
+          font-size: 15px;
+        }
+        .drop-down-item{
+            font-size: 14.5px;
+        }
+      }
+}
+

@@ -25,10 +25,8 @@ const App = (props) => {
 
     return (
         <div id="page">
+        <Header />
             <div>
-                <h1 className="centered">
-                    Welcome to My Budget!
-                </h1>
                 {authValue ?
                     <Switch>
                         <Route exact path='/signout' component={Signout} />
