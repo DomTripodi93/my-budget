@@ -65,7 +65,7 @@ namespace backend.Controllers
 
         }
 
-        [HttpGet("byAccount/(Account")]
+        [HttpGet("byAccount/{Account}")]
         public async Task<IActionResult> GetTransactionsForAccount(int userId, string Account)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
