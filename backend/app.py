@@ -72,16 +72,16 @@ def create_tables():
     db.create_all()
 
 
-api.add_resource(UserRegister, '/auth/register')
-api.add_resource(UserLogin, '/auth/login')
-api.add_resource(User, '/user/<int:user_id>')
-api.add_resource(TokenRefresh, '/refresh')
-api.add_resource(UserLogout, '/logout')
+api.add_resource(UserRegister, '/api/auth/register')
+api.add_resource(UserLogin, '/api/auth/login')
+api.add_resource(User, '/api/<int:user_id>/user')
+api.add_resource(TokenRefresh, '/api/refresh')
+api.add_resource(UserLogout, '/api/logout')
 
-api.add_resource(Transaction, '/transaction/<int:user_id>')
-api.add_resource(TransactionById, '/transaction/<int:user_id>/<int:_id>')
-api.add_resource(TransactionDateList, '/transaction/<int:user_id>/date/<string:date>')
-api.add_resource(TransactionMonthList, '/transaction/<int:user_id>/month/<string:month>/<string:year>')
+api.add_resource(Transaction, '/api/<int:user_id>/transaction')
+api.add_resource(TransactionById, '/api/<int:user_id>/transaction/<int:_id>')
+api.add_resource(TransactionDateList, '/api/<int:user_id>/transaction/date/<string:date>')
+api.add_resource(TransactionMonthList, '/api/<int:user_id>/transaction/month/<string:month>/<string:year>')
 
 if __name__ == '__main__':
     db.init_app(app)
