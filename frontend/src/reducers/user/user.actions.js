@@ -3,7 +3,7 @@ import axios from 'axios';
 import helpers from '../../shared/helpers';
 
 const helper = new helpers();
-const ROOT_URL = 'http://localhost:5000';
+const ROOT_URL = 'http://localhost:5000/api';
 
 export const registerUser = (user, callback) => {
     user.name = helper.capitalizeAll(user.name);
