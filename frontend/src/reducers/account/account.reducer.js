@@ -26,11 +26,11 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             };
         case AccountActionTypes.SET_ACCOUNTS:
             let calledHold = { ...state.called };
-            calledHold[action.type] = true;
+            calledHold[action.accountType] = true;
             if (action.payload.data.length > 0) {
-                accountsHold[action.type] = action.payload.data;
+                accountsHold[action.accountType] = action.payload.data;
             } else {
-                accountsHold[action.type] = [];
+                accountsHold[action.accountType] = [];
             }
             return {
                 ...state,
@@ -46,18 +46,18 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 called: calledHold
             };
         case AccountActionTypes.ADD_ACCOUNT:
-            accountsHold[action.type] = sortAccounts([
+            accountsHold[action.accountType] = sortAccounts([
                 action.payload,
-                ...accountsHold[action.type]
+                ...accountsHold[action.accountType]
             ]);
             return {
                 ...state,
                 accounts: accountsHold
             };
         case AccountActionTypes.UPDATE_ACCOUNTS:
-            accountsHold[action.type] = sortAccounts([
+            accountsHold[action.accountType] = sortAccounts([
                 action.payload,
-                ...accountsHold[action.type]
+                ...accountsHold[action.accountType]
                     .filter((value) => {
                         return value.id !== action.payload.id;
                     })
@@ -67,8 +67,8 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 accounts: accountsHold
             };
         case AccountActionTypes.DELETE_ACCOUNT:
-            accountsHold[action.type] = [
-                ...accountsHold[action.type]
+            accountsHold[action.accountType] = [
+                ...accountsHold[action.accountType]
                     .filter((value) => {
                         return value.id !== action.payload;
                     })
