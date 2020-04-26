@@ -26,11 +26,11 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
             };
         case TransactionActionTypes.SET_TRANSACTIONS:
             let calledHold = { ...state.called };
-            calledHold[action.account] = true;
+            calledHold[action.transaction] = true;
             if (action.payload.data.length > 0) {
-                transactionsHold[action.account] = action.payload.data;
+                transactionsHold[action.transaction] = action.payload.data;
             } else {
-                transactionsHold[action.account] = [];
+                transactionsHold[action.transaction] = [];
             }
             return {
                 ...state,
@@ -48,25 +48,25 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
         case TransactionActionTypes.RECONCILE_TRANSACTION:
             let reconciledHold = state.notReconciled
                 .filter((value) => {
-                    return value.id !== action.payload.id;
+                    return value.id !== action.id;
                 });
             return {
                 ...state,
                 transactionsNotReconciled: reconciledHold
             };
         case TransactionActionTypes.ADD_TRANSACTION:
-            transactionsHold[action.account] = sortTransactions([
+            transactionsHold[action.transaction] = sortTransactions([
                 action.payload,
-                ...transactionsHold[action.account]
+                ...transactionsHold[action.transaction]
             ]);
             return {
                 ...state,
                 transactions: transactionsHold
             };
         case TransactionActionTypes.UPDATE_TRANSACTIONS:
-            transactionsHold[action.account] = sortTransactions([
+            transactionsHold[action.transaction] = sortTransactions([
                 action.payload,
-                ...transactionsHold[action.account]
+                ...transactionsHold[action.transaction]
                     .filter((value) => {
                         return value.id !== action.payload.id;
                     })
@@ -76,8 +76,8 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 transactions: transactionsHold
             };
         case TransactionActionTypes.DELETE_TRANSACTION:
-            transactionsHold[action.account] = [
-                ...transactionsHold[action.account]
+            transactionsHold[action.transaction] = [
+                ...transactionsHold[action.transaction]
                     .filter((value) => {
                         return value.id !== action.payload;
                     })
