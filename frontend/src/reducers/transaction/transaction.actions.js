@@ -62,7 +62,7 @@ export function reconcileSingleTransaction(transaction, callback) {
     return dispatch => {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
-                if (Object.keys(store.getState().transaction.transactions).length > 0) {
+                if (Object.keys(store.getState().transaction.accounts).length > 0) {
                     dispatch(updateTransactionInState(transaction, transaction.type));
                 }
                 dispatch(reconcileTransactionInState(transaction.id));
@@ -88,7 +88,7 @@ export function updateSingleTransaction(transaction, callback) {
     return dispatch => {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
-                if (Object.keys(store.getState().transaction.transactions).length > 0) {
+                if (Object.keys(store.getState().transaction.accounts).length > 0) {
                     dispatch(updateTransactionInState(transaction, transaction.type));
                 }
                 dispatch(setSingleTransaction(transaction));
