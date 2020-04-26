@@ -1,6 +1,7 @@
 import AccountActionTypes from './account.types';
 
 const INITIAL_STATE = {
+    allAccounts: [],
     accounts: {},
     selectedAccount: {},
     called: {}
@@ -34,6 +35,14 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 accounts: accountsHold,
+                called: calledHold
+            };
+        case AccountActionTypes.SET_ALL_ACCOUNTS:
+            let calledHold = { ...state.called };
+            calledHold["All"] = true;
+            return {
+                ...state,
+                allAccounts: action.payload.data,
                 called: calledHold
             };
         case AccountActionTypes.ADD_ACCOUNT:

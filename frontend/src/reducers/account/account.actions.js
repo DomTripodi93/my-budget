@@ -29,17 +29,32 @@ export function fetchSingleAccount(id) {
 }
 //Gets specific account by name
 
-// export function fetchAllAccounts(type) {
-//     return dispatch => {
-//         http.fetchAll("account/byType/" + type)
-//             .then((accounts) => {
-//                 dispatch(setAllAccounts(accounts, type));
-//             });
-//     }
-// }
-// //Gets all accounts for a user
-
 export function fetchAccountsByType(type) {
+    if (store.getState().account.called["All"]) {
+        fetchAccountsFromStateByType(type)
+    } else {
+        fetchAccountsFromApiByType(type)
+    }
+}
+//Decides whether to pull accounts from cache, or send request them from the API
+
+function fetchAccountsFromStateByType(type) {
+    return dispatch => {
+        accountsForReturn = store.getState().account.allAccounts.filter(account => {
+            return account.type === type;
+        })
+        dispatch(setAccounts(accountsForReturn.sort((first, second) => {
+            if (first.name > second.name) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }), type))
+    }
+}
+//Extracts accounts by type from cache
+
+function fetchAccountsFromApiByType(type) {
     return dispatch => {
         http.fetchAll("account/byType/" + type)
             .then((accounts) => {
@@ -48,6 +63,17 @@ export function fetchAccountsByType(type) {
     }
 }
 //Gets all accounts for a specific type
+
+export function fetchAllAccounts() {
+    return dispatch => {
+        http.fetchAll("account/byUser")
+            .then((accounts) => {
+                dispatch(setAllAccounts(accounts));
+            });
+    }
+}
+//Gets all accounts for a user
+
 
 export function updateAccountFromList(account, callback) {
     account = prepAccountValues(account);
@@ -86,7 +112,7 @@ export function deleteAccount(id, type) {
 }
 //Deletes selected account
 
-export function addAccountToState(account, type) {
+function addAccountToState(account, type) {
     return {
         type: AccountActionTypes.ADD_ACCOUNT,
         payload: account,
@@ -95,16 +121,24 @@ export function addAccountToState(account, type) {
 }
 //Adds new account from post to state
 
-export function setAccounts(accounts, type) {
+function setAccounts(accounts, type) {
     return {
         type: AccountActionTypes.SET_ACCOUNTS,
         payload: accounts,
         type
     }
 }
+//Sets all accounts of a type in state
+
+function setAllAccounts(accounts) {
+    return {
+        type: AccountActionTypes.SET_ALL_ACCOUNTS,
+        payload: accounts
+    }
+}
 //Sets all accounts in state
 
-export function setSingleAccount(account) {
+function setSingleAccount(account) {
     return {
         type: AccountActionTypes.SET_SINGLE_ACCOUNT,
         payload: account
@@ -112,7 +146,7 @@ export function setSingleAccount(account) {
 }
 //Sets selected account in state
 
-export function updateAccountInState(account, type) {
+function updateAccountInState(account, type) {
     return {
         type: AccountActionTypes.UPDATE_ACCOUNTS,
         payload: account,
@@ -121,7 +155,7 @@ export function updateAccountInState(account, type) {
 }
 //Updates function for account
 
-export function deleteAccountFromState(id, type) {
+function deleteAccountFromState(id, type) {
     return {
         type: AccountActionTypes.DELETE_ACCOUNT,
         payload: id,
