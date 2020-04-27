@@ -55,22 +55,26 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 transactionsNotReconciled: reconciledHold
             };
         case TransactionActionTypes.ADD_TRANSACTION:
-            transactionsHold[action.account] = sortTransactions([
-                action.payload,
-                ...transactionsHold[action.account]
-            ]);
+            if (transactionsHold[action.account].length > 0) {
+                transactionsHold[action.account] = sortTransactions([
+                    action.payload,
+                    ...transactionsHold[action.account]
+                ]);
+            }
             return {
                 ...state,
                 transactions: transactionsHold
             };
         case TransactionActionTypes.UPDATE_TRANSACTIONS:
-            transactionsHold[action.account] = sortTransactions([
-                action.payload,
-                ...transactionsHold[action.account]
-                    .filter((value) => {
-                        return value.id !== action.payload.id;
-                    })
-            ]);
+            if (transactionsHold[action.account].length > 0) {
+                transactionsHold[action.account] = sortTransactions([
+                    action.payload,
+                    ...transactionsHold[action.account]
+                        .filter((value) => {
+                            return value.id !== action.payload.id;
+                        })
+                ]);
+            }
             return {
                 ...state,
                 transactions: transactionsHold

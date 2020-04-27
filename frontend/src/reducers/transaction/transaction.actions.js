@@ -1,5 +1,5 @@
 import rootHttp from '../root-http';
-import TransactionActionTypes from './transaction.types';
+import TransactionActionTypes from './transaction.accounts';
 import store from '../store';
 
 
@@ -9,7 +9,8 @@ export function addTransaction(transaction, callback) {
     return dispatch => {
         http.addItem("transaction", transaction)
             .then(addedTransaction => {
-                dispatch(addTransactionToState(addedTransaction.data, addedTransaction.type));
+                dispatch(addTransactionToState(addedTransaction.data, addedTransaction.accountTo));
+                dispatch(addTransactionToState(addedTransaction.data, addedTransaction.accountFrom));
                 callback();
             });
     }
@@ -51,7 +52,8 @@ export function reconcileTransactionFromList(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 dispatch(reconcileTransactionInState(transaction.id));
-                dispatch(updateTransactionInState(transaction, transaction.type));
+                dispatch(updateTransactionInState(transaction, transaction.accountTo));
+                dispatch(updateTransactionInState(transaction, transaction.accountFrom));
                 callback();
             });
     }
@@ -63,7 +65,8 @@ export function reconcileSingleTransaction(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 if (Object.keys(store.getState().transaction.accounts).length > 0) {
-                    dispatch(updateTransactionInState(transaction, transaction.type));
+                    dispatch(updateTransactionInState(transaction, transaction.accountTo));
+                    dispatch(updateTransactionInState(transaction, transaction.accountFrom));
                 }
                 dispatch(reconcileTransactionInState(transaction.id));
                 dispatch(setSingleTransaction(transaction));
@@ -77,7 +80,8 @@ export function updateTransactionFromList(transaction, callback) {
     return dispatch => {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
-                dispatch(updateTransactionInState(transaction, transaction.type));
+                dispatch(updateTransactionInState(transaction, transaction.accountTo));
+                dispatch(updateTransactionInState(transaction, transaction.accountFrom));
                 callback();
             });
     }
@@ -89,7 +93,8 @@ export function updateSingleTransaction(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 if (Object.keys(store.getState().transaction.accounts).length > 0) {
-                    dispatch(updateTransactionInState(transaction, transaction.type));
+                    dispatch(updateTransactionInState(transaction, transaction.accountTo));
+                    dispatch(updateTransactionInState(transaction, transaction.accountFrom));
                 }
                 dispatch(setSingleTransaction(transaction));
                 callback();
