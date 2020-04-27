@@ -25,9 +25,6 @@ export const signInUser = (user, callback) => {
 };
 
 export const setUserData = (user) => {
-    if (user.access_token){
-        user.accessToken = user.access_token;
-    }
     localStorage.setItem('accessToken', user.accessToken);
 
     if (user.refresh_token){

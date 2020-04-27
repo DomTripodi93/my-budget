@@ -84,7 +84,7 @@ namespace backend.Controllers
 
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token),
+                accessToken = tokenHandler.WriteToken(token),
                 id = userFromRepo.Id
             });
         }
