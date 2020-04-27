@@ -1,5 +1,5 @@
 import rootHttp from '../root-http';
-import TransactionActionTypes from './transaction.accounts';
+import TransactionActionTypes from './transaction.types';
 import store from '../store';
 
 
@@ -74,7 +74,7 @@ export function reconcileSingleTransaction(transaction, callback) {
             });
     }
 }
-//Updates objective in database
+//Updates transaction in database
 
 export function updateTransactionFromList(transaction, callback) {
     return dispatch => {
@@ -101,7 +101,7 @@ export function updateSingleTransaction(transaction, callback) {
             });
     }
 }
-//Updates objective in database
+//Updates transaction in database
 
 export function deleteTransaction(id, account) {
     return dispatch => {
@@ -153,7 +153,7 @@ function reconcileTransactionInState(id) {
         id
     }
 }
-//Updates function for transaction
+//Updates transaction
 
 function updateTransactionInState(transaction, account) {
     return {
@@ -162,7 +162,7 @@ function updateTransactionInState(transaction, account) {
         account
     }
 }
-//Updates function for transaction
+//Updates transaction
 
 function deleteTransactionFromState(id, account) {
     return {
