@@ -16,7 +16,10 @@ const recurringTransactionReducer = (state = INITIAL_STATE, action) => {
             }
         });
     }
-    let recurringTransactionsHold = [ ...state.recurringTransactions ]
+    let recurringTransactionsHold = []
+    if (state.recurringTransactions.length > 0) {
+        recurringTransactionsHold = [...state.recurringTransactions]
+    }
     switch (action.type) {
         case RecurringTransactionActionTypes.SET_SINGLE_RECURRING_TRANSACTION:
             return {
