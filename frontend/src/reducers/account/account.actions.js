@@ -40,7 +40,7 @@ export function fetchAccountsByType(accountType) {
 
 function fetchAccountsFromCacheByType(accountType) {
     return dispatch => {
-        accountsForReturn = store.getState().account.allAccounts.filter(account => {
+        let accountsForReturn = store.getState().account.allAccounts.filter(account => {
             return account.type === accountType;
         })
         dispatch(setAccounts(accountsForReturn.sort((first, second) => {

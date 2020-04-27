@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import logo from '../../assets/favicon.png';
+import logo from '../assets/favicon.png';
 import './header.styles.scss';
-
-import { toggleDropDown } from '../../reducers/drop-down/drop-down.reducer';
 
 const Header = props => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
@@ -13,15 +11,6 @@ const Header = props => {
     useEffect(() => {
         setAuthValue(props.isAuthenticated);
     }, [props]);
-
-    const scheduleItems = [
-        (<Link to='/schedule' className='drop-down-item' key='1'>
-            Schedule
-        </Link>),
-        (<Link to='/employees' className='drop-down-item' key='2'>
-            Employees
-        </Link>)
-    ]
 
     return (
         <div className='header-cover'>
@@ -64,12 +53,8 @@ const Header = props => {
     )
 }
 
-const mapDispatchToProps = dispatch => ({
-    toggleDropDown: () => dispatch(toggleDropDown())
-});
-
 const mapStateToProps = state => ({
     isAuthenticated: state.user.isAuthenticated
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

@@ -18,6 +18,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
         });
     }
     let transactionsHold = { ...state.transactions }
+    let calledHold = { ...state.called };
     switch (action.type) {
         case TransactionActionTypes.SET_SINGLE_TRANSACTION:
             return {
@@ -25,7 +26,6 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 selectedTransaction: action.payload
             };
         case TransactionActionTypes.SET_TRANSACTIONS:
-            let calledHold = { ...state.called };
             calledHold[action.account] = true;
             if (action.payload.data.length > 0) {
                 transactionsHold[action.account] = action.payload.data;
@@ -38,7 +38,6 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 called: calledHold
             };
         case TransactionActionTypes.SET_TRANSACTIONS_NOT_RECONCILED:
-            let calledHold = { ...state.called };
             calledHold["notReconciled"] = true;
             return {
                 ...state,

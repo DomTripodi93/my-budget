@@ -18,6 +18,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
         });
     }
     let accountsHold = { ...state.accounts }
+    let calledHold = { ...state.called };
     switch (action.type) {
         case AccountActionTypes.SET_SINGLE_ACCOUNT:
             return {
@@ -25,7 +26,6 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 selectedAccount: action.payload
             };
         case AccountActionTypes.SET_ACCOUNTS:
-            let calledHold = { ...state.called };
             calledHold[action.accountType] = true;
             if (action.payload.data.length > 0) {
                 accountsHold[action.accountType] = action.payload.data;
@@ -38,7 +38,6 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 called: calledHold
             };
         case AccountActionTypes.SET_ALL_ACCOUNTS:
-            let calledHold = { ...state.called };
             calledHold["All"] = true;
             return {
                 ...state,

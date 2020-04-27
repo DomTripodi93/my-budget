@@ -1,5 +1,5 @@
 import rootHttp from '../root-http';
-import RecurringTransactionActionTypes from './recurringTransaction.types';
+import RecurringTransactionActionTypes from './recurring-transaction.types';
 
 
 const http = new rootHttp();

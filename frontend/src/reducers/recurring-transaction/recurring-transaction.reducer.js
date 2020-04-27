@@ -1,4 +1,4 @@
-import RecurringTransactionActionTypes from './recurringTransaction.types';
+import RecurringTransactionActionTypes from './recurring-transaction.types';
 
 const INITIAL_STATE = {
     recurringTransactions: [],

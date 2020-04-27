@@ -9,6 +9,8 @@ import Register from './containers/registration/registration';
 import Signin from './containers/registration/signin';
 import Signout from './containers/registration/signout';
 import Home from './containers/home/home';
+import AccountContainer from './containers/transaction/account-container';
+import Header from './shared/header/header';
 
 
 const App = (props) => {
@@ -25,10 +27,12 @@ const App = (props) => {
 
     return (
         <div id="page">
-        <Header />
+            <Header />
             <div>
                 {authValue ?
                     <Switch>
+                        <Route exact path='/' component={Home} />
+                        <Route exact path='/account/:page' component={AccountContainer} />
                         <Route exact path='/signout' component={Signout} />
                     </Switch>
                     :
