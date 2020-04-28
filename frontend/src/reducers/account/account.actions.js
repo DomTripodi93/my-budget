@@ -45,13 +45,13 @@ function fetchAccountsFromCacheByType(accountType) {
         let accountsForReturn = store.getState().account.allAccounts.filter(account => {
             return account.type === accountType;
         })
-        dispatch(setAccounts(accountsForReturn.sort((first, second) => {
+        dispatch(setAccounts({data: accountsForReturn.sort((first, second) => {
             if (first.name > second.name) {
                 return 1;
             } else {
                 return -1;
             }
-        }), accountType))
+        })}, accountType))
     }
 }
 //Extracts accounts by accountType from cache
