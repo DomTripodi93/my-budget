@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount } from '../../reducers/account/account.actions';
+import AccountList from '../../components/account/account-list';
+
+
 
 const AccountContainer = (props) => {
     const page = props.match.params.page;
@@ -21,32 +24,24 @@ const AccountContainer = (props) => {
     const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
-        if (page === "All") {
-            if (props.allAccounts){
+        if (props.accountCalled[page]) {
+            if (page === "All") {
                 setAccounts([...props.allAccounts])
-            }
-        } else if (/^\d+$/.test(page)) {
-            if (props.selectedAccount){
+            } else if (/^\d+$/.test(page)) {
                 setAccounts([props.selectedAccount])
-            }
-        } else {
-            if (props.accountsByType[page]){
-                setAccounts([...props.accountsByType[page]])
+            } else {
+                setAccounts(props.accountsByType[page])
             }
         }
-    }, [page, setAccounts, props])
+    }, [page, props])
 
     return (
         <div>
             {page}
-            {accounts ?
-                <div>
-                    {accounts.forEach(account => (
-                        <div>
-                            {account.name}
-                        </div>
-                    ))}
-                </div>
+            {accounts.length > 0 ?
+                <AccountList
+                    accounts={accounts}
+                />
                 :
                 null
 
