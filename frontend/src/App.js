@@ -13,6 +13,7 @@ import AccountContainer from './containers/transaction/account-container';
 import Header from './shared/header/header';
 import Dashboard from './containers/home/dashboard';
 import TransactionContainer from './containers/transaction/transaction-container';
+import RecurringTransactionContainer from './containers/transaction/recurring-transaction-container';
 
 
 
@@ -37,6 +38,7 @@ const App = (props) => {
                         <Route exact path='/' component={Dashboard} />
                         <Route exact path='/account/:page' component={AccountContainer} />
                         <Route exact path='/transaction/:page' component={TransactionContainer} />
+                        <Route exact path='/recurringTransaction/:page' component={RecurringTransactionContainer} />
                         <Route exact path='/signout' component={Signout} />
                     </Switch>
                     :
