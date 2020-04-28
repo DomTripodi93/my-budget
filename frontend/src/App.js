@@ -12,6 +12,8 @@ import Home from './containers/home/home';
 import AccountContainer from './containers/transaction/account-container';
 import Header from './shared/header/header';
 import Dashboard from './containers/home/dashboard';
+import TransactionContainer from './containers/transaction/transaction-container';
+
 
 
 const App = (props) => {
@@ -34,6 +36,7 @@ const App = (props) => {
                     <Switch>
                         <Route exact path='/' component={Dashboard} />
                         <Route exact path='/account/:page' component={AccountContainer} />
+                        <Route exact path='/transaction/:page' component={TransactionContainer} />
                         <Route exact path='/signout' component={Signout} />
                     </Switch>
                     :

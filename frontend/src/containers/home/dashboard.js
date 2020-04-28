@@ -11,7 +11,7 @@ const Dashboard = () => {
             <br />
             <Link to="/account/Expense">Expense Accounts</Link>
             <br />
-            <Link to="/transactions/notReconciled">Not Reconciled Transactions</Link>
+            <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
             <br />
             <br />
         </div>
