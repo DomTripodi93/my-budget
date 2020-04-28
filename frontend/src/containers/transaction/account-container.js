@@ -22,6 +22,7 @@ const AccountContainer = (props) => {
     }, [fetchAll, fetchByType, fetchSingle, page])
 
     const [accounts, setAccounts] = useState([]);
+    console.log(accounts)
 
     useEffect(() => {
         if (props.accountCalled[page]) {
