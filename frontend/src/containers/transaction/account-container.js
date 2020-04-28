@@ -9,21 +9,48 @@ const AccountContainer = (props) => {
     const fetchSingle = props.fetchSingleAccount;
 
     useEffect(() => {
-        if (page){
-            console.log(page)
-            if (page === "All") {
-                fetchAll();
-            } else if (/^\d+$/.test(page)){
-                fetchSingle(page);
-            } else {
-                fetchByType(page)
-            }
+        if (page === "All") {
+            fetchAll();
+        } else if (/^\d+$/.test(page)) {
+            fetchSingle(page);
+        } else {
+            fetchByType(page)
         }
     }, [fetchAll, fetchByType, fetchSingle, page])
+
+    const [accounts, setAccounts] = useState([]);
+
+    useEffect(() => {
+        if (page === "All") {
+            if (props.allAccounts){
+                setAccounts([...props.allAccounts])
+            }
+        } else if (/^\d+$/.test(page)) {
+            if (props.selectedAccount){
+                setAccounts([props.selectedAccount])
+            }
+        } else {
+            if (props.accountsByType[page]){
+                setAccounts([...props.accountsByType[page]])
+            }
+        }
+    }, [page, setAccounts, props])
 
     return (
         <div>
             {page}
+            {accounts ?
+                <div>
+                    {accounts.forEach(account => (
+                        <div>
+                            {account.name}
+                        </div>
+                    ))}
+                </div>
+                :
+                null
+
+            }
         </div>
     )
 }
