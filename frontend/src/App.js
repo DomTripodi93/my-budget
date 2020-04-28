@@ -11,6 +11,7 @@ import Signout from './containers/registration/signout';
 import Home from './containers/home/home';
 import AccountContainer from './containers/transaction/account-container';
 import Header from './shared/header/header';
+import Dashboard from './containers/home/dashboard';
 
 
 const App = (props) => {
@@ -31,7 +32,7 @@ const App = (props) => {
             <div>
                 {authValue ?
                     <Switch>
-                        <Route exact path='/' component={Home} />
+                        <Route exact path='/' component={Dashboard} />
                         <Route exact path='/account/:page' component={AccountContainer} />
                         <Route exact path='/signout' component={Signout} />
                     </Switch>

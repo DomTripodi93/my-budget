@@ -30,10 +30,12 @@ export function fetchSingleAccount(id) {
 //Gets specific account by name
 
 export function fetchAccountsByType(accountType) {
-    if (store.getState().account.called["All"]) {
-        fetchAccountsFromCacheByType(accountType)
-    } else {
-        fetchAccountsFromApiByType(accountType)
+    return dispatch => {
+        if (store.getState().account.called["All"]) {
+            dispatch(fetchAccountsFromCacheByType(accountType));
+        } else {
+            dispatch(fetchAccountsFromApiByType(accountType));
+        }
     }
 }
 //Decides whether to pull accounts from cache, or send request them from the API

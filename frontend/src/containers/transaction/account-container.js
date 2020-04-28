@@ -4,6 +4,22 @@ import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount } from '../..
 
 const AccountContainer = (props) => {
     const page = props.match.params.page;
+    const fetchAll = props.fetchAllAccounts;
+    const fetchByType = props.fetchAccountsByType;
+    const fetchSingle = props.fetchSingleAccount;
+
+    useEffect(() => {
+        if (page){
+            console.log(page)
+            if (page === "All") {
+                fetchAll();
+            } else if (/^\d+$/.test(page)){
+                fetchSingle(page);
+            } else {
+                fetchByType(page)
+            }
+        }
+    }, [fetchAll, fetchByType, fetchSingle, page])
 
     return (
         <div>
@@ -15,8 +31,8 @@ const AccountContainer = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllAccounts: () => dispatch(fetchAllAccounts()),
-        fetchAccountsByType: () => dispatch(fetchAccountsByType()),
-        fetchSingleAccount: () => dispatch(fetchSingleAccount())
+        fetchAccountsByType: (accountType) => dispatch(fetchAccountsByType(accountType)),
+        fetchSingleAccount: (id) => dispatch(fetchSingleAccount(id))
     }
 }
 
