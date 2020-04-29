@@ -34,6 +34,7 @@ const RecurringTransactionContainer = (props) => {
             {transactions.length > 0 ?
                 <TransactionList
                     transactions={transactions}
+                    recurring={true}
                 />
                 :
                 null
