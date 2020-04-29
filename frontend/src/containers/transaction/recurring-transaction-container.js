@@ -11,12 +11,15 @@ const RecurringTransactionContainer = (props) => {
     const page = props.match.params.page;
     const fetchAllRecurring = props.fetchRecurringTransactions;
     const fetchSingle = props.fetchSingleRecurringTransaction;
+    const [single, setSingle] = useState(false);
 
     useEffect(() => {
         if (page === "All") {
             fetchAllRecurring();
+            setSingle(false);
         } else {
             fetchSingle(page);
+            setSingle(true);
         }
     }, [fetchAllRecurring, fetchSingle, page])
 
@@ -49,6 +52,7 @@ const RecurringTransactionContainer = (props) => {
                 <TransactionList
                     transactions={transactions}
                     recurring={true}
+                    single={single}
                 />
                 :
                 null
