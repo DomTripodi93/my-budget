@@ -8,7 +8,9 @@ const RecurringTransactionNew = (props) => {
         <div>
             {props.addMode ?
                 <div className='border'>
-                    <RecurringTransactionForm />
+                    <RecurringTransactionForm 
+                        callback={props.action}
+                    />
                 </div>
                 :
                 <div className='top'>
