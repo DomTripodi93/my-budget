@@ -13,6 +13,8 @@ const Dashboard = () => {
             <br />
             <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
             <br />
+            <Link to="/recurringTransaction/All">Recurring Transactions</Link>
+            <br />
             <br />
         </div>
     );

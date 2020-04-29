@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TransactionList from '../../components/transaction/transaction-list';
 import { fetchRecurringTransactionsByUser, fetchSingleRecurringTransaction } from '../../reducers/recurring-transaction/recurring-transaction.actions';
+import RecurringTransactionNew from '../../components/recurring-transaction/recurring-transaction-new';
+
+
 
 const RecurringTransactionContainer = (props) => {
+    const [addMode, setAddMode] = useState(false);
     const page = props.match.params.page;
     const fetchAllRecurring = props.fetchRecurringTransactions;
     const fetchSingle = props.fetchSingleRecurringTransaction;
@@ -13,7 +17,7 @@ const RecurringTransactionContainer = (props) => {
             fetchAllRecurring();
         } else {
             fetchSingle(page);
-        } 
+        }
     }, [fetchAllRecurring, fetchSingle, page])
 
     const [transactions, setTransactions] = useState([]);
@@ -28,9 +32,19 @@ const RecurringTransactionContainer = (props) => {
         }
     }, [page, props])
 
+    const showAddForm = () => {
+        setAddMode(!addMode)
+    }
+
     return (
         <div>
+            <h3 className='centered'>Recurring Transactions</h3>
             {page}
+            <div className="grid100">
+                <RecurringTransactionNew
+                    addMode={addMode}
+                    action={showAddForm} />
+            </div>
             {transactions.length > 0 ?
                 <TransactionList
                     transactions={transactions}
