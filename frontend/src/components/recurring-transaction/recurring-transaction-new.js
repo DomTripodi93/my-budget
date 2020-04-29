@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import RecurringTransactionForm from './recurring-transaction-form';
 
 
 const RecurringTransactionNew = (props) => {
@@ -7,7 +8,7 @@ const RecurringTransactionNew = (props) => {
         <div>
             {props.addMode ?
                 <div className='border'>
-                    form
+                    <RecurringTransactionForm />
                 </div>
                 :
                 <div className='top'>

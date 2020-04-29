@@ -1,0 +1,158 @@
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import FormInput from '../../shared/elements/form-input/form-input.component';
+import CustomButton from '../../shared/elements/button/custom-button.component';
+import {
+    addRecurringTransaction,
+    updateRecurringTransactionFromList,
+    updateSingleRecurringTransaction
+} from '../../reducers/recurring-transaction/recurring-transaction.actions';
+
+
+
+const RecurringTransactionForm = props => {
+    const [transactionInfo, setTransactionInfo] = useState({
+        accountTo: "",
+        accountFrom: "",
+        cost: 0.00,
+        recurringInterval: 0,
+        lastDate: new Date(),
+        nextDate: new Date()
+    });
+
+    const {
+        accountTo,
+        accountFrom,
+        cost,
+        recurringInterval,
+        lastDate,
+        nextDate
+    } = transactionInfo;
+
+    useEffect(() => {
+        if (props.editMode) {
+            Object.keys(props.transactionInput).forEach(key => {
+                if (props.transactionInput[key] !== null) {
+                    setTransactionInfo({ [key]: props.transactionInput[key] });
+                }
+            })
+            setTransactionInfo(props.transactionInput);
+        }
+    }, [props])
+
+    const handleSubmit = async event => {
+        event.preventDefault();
+        if (props.editMode) {
+            if (transactionInfo !== props.transactionInput) {
+                if (props.single) {
+                    props.updateSingleRecurringTransaction(transactionInfo, props.callback);
+                } else {
+                    props.updateRecurringTransactionFromList(transactionInfo, props.callback);
+                }
+            } else {
+                props.callback();
+            }
+        } else {
+            props.addRecurringTransaction(transactionInfo, props.callback);
+        }
+    };
+
+    const handleChange = event => {
+        const { name, value } = event.target;
+
+        setTransactionInfo({ ...transactionInfo, [name]: value });
+    };
+
+    return (
+        <div className='middle'>
+            {!props.editMode ?
+                <h3 className='centered'>
+                    Fill out the form below to add a Recurring Transaction
+                </h3>
+                :
+                <h3 className='centered'>
+                    Fill out the form below to update your Recurring Transaction
+                </h3>
+            }
+            <form onSubmit={handleSubmit}>
+                <FormInput
+                    label='Account Paid To'
+                    type='text'
+                    name='accountTo'
+                    value={accountTo}
+                    onChange={handleChange}
+                />
+                <FormInput
+                    label='Account Paid By'
+                    type='text'
+                    name='accountFrom'
+                    value={accountFrom}
+                    onChange={handleChange}
+                    required
+                />
+                <FormInput
+                    label='Cost of Transaction'
+                    type='number'
+                    step='0.01'
+                    name='cost'
+                    value={cost}
+                    onChange={handleChange}
+                    required
+                />
+                <FormInput
+                    label='Interval of recurrence'
+                    type='number'
+                    name='recurringInterval'
+                    value={recurringInterval}
+                    onChange={handleChange}
+                    required
+                />
+                <FormInput
+                    label='Last Date of Transaction'
+                    type='date'
+                    name='lastDate'
+                    value={lastDate}
+                    onChange={handleChange}
+                    required
+                />
+                <div className="grid50">
+                    {!props.editMode ?
+                        <CustomButton
+                            buttonStyle="blue"
+                            type="submit"
+                            label="Add"
+                        />
+                        :
+                        <CustomButton
+                            buttonStyle="blue"
+                            type="submit"
+                            label="Update"
+                        />
+                    }
+                    <CustomButton
+                        buttonStyle="red"
+                        action={props.callback}
+                        label="Cancel"
+                    />
+                </div>
+            </form>
+        </div>
+    );
+}
+
+
+
+const mapDispatchToProps = dispatch => ({
+    addRecurringTransaction: (transaction, callback) => {
+        dispatch(addRecurringTransaction(transaction, callback))
+    },
+    updateRecurringTransactionFromList: (transaction, callback) => {
+        dispatch(updateRecurringTransactionFromList(transaction, callback))
+    },
+    updateSingleRecurringTransaction: (transaction, callback) => {
+        dispatch(updateSingleRecurringTransaction(transaction, callback))
+    }
+});
+
+
+export default connect(null, mapDispatchToProps)(RecurringTransactionForm);
