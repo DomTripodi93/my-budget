@@ -10,7 +10,7 @@ const AccountContainer = (props) => {
     const fetchAll = props.fetchAllAccounts;
     const fetchByType = props.fetchAccountsByType;
     const fetchSingle = props.fetchSingleAccount;
-    const [single, setSingle] = useState(false)
+    const [single, setSingle] = useState(false);
 
     useEffect(() => {
         if (page === "All") {

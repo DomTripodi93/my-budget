@@ -10,14 +10,18 @@ const TransactionContainer = (props) => {
     const fetchNotReconciled = props.fetchTransactionsNotReconciled;
     const fetchByAccount = props.fetchTransactionsByAccount;
     const fetchSingle = props.fetchSingleTransaction;
+    const [single, setSingle] = useState(false);
 
     useEffect(() => {
         if (page === "notReconciled") {
             fetchNotReconciled();
+            setSingle(false);
         } else if (/^\d+$/.test(page)) {
             fetchSingle(page);
+            setSingle(true);
         } else {
-            fetchByAccount(page)
+            fetchByAccount(page);
+            setSingle(false);
         }
     }, [fetchNotReconciled, fetchByAccount, fetchSingle, page])
 
@@ -41,6 +45,7 @@ const TransactionContainer = (props) => {
             {transactions.length > 0 ?
                 <TransactionList
                     transactions={transactions}
+                    single={single}
                 />
                 :
                 null
