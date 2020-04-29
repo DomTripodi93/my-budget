@@ -10,14 +10,18 @@ const AccountContainer = (props) => {
     const fetchAll = props.fetchAllAccounts;
     const fetchByType = props.fetchAccountsByType;
     const fetchSingle = props.fetchSingleAccount;
+    const [single, setSingle] = useState(false)
 
     useEffect(() => {
         if (page === "All") {
             fetchAll();
+            setSingle(false);
         } else if (/^\d+$/.test(page)) {
             fetchSingle(page);
+            setSingle(true);
         } else {
-            fetchByType(page)
+            fetchByType(page);
+            setSingle(false);
         }
     }, [fetchAll, fetchByType, fetchSingle, page])
 
@@ -26,11 +30,11 @@ const AccountContainer = (props) => {
     useEffect(() => {
         if (props.accountCalled[page]) {
             if (page === "All") {
-                setAccounts([...props.allAccounts])
+                setAccounts([...props.allAccounts]);
             } else if (/^\d+$/.test(page)) {
-                setAccounts([props.selectedAccount])
+                setAccounts([props.selectedAccount]);
             } else {
-                setAccounts(props.accountsByType[page])
+                setAccounts(props.accountsByType[page]);
             }
         }
     }, [page, props])
@@ -41,6 +45,7 @@ const AccountContainer = (props) => {
             {accounts.length > 0 ?
                 <AccountList
                     accounts={accounts}
+                    single={single}
                 />
                 :
                 null
