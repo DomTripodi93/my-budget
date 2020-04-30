@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import FormInput from '../../shared/elements/form-input/form-input.component';
+import FormSelect from '../../shared/elements/form-select/form-select.component';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import {
     addRecurringTransaction,
@@ -40,6 +41,15 @@ const RecurringTransactionForm = props => {
         }
     }, [props])
 
+    const accounts = props.accounts;
+    const [accountOptions, setAccountOptions] = useState([])
+
+    useEffect(() => {
+        setAccountOptions(accounts.map(account => {
+            return { value: account.name, label: account.name }
+        }))
+    }, accounts)
+
     const handleSubmit = async event => {
         event.preventDefault();
         if (props.editMode) {
@@ -75,18 +85,19 @@ const RecurringTransactionForm = props => {
                 </h3>
             }
             <form onSubmit={handleSubmit}>
-                <FormInput
+                <FormSelect
                     label='Account Paid To'
-                    type='text'
                     name='accountTo'
                     value={accountTo}
+                    options={accountOptions}
                     onChange={handleChange}
+                    required
                 />
-                <FormInput
+                <FormSelect
                     label='Account Paid By'
-                    type='text'
                     name='accountFrom'
                     value={accountFrom}
+                    options={accountOptions}
                     onChange={handleChange}
                     required
                 />
@@ -100,7 +111,7 @@ const RecurringTransactionForm = props => {
                     required
                 />
                 <FormInput
-                    label='Interval of recurrence'
+                    label='Interval of Recurrence (days)'
                     type='number'
                     name='recurringInterval'
                     value={recurringInterval}

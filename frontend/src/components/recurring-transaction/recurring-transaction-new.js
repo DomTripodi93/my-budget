@@ -10,6 +10,7 @@ const RecurringTransactionNew = (props) => {
                 <div className='border'>
                     <RecurringTransactionForm 
                         callback={props.action}
+                        accounts={props.accounts}
                     />
                 </div>
                 :
