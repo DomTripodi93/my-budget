@@ -48,7 +48,14 @@ const RecurringTransactionForm = props => {
         setAccountOptions(accounts.map(account => {
             return { value: account.name, label: account.name }
         }))
-    }, accounts)
+        setTransactionInfo(transactionInfo =>{
+            return {
+                ...transactionInfo, 
+                accountFrom: accounts[0].name,
+                accountTo: accounts[0].name
+            }
+        })
+    }, [accounts])
 
     const handleSubmit = async event => {
         event.preventDefault();
