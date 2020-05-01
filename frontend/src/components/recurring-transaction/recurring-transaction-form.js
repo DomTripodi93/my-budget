@@ -14,13 +14,16 @@ import {
 
 const RecurringTransactionForm = props => {
     const helper = new helpers();
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     const [transactionInfo, setTransactionInfo] = useState({
         accountTo: "",
         accountFrom: "",
-        cost: 0.00,
-        recurringInterval: 0,
-        lastDate: helper.getStringFromDate(new Date()),
-        nextDate: helper.getStringFromDate(new Date())
+        cost: 0.01,
+        recurringInterval: 1,
+        lastDate: helper.getStringFromDate(today),
+        nextDate: helper.getStringFromDate(tomorrow)
     });
 
     const {
@@ -50,9 +53,9 @@ const RecurringTransactionForm = props => {
         setAccountOptions(accounts.map(account => {
             return { value: account.name, label: account.name }
         }))
-        setTransactionInfo(transactionInfo =>{
+        setTransactionInfo(transactionInfo => {
             return {
-                ...transactionInfo, 
+                ...transactionInfo,
                 accountFrom: accounts[0].name,
                 accountTo: accounts[0].name
             }
@@ -64,36 +67,44 @@ const RecurringTransactionForm = props => {
         if (props.editMode) {
             if (transactionInfo !== props.transactionInput) {
                 if (props.single) {
-                    props.updateSingleRecurringTransaction(transactionInfo, props.callback);
+                    props.updateSingleRecurringTransaction(
+                        transactionInfo, 
+                        props.callback
+                    );
                 } else {
-                    props.updateRecurringTransactionFromList(transactionInfo, props.callback);
+                    props.updateRecurringTransactionFromList(
+                        transactionInfo, 
+                        props.callback
+                    );
                 }
             } else {
                 props.callback();
             }
         } else {
-            console.log(transactionInfo)
-            // props.addRecurringTransaction(transactionInfo, props.callback);
+            // console.log(transactionInfo)
+            props.addRecurringTransaction(transactionInfo, props.callback);
         }
     };
 
     const handleChange = event => {
         const { name, value } = event.target;
 
-        if (name === "lastDate"){
+        if (name === "lastDate") {
             let dateHold = new Date(helper.getJsDateStringFromIsoDateString(value));
             dateHold.setDate(dateHold.getDate() + +transactionInfo.recurringInterval);
             setTransactionInfo({
-                ...transactionInfo, 
-                nextDate: helper.getStringFromDate(dateHold), 
+                ...transactionInfo,
+                nextDate: helper.getStringFromDate(dateHold),
                 [name]: value
             })
-        } else if (name === "recurringInterval"){
-            let dateHold = new Date(helper.getJsDateStringFromIsoDateString(transactionInfo.lastDate));
+        } else if (name === "recurringInterval") {
+            let dateHold = new Date(
+                helper.getJsDateStringFromIsoDateString(transactionInfo.lastDate)
+            );
             dateHold.setDate(dateHold.getDate() + +value);
             setTransactionInfo({
-                ...transactionInfo, 
-                nextDate: helper.getStringFromDate(dateHold), 
+                ...transactionInfo,
+                nextDate: helper.getStringFromDate(dateHold),
                 [name]: value
             })
         } else {
@@ -134,6 +145,7 @@ const RecurringTransactionForm = props => {
                     type='number'
                     step='0.01'
                     name='cost'
+                    min="0.01"
                     value={cost}
                     onChange={handleChange}
                     required
@@ -142,6 +154,7 @@ const RecurringTransactionForm = props => {
                     label='Interval of Recurrence (days)'
                     type='number'
                     name='recurringInterval'
+                    min="1"
                     value={recurringInterval}
                     onChange={handleChange}
                     required
