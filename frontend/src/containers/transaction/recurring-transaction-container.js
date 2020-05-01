@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import TransactionList from '../../components/transaction/transaction-list';
 import { fetchRecurringTransactionsByUser, fetchSingleRecurringTransaction } from '../../reducers/recurring-transaction/recurring-transaction.actions';
 import RecurringTransactionNew from '../../components/recurring-transaction/recurring-transaction-new';
 import { fetchAllAccounts } from '../../reducers/account/account.actions';
+import RecurringTransactionList from '../../components/recurring-transaction/recurring-transaction-list';
 
 
 
@@ -28,11 +28,12 @@ const RecurringTransactionContainer = (props) => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        if (props.transactionCalled) {
+        console.log("run")
+        if (props.recurringTransactionsCalled) {
             if (page === "All") {
-                setTransactions([...props.transactionsNotReconciled])
+                setTransactions([...props.allRecurringTransactions])
             } else {
-                setTransactions([props.selectedTransaction])
+                setTransactions([props.selectedRecurringTransaction])
             }
         }
     }, [page, props])
@@ -55,9 +56,8 @@ const RecurringTransactionContainer = (props) => {
                 />
             </div>
             {transactions.length > 0 ?
-                <TransactionList
+                <RecurringTransactionList
                     transactions={transactions}
-                    recurring={true}
                     single={single}
                     accounts={props.allAccounts}
                 />
@@ -79,7 +79,6 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
     allRecurringTransactions: state.recurringTransaction.recurringTransactions,
-    transactions: state.transaction.transactions,
     selectedRecurringTransaction: state.recurringTransaction.selectedRecurringTransaction,
     recurringTransactionsCalled: state.recurringTransaction.called,
     allAccounts: state.account.allAccounts,
