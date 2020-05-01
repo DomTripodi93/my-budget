@@ -19,8 +19,8 @@ const RecurringTransactionForm = props => {
         accountFrom: "",
         cost: 0.00,
         recurringInterval: 0,
-        lastDate: new Date(),
-        nextDate: new Date()
+        lastDate: helper.getStringFromDate(new Date()),
+        nextDate: helper.getStringFromDate(new Date())
     });
 
     const {
@@ -83,14 +83,22 @@ const RecurringTransactionForm = props => {
         if (name === "lastDate"){
             let dateHold = new Date(helper.getJsDateStringFromIsoDateString(value));
             dateHold.setDate(dateHold.getDate() + +transactionInfo.recurringInterval);
-            setTransactionInfo({...transactionInfo, nextDate: helper.getStringFromDate(dateHold)})
+            setTransactionInfo({
+                ...transactionInfo, 
+                nextDate: helper.getStringFromDate(dateHold), 
+                [name]: value
+            })
         } else if (name === "recurringInterval"){
             let dateHold = new Date(helper.getJsDateStringFromIsoDateString(transactionInfo.lastDate));
             dateHold.setDate(dateHold.getDate() + +value);
-            setTransactionInfo({...transactionInfo, nextDate: helper.getStringFromDate(dateHold)})
+            setTransactionInfo({
+                ...transactionInfo, 
+                nextDate: helper.getStringFromDate(dateHold), 
+                [name]: value
+            })
+        } else {
+            setTransactionInfo({ ...transactionInfo, [name]: value });
         }
-
-        setTransactionInfo({ ...transactionInfo, [name]: value });
     };
 
     return (
