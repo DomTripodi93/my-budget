@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FormInput from '../../shared/elements/form-input/form-input.component';
 import FormSelect from '../../shared/elements/form-select/form-select.component';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import helpers from '../../shared/helpers';
 import {
     addRecurringTransaction,
     updateRecurringTransactionFromList,
@@ -12,6 +13,7 @@ import {
 
 
 const RecurringTransactionForm = props => {
+    const helper = new helpers();
     const [transactionInfo, setTransactionInfo] = useState({
         accountTo: "",
         accountFrom: "",
@@ -70,12 +72,23 @@ const RecurringTransactionForm = props => {
                 props.callback();
             }
         } else {
-            props.addRecurringTransaction(transactionInfo, props.callback);
+            console.log(transactionInfo)
+            // props.addRecurringTransaction(transactionInfo, props.callback);
         }
     };
 
     const handleChange = event => {
         const { name, value } = event.target;
+
+        if (name === "lastDate"){
+            let dateHold = new Date(helper.getJsDateStringFromIsoDateString(value));
+            dateHold.setDate(dateHold.getDate() + +transactionInfo.recurringInterval);
+            setTransactionInfo({...transactionInfo, nextDate: helper.getStringFromDate(dateHold)})
+        } else if (name === "recurringInterval"){
+            let dateHold = new Date(helper.getJsDateStringFromIsoDateString(transactionInfo.lastDate));
+            dateHold.setDate(dateHold.getDate() + +value);
+            setTransactionInfo({...transactionInfo, nextDate: helper.getStringFromDate(dateHold)})
+        }
 
         setTransactionInfo({ ...transactionInfo, [name]: value });
     };

@@ -64,6 +64,15 @@ class helpers{
     }
     //Returns an ISO string of the current date and time for time zone in use 
 
+    getStringFromDate(date){
+        return date.toISOString().substring(0, 10);
+    }
+
+    getJsDateStringFromIsoDateString(date){
+        let yearMonthDay = date.split("-");
+        return [yearMonthDay[1], yearMonthDay[2], yearMonthDay[0]].join("-");
+    }
+
     setDateForIso(year, month, day){
         if (month < 10){
             month = "0" + month;
