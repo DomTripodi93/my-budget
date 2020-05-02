@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount } from '../../reducers/account/account.actions';
 import AccountList from '../../components/account/account-list';
+import AccountNew from '../../components/account/account-new';
 
 
 
@@ -39,9 +40,18 @@ const AccountContainer = (props) => {
         }
     }, [page, props])
 
+    const [addMode, setAddMode] = useState(false);
+
+    const showAddForm = () => {
+        setAddMode(!addMode)
+    }
+
     return (
         <div>
-            {page}
+            <AccountNew
+                addMode={addMode}
+                action={showAddForm}
+            />
             {accounts.length > 0 ?
                 <AccountList
                     accounts={accounts}
