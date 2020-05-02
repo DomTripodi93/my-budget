@@ -31,8 +31,7 @@ const RecurringTransactionForm = props => {
         accountFrom,
         cost,
         recurringInterval,
-        lastDate,
-        nextDate
+        lastDate
     } = transactionInfo;
 
     useEffect(() => {
@@ -81,7 +80,6 @@ const RecurringTransactionForm = props => {
                 props.callback();
             }
         } else {
-            // console.log(transactionInfo)
             props.addRecurringTransaction(transactionInfo, props.callback);
         }
     };

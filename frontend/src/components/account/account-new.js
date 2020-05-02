@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import AccountForm from './account-form';
 
 
 const AccountNew = (props) => {
@@ -7,7 +8,9 @@ const AccountNew = (props) => {
         <div>
             {props.addMode ?
                 <div className='border'>
-                    account form
+                    <AccountForm 
+                        callback={props.action}
+                    />
                 </div>
                 :
                 <div className='top'>

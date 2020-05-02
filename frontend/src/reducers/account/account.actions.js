@@ -167,7 +167,6 @@ function deleteAccountFromState(id, accountType) {
 
 function prepAccountValues(account) {
     account.name = helper.capitalizeAll(account.name);
-    account.type = helper.capitalizeAll(account.type);
 
     return account;
 }
