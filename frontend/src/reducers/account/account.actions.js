@@ -43,7 +43,7 @@ export function fetchAccountsByType(accountType) {
 function fetchAccountsFromCacheByType(accountType) {
     return dispatch => {
         let accountsForReturn = store.getState().account.allAccounts.filter(account => {
-            return account.type === accountType;
+            return account.accountType === accountType;
         })
         dispatch(setAccounts({data: accountsForReturn.sort((first, second) => {
             if (first.name > second.name) {
@@ -81,7 +81,7 @@ export function updateAccountFromList(account, callback) {
     return dispatch => {
         http.updateItem("account", account, account.id)
             .then(() => {
-                dispatch(updateAccountInState(account, account.type));
+                dispatch(updateAccountInState(account, account.accountType));
                 callback();
             });
     }
@@ -94,7 +94,7 @@ export function updateSingleAccount(account, callback) {
         http.updateItem("account", account, account.id)
             .then(() => {
                 if (Object.keys(store.getState().account.accounts).length > 0) {
-                    dispatch(updateAccountInState(account, account.type));
+                    dispatch(updateAccountInState(account, account.accountType));
                 }
                 dispatch(setSingleAccount(account));
                 callback();
