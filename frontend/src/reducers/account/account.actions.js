@@ -12,7 +12,8 @@ export function addAccount(account, callback) {
     return dispatch => {
         http.addItem("account", account)
             .then(addedAccount => {
-                dispatch(addAccountToState(addedAccount.data, addedAccount.type));
+                console.log(addedAccount)
+                dispatch(addAccountToState(addedAccount.data, addedAccount.data.accountType));
                 callback();
             });
     }

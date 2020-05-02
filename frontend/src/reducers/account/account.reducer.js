@@ -17,6 +17,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             }
         });
     }
+    
     let accountsHold = { ...state.accounts }
     let calledHold = { ...state.called };
     switch (action.type) {
@@ -47,10 +48,12 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 called: calledHold
             };
         case AccountActionTypes.ADD_ACCOUNT:
-            accountsHold[action.accountType] = sortAccounts([
-                action.payload,
-                ...accountsHold[action.accountType]
-            ]);
+            if (accountsHold[action.accountType]){
+                accountsHold[action.accountType] = sortAccounts([
+                    action.payload,
+                    ...accountsHold[action.accountType]
+                ]);
+            }
             return {
                 ...state,
                 accounts: accountsHold
