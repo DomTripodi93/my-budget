@@ -48,6 +48,7 @@ const AccountContainer = (props) => {
 
     return (
         <div>
+            <h3 className='centered'>Accounts</h3>
             <AccountNew
                 addMode={addMode}
                 action={showAddForm}

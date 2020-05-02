@@ -46,7 +46,6 @@ const RecurringTransactionContainer = (props) => {
     return (
         <div>
             <h3 className='centered'>Recurring Transactions</h3>
-            {page}
             <div className="grid100">
                 <RecurringTransactionNew
                     addMode={addMode}

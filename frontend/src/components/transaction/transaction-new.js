@@ -5,13 +5,13 @@ import CustomButton from '../../shared/elements/button/custom-button.component';
 const TransactionNew = (props) => {
     return (
         <div>
-            {props.addMode && props.single ?
+            {props.addSingleMode ?
                 <div className='border'>
                     Transaction Form
                 </div>
                 :
                 <div>
-                    {props.addMode ?
+                    {props.addBatchMode ?
                         <div>
                             Batch Upload
                         </div>

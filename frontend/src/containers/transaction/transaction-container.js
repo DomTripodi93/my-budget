@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TransactionList from '../../components/transaction/transaction-list';
 import { fetchTransactionsByAccount, fetchSingleTransaction, fetchTransactionsNotReconciled } from '../../reducers/transaction/transaction.actions';
+import TransactionNew from '../../components/transaction/transaction-new';
 
 
 
@@ -27,6 +28,18 @@ const TransactionContainer = (props) => {
 
     const [transactions, setTransactions] = useState([]);
 
+    const [addSingleMode, setAddSingleMode] = useState(false);
+
+    const showAddSingleForm = () => {
+        setAddSingleMode(!addSingleMode)
+    }
+
+    const [addBatchMode, setAddBatchMode] = useState(false);
+
+    const showAddBatchForm = () => {
+        setAddBatchMode(!addBatchMode)
+    }
+
     useEffect(() => {
         if (props.transactionCalled[page]) {
             if (page === "notReconciled") {
@@ -41,7 +54,16 @@ const TransactionContainer = (props) => {
 
     return (
         <div>
-            {page}
+            <h3 className='centered'>Transactions</h3>
+            <div className="grid100">
+                <TransactionNew
+                    singleAction={showAddSingleForm}
+                    addSingleMode={addSingleMode}
+                    batchAction={showAddBatchForm}
+                    addBatchMode={addBatchMode}
+                    accounts={props.allAccounts}
+                />
+            </div>
             {transactions.length > 0 ?
                 <TransactionList
                     transactions={transactions}
