@@ -28,7 +28,6 @@ const RecurringTransactionContainer = (props) => {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        console.log("run")
         if (props.recurringTransactionsCalled) {
             if (page === "All") {
                 setTransactions([...props.allRecurringTransactions])

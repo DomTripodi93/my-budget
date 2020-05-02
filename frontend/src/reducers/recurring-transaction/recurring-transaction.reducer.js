@@ -71,9 +71,9 @@ const recurringTransactionReducer = (state = INITIAL_STATE, action) => {
             };
         case RecurringTransactionActionTypes.SIGNOUT_USER:
             return {
-                recurringTransactions: {},
+                recurringTransactions: [],
                 selectedRecurringTransaction: {},
-                called: {}
+                called: false
             };
         default:
             return state;

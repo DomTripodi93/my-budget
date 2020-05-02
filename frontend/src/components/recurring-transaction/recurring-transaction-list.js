@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const RecurringTransactionList = (props) => {
-    console.log(props.transactions)
     return (
         <div>
             {props.single ?
