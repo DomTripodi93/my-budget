@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TransactionList from '../../components/transaction/transaction-list';
 import { fetchTransactionsByAccount, fetchSingleTransaction, fetchTransactionsNotReconciled } from '../../reducers/transaction/transaction.actions';
 import TransactionNew from '../../components/transaction/transaction-new';
+import { fetchAllAccounts } from '../../reducers/account/account.actions';
 
 
 
@@ -11,6 +12,7 @@ const TransactionContainer = (props) => {
     const fetchNotReconciled = props.fetchTransactionsNotReconciled;
     const fetchByAccount = props.fetchTransactionsByAccount;
     const fetchSingle = props.fetchSingleTransaction;
+    const fetchAccounts = props.fetchAllAccounts;
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
@@ -24,7 +26,8 @@ const TransactionContainer = (props) => {
             fetchByAccount(page);
             setSingle(false);
         }
-    }, [fetchNotReconciled, fetchByAccount, fetchSingle, page])
+        fetchAccounts();
+    }, [fetchNotReconciled, fetchByAccount, fetchSingle, fetchAccounts, page])
 
     const [transactions, setTransactions] = useState([]);
 
@@ -81,11 +84,13 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchTransactionsNotReconciled: () => dispatch(fetchTransactionsNotReconciled()),
         fetchTransactionsByAccount: (account) => dispatch(fetchTransactionsByAccount(account)),
-        fetchSingleTransaction: (id) => dispatch(fetchSingleTransaction(id))
+        fetchSingleTransaction: (id) => dispatch(fetchSingleTransaction(id)),
+        fetchAllAccounts: () => dispatch(fetchAllAccounts())
     }
 }
 
 const mapStateToProps = state => ({
+    allAccounts: state.account.allAccounts,
     transactionsNotReconciled: state.transaction.transactionsNotReconciled,
     transactions: state.transaction.transactions,
     selectedTransaction: state.transaction.selectedTransaction,
