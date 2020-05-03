@@ -17,6 +17,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
             }
         });
     }
+    let notReconciledHold = [ ...state.transactionsNotReconciled ]
     let transactionsHold = { ...state.transactions }
     let calledHold = { ...state.called };
     switch (action.type) {
@@ -56,15 +57,22 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 transactionsNotReconciled: reconciledHold
             };
         case TransactionActionTypes.ADD_TRANSACTION:
-            if (transactionsHold[action.account].length > 0) {
+            if (calledHold[action.account]) {
                 transactionsHold[action.account] = sortTransactions([
                     action.payload,
                     ...transactionsHold[action.account]
                 ]);
             }
+            if (calledHold["notReconciled"]){
+                notReconciledHold = sortTransactions([
+                    action.payload,
+                    ...notReconciledHold
+                ])
+            }
             return {
                 ...state,
-                transactions: transactionsHold
+                transactionsNotReconciled: notReconciledHold,
+                transactions: transactionsHold,
             };
         case TransactionActionTypes.UPDATE_TRANSACTIONS:
             if (transactionsHold[action.account].length > 0) {

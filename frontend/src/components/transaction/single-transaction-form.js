@@ -75,8 +75,7 @@ const TransactionForm = props => {
                 props.callback();
             }
         } else {
-            // props.addTransaction(transactionInfo, props.callback);
-            console.log(transactionInfo);
+            props.addTransaction(transactionInfo, props.callback);
         }
     };
 
