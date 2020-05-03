@@ -19,15 +19,15 @@ const TransactionForm = props => {
         accountTo: "",
         accountFrom: "",
         cost: 0.01,
-        date: today.toISOString()
+        date: helper.getDateTimeStringFromDate(today)
     });
-
     const {
         accountTo,
         accountFrom,
         cost,
         date
     } = transactionInfo;
+    console.log(transactionInfo.date)
 
     useEffect(() => {
         if (props.editMode) {
@@ -146,7 +146,7 @@ const TransactionForm = props => {
                 />
                 <FormInput
                     label='Time of Transaction'
-                    type='datetime'
+                    type='datetime-local'
                     name='date'
                     value={date}
                     onChange={handleChange}

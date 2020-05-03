@@ -73,6 +73,10 @@ class helpers{
         return [yearMonthDay[1], yearMonthDay[2], yearMonthDay[0]].join("-");
     }
 
+    getDateTimeStringFromDate(date){
+        return this.getStringFromDate(date) + 'T' + date.toTimeString().substring(0, 8);
+    }
+
     setDateForIso(year, month, day){
         if (month < 10){
             month = "0" + month;
