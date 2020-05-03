@@ -1,5 +1,7 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import TransactionForm from './single-transaction-form';
+
 
 
 const TransactionNew = (props) => {
@@ -7,12 +9,15 @@ const TransactionNew = (props) => {
         <div>
             {props.addSingleMode ?
                 <div className='border'>
-                    Transaction Form
+                    <TransactionForm 
+                        callback={props.action}
+                        accounts={props.accounts}
+                    />
                 </div>
                 :
                 <div>
                     {props.addBatchMode ?
-                        <div>
+                        <div className='border'>
                             Batch Upload
                         </div>
                         :
@@ -23,7 +28,7 @@ const TransactionNew = (props) => {
                                 action={props.singleAction}
                             />
                             <CustomButton
-                                buttonStyle="blue"
+                                buttonStyle="soft-green"
                                 label="Batch Transaction Upload"
                                 action={props.batchAction}
                             />
