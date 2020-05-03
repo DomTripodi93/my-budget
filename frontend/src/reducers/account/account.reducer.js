@@ -90,6 +90,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             };
         case AccountActionTypes.SIGNOUT_USER:
             return {
+                allAccounts: [],
                 accounts: {},
                 selectedAccount: {},
                 called: {}
