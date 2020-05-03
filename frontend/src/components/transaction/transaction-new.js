@@ -12,6 +12,7 @@ const TransactionNew = (props) => {
                     <TransactionForm 
                         callback={props.action}
                         accounts={props.accounts}
+                        callback={props.singleAction}
                     />
                 </div>
                 :
