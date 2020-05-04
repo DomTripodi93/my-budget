@@ -11,9 +11,9 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
     var sortTransactions = (transactions) => {
         return transactions.sort((first, second) => {
             if (first.date < second.date) {
-                return 1;
-            } else {
                 return -1;
+            } else {
+                return 1;
             }
         });
     }
@@ -130,12 +130,12 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 ]
             }
             if (calledHold["notReconciled"]) {
-                notReconciledHold = sortTransactions([
+                notReconciledHold = [
                     ...notReconciledHold
                         .filter((value) => {
                             return value.id !== action.payload;
                         })
-                ])
+                ]
             }
             return {
                 ...state,
