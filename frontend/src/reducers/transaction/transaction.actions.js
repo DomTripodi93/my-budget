@@ -9,8 +9,7 @@ export function addTransaction(transaction, callback) {
     return dispatch => {
         http.addItem("transaction", transaction)
             .then(addedTransaction => {
-                dispatch(addTransactionToState(addedTransaction.data, addedTransaction.accountTo));
-                dispatch(addTransactionToState(addedTransaction.data, addedTransaction.accountFrom));
+                dispatch(addTransactionToState(addedTransaction.data));
                 callback();
             });
     }
@@ -52,8 +51,7 @@ export function reconcileTransactionFromList(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 dispatch(reconcileTransactionInState(transaction.id));
-                dispatch(updateTransactionInState(transaction, transaction.accountTo));
-                dispatch(updateTransactionInState(transaction, transaction.accountFrom));
+                dispatch(updateTransactionInState(transaction));
                 callback();
             });
     }
@@ -65,8 +63,7 @@ export function reconcileSingleTransaction(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 if (Object.keys(store.getState().transaction.accounts).length > 0) {
-                    dispatch(updateTransactionInState(transaction, transaction.accountTo));
-                    dispatch(updateTransactionInState(transaction, transaction.accountFrom));
+                    dispatch(updateTransactionInState(transaction));
                 }
                 dispatch(reconcileTransactionInState(transaction.id));
                 dispatch(setSingleTransaction(transaction));
@@ -80,8 +77,7 @@ export function updateTransactionFromList(transaction, callback) {
     return dispatch => {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
-                dispatch(updateTransactionInState(transaction, transaction.accountTo));
-                dispatch(updateTransactionInState(transaction, transaction.accountFrom));
+                dispatch(updateTransactionInState(transaction));
                 callback();
             });
     }
@@ -93,8 +89,7 @@ export function updateSingleTransaction(transaction, callback) {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 if (Object.keys(store.getState().transaction.accounts).length > 0) {
-                    dispatch(updateTransactionInState(transaction, transaction.accountTo));
-                    dispatch(updateTransactionInState(transaction, transaction.accountFrom));
+                    dispatch(updateTransactionInState(transaction));
                 }
                 dispatch(setSingleTransaction(transaction));
                 callback();
@@ -103,21 +98,21 @@ export function updateSingleTransaction(transaction, callback) {
 }
 //Updates transaction in database
 
-export function deleteTransaction(id, account) {
+export function deleteTransaction(id, accountTo, accountFrom) {
     return dispatch => {
         http.deleteItem("transaction", id)
             .then(() => {
-                dispatch(deleteTransactionFromState(id, account));
+                dispatch(deleteTransactionFromState(id, accountTo));
+                dispatch(deleteTransactionFromState(id, accountFrom));
             });
     }
 }
 //Deletes selected transaction
 
-function addTransactionToState(transaction, account) {
+function addTransactionToState(transaction) {
     return {
         type: TransactionActionTypes.ADD_TRANSACTION,
-        payload: transaction,
-        account
+        payload: transaction
     }
 }
 //Adds new transaction from post to state
@@ -155,11 +150,10 @@ function reconcileTransactionInState(id) {
 }
 //Updates transaction
 
-function updateTransactionInState(transaction, account) {
+function updateTransactionInState(transaction) {
     return {
         type: TransactionActionTypes.UPDATE_TRANSACTIONS,
-        payload: transaction,
-        account
+        payload: transaction
     }
 }
 //Updates transaction

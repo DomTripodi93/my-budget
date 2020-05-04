@@ -17,7 +17,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
             }
         });
     }
-    let notReconciledHold = [ ...state.transactionsNotReconciled ]
+    let notReconciledHold = [...state.transactionsNotReconciled]
     let transactionsHold = { ...state.transactions }
     let calledHold = { ...state.called };
     switch (action.type) {
@@ -48,22 +48,28 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 called: calledHold
             };
         case TransactionActionTypes.RECONCILE_TRANSACTION:
-            let reconciledHold = state.notReconciled
+            notReconciledHold = notReconciledHold
                 .filter((value) => {
                     return value.id !== action.id;
                 });
             return {
                 ...state,
-                transactionsNotReconciled: reconciledHold
+                transactionsNotReconciled: notReconciledHold
             };
         case TransactionActionTypes.ADD_TRANSACTION:
-            if (calledHold[action.account]) {
-                transactionsHold[action.account] = sortTransactions([
+            if (calledHold[action.payload.accountTo]) {
+                transactionsHold[action.payload.accountTo] = sortTransactions([
                     action.payload,
-                    ...transactionsHold[action.account]
+                    ...transactionsHold[action.payload.accountTo]
                 ]);
             }
-            if (calledHold["notReconciled"]){
+            if (calledHold[action.payload.accountFrom]) {
+                transactionsHold[action.payload.accountFrom] = sortTransactions([
+                    action.payload,
+                    ...transactionsHold[action.payload.accountTo]
+                ]);
+            }
+            if (calledHold["notReconciled"]) {
                 notReconciledHold = sortTransactions([
                     action.payload,
                     ...notReconciledHold
@@ -75,26 +81,62 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                 transactions: transactionsHold,
             };
         case TransactionActionTypes.UPDATE_TRANSACTIONS:
-            if (transactionsHold[action.account].length > 0) {
-                transactionsHold[action.account] = sortTransactions([
+            if (calledHold[action.payload.accountTo]) {
+                transactionsHold[action.payload.accountTo] = sortTransactions([
                     action.payload,
-                    ...transactionsHold[action.account]
+                    ...transactionsHold[action.payload.accountTo]
                         .filter((value) => {
                             return value.id !== action.payload.id;
                         })
                 ]);
+            }
+            if (calledHold[action.payload.accountFrom]) {
+                transactionsHold[action.payload.accountFrom] = sortTransactions([
+                    action.payload,
+                    ...transactionsHold[action.payload.accountTo]
+                        .filter((value) => {
+                            return value.id !== action.payload.id;
+                        })
+                ]);
+            }
+            if (calledHold["notReconciled"]) {
+                notReconciledHold = sortTransactions([
+                    action.payload,
+                    ...notReconciledHold
+                        .filter((value) => {
+                            return value.id !== action.payload.id;
+                        })
+                ])
             }
             return {
                 ...state,
                 transactions: transactionsHold
             };
         case TransactionActionTypes.DELETE_TRANSACTION:
-            transactionsHold[action.account] = [
-                ...transactionsHold[action.account]
-                    .filter((value) => {
-                        return value.id !== action.payload;
-                    })
-            ]
+            if (calledHold[action.accountTo]) {
+                transactionsHold[action.accountTo] = [
+                    ...transactionsHold[action.accountTo]
+                        .filter((value) => {
+                            return value.id !== action.payload;
+                        })
+                ]
+            }
+            if (calledHold[action.accountFrom]) {
+                transactionsHold[action.accountFrom] = [
+                    ...transactionsHold[action.accountTo]
+                        .filter((value) => {
+                            return value.id !== action.payload;
+                        })
+                ]
+            }
+            if (calledHold["notReconciled"]) {
+                notReconciledHold = sortTransactions([
+                    ...notReconciledHold
+                        .filter((value) => {
+                            return value.id !== action.payload;
+                        })
+                ])
+            }
             return {
                 ...state,
                 transactions: transactionsHold
