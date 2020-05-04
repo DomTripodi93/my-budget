@@ -143,6 +143,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
             };
         case TransactionActionTypes.SIGNOUT_USER:
             return {
+                transactionsNotReconciled: [],
                 transactions: {},
                 selectedTransaction: {},
                 called: {}
