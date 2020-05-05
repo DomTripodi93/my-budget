@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SelectedTransaction from './selected-transaction';
 
 
 const TransactionList = (props) => {
@@ -8,9 +9,10 @@ const TransactionList = (props) => {
             {props.single ?
                 <div>
                     {props.transactions.map(transaction => (
-                        <div key={transaction.id}>
-                            {transaction.date}
-                        </div>
+                        <SelectedTransaction 
+                            transaction={transaction}
+                            key={transaction.id}
+                        />
                     ))}
                 </div>
                 :
