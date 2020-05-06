@@ -8,28 +8,31 @@ import AccountNew from '../../components/account/account-new';
 
 const AccountContainer = (props) => {
     const page = props.match.params.page;
+    const called = props.accountCalled;
     const fetchAll = props.fetchAllAccounts;
     const fetchByType = props.fetchAccountsByType;
     const fetchSingle = props.fetchSingleAccount;
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
-        if (page === "All") {
-            fetchAll();
-            setSingle(false);
-        } else if (/^\d+$/.test(page)) {
-            fetchSingle(page);
-            setSingle(true);
-        } else {
-            fetchByType(page);
-            setSingle(false);
+        if (!called[page]){
+            if (page === "All") {
+                fetchAll();
+                setSingle(false);
+            } else if (/^\d+$/.test(page)) {
+                fetchSingle(page);
+                setSingle(true);
+            } else {
+                fetchByType(page);
+                setSingle(false);
+            }
         }
-    }, [fetchAll, fetchByType, fetchSingle, page])
+    }, [fetchAll, fetchByType, fetchSingle, page, called])
 
     const [accounts, setAccounts] = useState([]);
 
     useEffect(() => {
-        if (props.accountCalled[page]) {
+        if (called[page]) {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
             } else if (/^\d+$/.test(page)) {
@@ -38,7 +41,7 @@ const AccountContainer = (props) => {
                 setAccounts(props.accountsByType[page]);
             }
         }
-    }, [page, props])
+    }, [page, props, called])
 
     const [addMode, setAddMode] = useState(false);
 
