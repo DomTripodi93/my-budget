@@ -16,34 +16,50 @@ const TransactionList = (props) => {
                     ))}
                 </div>
                 :
-                <div className="transaction-grid-outer">
-                    <div>
-                        <div className="transaction-grid-inner centered">
-                            <h5>
+                <div>
+                    <div className="transaction-grid-outer">
+                        <div className="transaction-grid-inner centered heading">
+                            <h5 className="grid-header-text">
                                 ID
                             </h5>
-                            <h5>
+                            <h5 className="grid-header-text">
                                 From
                             </h5>
-                            <h5>
+                            <h5 className="grid-header-text">
                                 To
                             </h5>
-                            <h5>
+                            <h5 className="grid-header-text">
                                 Time
                             </h5>
-                            <h5>
+                            <h5 className="grid-header-text">
                                 Cost
                             </h5>
                         </div>
-                        <hr />
-                        {props.transactions.map(transaction => (
-                            <div key={transaction.id}>
-                                <TransactionLine
-                                    transaction={transaction}
-                                />
-                                <hr />
-                            </div>
-                        ))}
+                    </div>
+                    <hr />
+                    <div className="transaction-grid-outer">
+                        <div>
+                            {props.transactions.map(transaction => (
+                                <div key={transaction.id}>
+                                    <TransactionLine
+                                        transaction={transaction}
+                                    />
+                                    <hr />
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            {props.transactions.map(transaction => (
+                                <div key={transaction.id}>
+                                    <div className="centered transaction-grid-right">
+                                        <h5 className="grid-text">
+                                            buttons
+                                        </h5>
+                                    </div>
+                                    <hr />
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                 </div>

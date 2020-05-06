@@ -13,20 +13,20 @@ const TransactionLine = (props) => {
             <Link
                 to={"/transaction/" + transaction.id}
             >
-                <h5>
+                <h5 className="grid-text">
                     {transaction.id}
                 </h5>
             </Link>
-            <h5>
+            <h5 className="grid-text">
                 {transaction.accountFrom}
             </h5>
-            <h5>
+            <h5 className="grid-text">
                 {transaction.accountTo}
             </h5>
-            <h5>
+            <h5 className="grid-text">
                 {time}, {transaction.date.substring(0, 10)}
             </h5>
-            <h5>
+            <h5 className="grid-text">
                 {transaction.cost}
             </h5>
         </div>
