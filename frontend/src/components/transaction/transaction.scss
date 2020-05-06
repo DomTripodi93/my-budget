@@ -1,0 +1,32 @@
+.transaction-grid-inner{
+    display: grid;
+    grid-template-columns: 10% 22% 22% 29% 17%;
+
+    .grid-text{
+        line-height: 0;
+        font-size: 14px;
+        white-space: nowrap;
+      
+        @media only screen and (max-width: 570px) {
+            font-size: 11px;
+        }
+    
+        @media only screen and (max-width: 500px) {
+            font-size: 10.5px;
+        }
+    }
+}
+
+.transaction-grid-outer{
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+    .grid-header-text{
+        line-height: 0;
+        font-size: 16px;
+    
+        @media only screen and (max-width: 570px) {
+            font-size: 14px;
+        }
+    }
+}

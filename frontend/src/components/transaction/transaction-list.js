@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SelectedTransaction from './selected-transaction';
+import TransactionLine from './transaction-line';
 
 
 const TransactionList = (props) => {
@@ -9,21 +9,43 @@ const TransactionList = (props) => {
             {props.single ?
                 <div>
                     {props.transactions.map(transaction => (
-                        <SelectedTransaction 
+                        <SelectedTransaction
                             transaction={transaction}
                             key={transaction.id}
                         />
                     ))}
                 </div>
                 :
-                <div>
-                    {props.transactions.map(transaction => (
-                        <div key={transaction.id}>
-                            <Link to={"/transaction/" + transaction.id}>
-                                {transaction.date}
-                            </Link>
+                <div className="transaction-grid-outer">
+                    <div>
+                        <div className="transaction-grid-inner centered">
+                            <h5>
+                                ID
+                            </h5>
+                            <h5>
+                                From
+                            </h5>
+                            <h5>
+                                To
+                            </h5>
+                            <h5>
+                                Time
+                            </h5>
+                            <h5>
+                                Cost
+                            </h5>
                         </div>
-                    ))}
+                        <hr />
+                        {props.transactions.map(transaction => (
+                            <div key={transaction.id}>
+                                <TransactionLine
+                                    transaction={transaction}
+                                />
+                                <hr />
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
             }
         </div>
