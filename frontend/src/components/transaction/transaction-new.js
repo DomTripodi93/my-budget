@@ -10,7 +10,6 @@ const TransactionNew = (props) => {
             {props.addSingleMode ?
                 <div className='border'>
                     <TransactionForm 
-                        callback={props.action}
                         accounts={props.accounts}
                         callback={props.singleAction}
                     />
