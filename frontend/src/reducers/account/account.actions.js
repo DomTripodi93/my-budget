@@ -29,6 +29,16 @@ export function fetchSingleAccount(id) {
 }
 //Gets specific account by name
 
+export function fetchSingleAccountFromCache(id) {
+    let account = store.getState().account.allAccounts
+        .filter((value) => {
+            return value.id === id;
+        })
+    return dispatch => {
+        dispatch(setSingleAccount(account));
+    }
+}
+
 export function fetchAccountsByType(accountType) {
     return dispatch => {
         if (store.getState().account.called["All"]) {
@@ -45,13 +55,15 @@ function fetchAccountsFromCacheByType(accountType) {
         let accountsForReturn = store.getState().account.allAccounts.filter(account => {
             return account.accountType === accountType;
         })
-        dispatch(setAccounts({data: accountsForReturn.sort((first, second) => {
-            if (first.name > second.name) {
-                return 1;
-            } else {
-                return -1;
-            }
-        })}, accountType))
+        dispatch(setAccounts({
+            data: accountsForReturn.sort((first, second) => {
+                if (first.name > second.name) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            })
+        }, accountType))
     }
 }
 //Extracts accounts by accountType from cache

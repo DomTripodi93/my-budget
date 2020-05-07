@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount } from '../../reducers/account/account.actions';
+import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount, fetchSingleAccountFromCache } from '../../reducers/account/account.actions';
 import AccountList from '../../components/account/account-list';
 import AccountNew from '../../components/account/account-new';
 
@@ -12,6 +12,7 @@ const AccountContainer = (props) => {
     const fetchAll = props.fetchAllAccounts;
     const fetchByType = props.fetchAccountsByType;
     const fetchSingle = props.fetchSingleAccount;
+    const fetchSingleFromCache = props.fetchSingleAccountFromCache;
     const selectedAccount = props.selectedAccount;
     const [single, setSingle] = useState(false);
 
@@ -20,14 +21,22 @@ const AccountContainer = (props) => {
             if (page === "All") {
                 fetchAll();
             } else if (/^\d+$/.test(page)) {
-                fetchSingle(page);
+                if (called["All"]){
+                    fetchSingleAccountFromCache(page)
+                } else {
+                    fetchSingle(page);
+                }
             } else {
                 fetchByType(page);
             }
         } else if (/^\d+$/.test(page) && selectedAccount.id !== +page){
-            fetchSingle(page);
+            if (called["All"]){
+                fetchSingleAccountFromCache(page)
+            } else {
+                fetchSingle(page);
+            }
         }
-    }, [fetchAll, fetchByType, fetchSingle, page, called, selectedAccount])
+    }, [fetchAll, fetchByType, fetchSingle, page, called, selectedAccount, fetchSingleFromCache])
 
     const [accounts, setAccounts] = useState([]);
 
@@ -76,7 +85,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllAccounts: () => dispatch(fetchAllAccounts()),
         fetchAccountsByType: (accountType) => dispatch(fetchAccountsByType(accountType)),
-        fetchSingleAccount: (id) => dispatch(fetchSingleAccount(id))
+        fetchSingleAccount: (id) => dispatch(fetchSingleAccount(id)),
+        fetchSingleAccountFromCache: (id) => dispatch(fetchSingleAccountFromCache(id))
     }
 }
 
