@@ -12,22 +12,22 @@ const AccountContainer = (props) => {
     const fetchAll = props.fetchAllAccounts;
     const fetchByType = props.fetchAccountsByType;
     const fetchSingle = props.fetchSingleAccount;
+    const selectedAccount = props.selectedAccount;
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
         if (!called[page]){
             if (page === "All") {
                 fetchAll();
-                setSingle(false);
             } else if (/^\d+$/.test(page)) {
                 fetchSingle(page);
-                setSingle(true);
             } else {
                 fetchByType(page);
-                setSingle(false);
             }
+        } else if (/^\d+$/.test(page) && selectedAccount.id !== +page){
+            fetchSingle(page);
         }
-    }, [fetchAll, fetchByType, fetchSingle, page, called])
+    }, [fetchAll, fetchByType, fetchSingle, page, called, selectedAccount])
 
     const [accounts, setAccounts] = useState([]);
 
@@ -35,10 +35,13 @@ const AccountContainer = (props) => {
         if (called[page]) {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
+                setSingle(false);
             } else if (/^\d+$/.test(page)) {
                 setAccounts([props.selectedAccount]);
+                setSingle(true);
             } else {
                 setAccounts(props.accountsByType[page]);
+                setSingle(false);
             }
         }
     }, [page, props, called])
