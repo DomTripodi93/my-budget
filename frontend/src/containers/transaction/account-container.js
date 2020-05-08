@@ -22,7 +22,7 @@ const AccountContainer = (props) => {
                 fetchAll();
             } else if (/^\d+$/.test(page)) {
                 if (called["All"]){
-                    fetchSingleAccountFromCache(page)
+                    fetchSingleFromCache(+page)
                 } else {
                     fetchSingle(page);
                 }
@@ -31,7 +31,7 @@ const AccountContainer = (props) => {
             }
         } else if (/^\d+$/.test(page) && selectedAccount.id !== +page){
             if (called["All"]){
-                fetchSingleAccountFromCache(page)
+                fetchSingleFromCache(+page)
             } else {
                 fetchSingle(page);
             }
