@@ -38,6 +38,7 @@ export function fetchSingleAccountFromCache(id) {
         dispatch(setSingleAccount(account));
     }
 }
+//Filters through all accounts to set the selected account in the account reducer
 
 export function fetchAccountsByType(accountType) {
     return dispatch => {

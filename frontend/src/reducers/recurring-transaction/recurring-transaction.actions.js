@@ -25,6 +25,18 @@ export function fetchSingleRecurringTransaction(id) {
 }
 //Gets specific Recurring Transaction by name
 
+export function fetchSingleRecurringTransactionFromCache(id) {
+    let transaction = store.getState().recurringTransaction.recurringTransactions
+        .filter((value) => {
+            return value.id === id;
+        })
+    return dispatch => {
+        dispatch(setSingleRecurringTransaction(transaction));
+    }
+}
+//Filters through all accounts to set the selected recurring transaction in the recurring
+// transaction reducer
+
 export function fetchRecurringTransactionsByUser() {
     return dispatch => {
         http.fetchAll("recurringTransaction/byUser")
