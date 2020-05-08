@@ -22,11 +22,12 @@ const RecurringTransactionContainer = (props) => {
             if (page === "All") {
                 fetchAllRecurring();
             } else {
+                fetchAllRecurring();
                 fetchSingle(page);
             }
             fetchAccounts();
         } else if (/^\d+$/.test(page) && selected.id !== +page) {
-            fetchSingleFromCache(page);
+            fetchSingleFromCache(+page);
         }
     }, [
         fetchAllRecurring,
