@@ -30,12 +30,13 @@ export function fetchSingleAccount(id) {
 //Gets specific account by name
 
 export function fetchSingleAccountFromCache(id) {
-    let account = store.getState().account.allAccounts
-        .filter((value) => {
-            return value.id === id;
-        })
     return dispatch => {
-        dispatch(setSingleAccount(account));
+        dispatch(setSingleAccount(
+            store.getState().account.allAccounts
+                .filter((value) => {
+                    return value.id === id;
+                })[0]
+        ));
     }
 }
 //Filters through all accounts to set the selected account in the account reducer
