@@ -1,5 +1,6 @@
 import rootHttp from '../root-http';
 import RecurringTransactionActionTypes from './recurring-transaction.types';
+import store from '../store';
 
 
 const http = new rootHttp();
@@ -26,12 +27,13 @@ export function fetchSingleRecurringTransaction(id) {
 //Gets specific Recurring Transaction by name
 
 export function fetchSingleRecurringTransactionFromCache(id) {
-    let transaction = store.getState().recurringTransaction.recurringTransactions
-        .filter((value) => {
-            return value.id === id;
-        })
     return dispatch => {
-        dispatch(setSingleRecurringTransaction(transaction));
+        dispatch(setSingleRecurringTransaction(
+            store.getState().recurringTransaction.recurringTransactions
+                .filter((value) => {
+                    return value.id === id;
+                })[0])
+        );
     }
 }
 //Filters through all accounts to set the selected recurring transaction in the recurring

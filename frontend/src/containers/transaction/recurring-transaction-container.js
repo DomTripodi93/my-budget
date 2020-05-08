@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchRecurringTransactionsByUser, fetchSingleRecurringTransaction } from '../../reducers/recurring-transaction/recurring-transaction.actions';
+import { fetchRecurringTransactionsByUser, fetchSingleRecurringTransaction, fetchSingleRecurringTransactionFromCache } from '../../reducers/recurring-transaction/recurring-transaction.actions';
 import RecurringTransactionNew from '../../components/recurring-transaction/recurring-transaction-new';
 import { fetchAllAccounts } from '../../reducers/account/account.actions';
 import RecurringTransactionList from '../../components/recurring-transaction/recurring-transaction-list';
@@ -11,31 +11,46 @@ const RecurringTransactionContainer = (props) => {
     const page = props.match.params.page;
     const fetchAllRecurring = props.fetchRecurringTransactions;
     const fetchSingle = props.fetchSingleRecurringTransaction;
+    const fetchSingleFromCache = props.fetchSingleRecurringTransactionFromCache;
     const fetchAccounts = props.fetchAllAccounts;
+    const selected = props.selectedRecurringTransaction;
+    const called = props.recurringTransactionsCalled;
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
-        if (page === "All") {
-            fetchAllRecurring();
-            setSingle(false);
-        } else {
-            fetchSingle(page);
-            setSingle(true);
+        if (!called) {
+            if (page === "All") {
+                fetchAllRecurring();
+            } else {
+                fetchSingle(page);
+            }
+            fetchAccounts();
+        } else if (/^\d+$/.test(page) && selected.id !== +page) {
+            fetchSingleFromCache(page);
         }
-        fetchAccounts();
-    }, [fetchAllRecurring, fetchSingle, fetchAccounts, page])
+    }, [
+        fetchAllRecurring,
+        fetchSingle,
+        fetchAccounts,
+        fetchSingleFromCache,
+        page,
+        called,
+        selected
+    ])
 
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        if (props.recurringTransactionsCalled) {
+        if (called) {
             if (page === "All") {
                 setTransactions([...props.allRecurringTransactions])
+                setSingle(false);
             } else {
-                setTransactions([props.selectedRecurringTransaction])
+                setTransactions([selected])
+                setSingle(true);
             }
         }
-    }, [page, props])
+    }, [page, props, called, selected])
 
     const [addMode, setAddMode] = useState(false);
 
@@ -71,7 +86,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchRecurringTransactions: () => dispatch(fetchRecurringTransactionsByUser()),
         fetchSingleRecurringTransaction: (id) => dispatch(fetchSingleRecurringTransaction(id)),
-        fetchAllAccounts: () => dispatch(fetchAllAccounts())
+        fetchSingleRecurringTransactionFromCache: (id) => dispatch(fetchSingleRecurringTransactionFromCache(id)),
+        fetchAllAccounts: () => dispatch(fetchAllAccounts()),
     }
 }
 
