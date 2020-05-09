@@ -44,9 +44,19 @@ const AccountList = (props) => {
                             {props.accounts.map(account => (
                                 <div>
                                     <div className="account-grid-right" key={account.id}>
-                                        <h5 className="grid-text centered">
-                                            buttons
-                                        </h5>
+                                        {account.active ?
+                                            <div className="account-grid-right" key={account.id}>
+                                                <h5 className="grid-text centered">
+                                                    buttons
+                                                </h5>
+                                            </div>
+                                            :
+                                            <div className="account-grid-right gray-back" key={account.id}>
+                                                <h5 className="grid-text centered">
+                                                    buttons
+                                                </h5>
+                                            </div>
+                                        }
                                     </div>
                                     <hr />
                                 </div>
