@@ -1,6 +1,7 @@
 import React from 'react';
 import SelectedTransaction from './selected-transaction';
 import TransactionLine from './transaction-line';
+import "./transaction.scss"
 
 
 const TransactionList = (props) => {

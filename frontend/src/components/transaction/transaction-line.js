@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import helpers from '../../shared/helpers';
-import './transaction.scss'
 
 
 const TransactionLine = (props) => {
