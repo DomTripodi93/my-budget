@@ -19,7 +19,7 @@ const AccountLine = (props) => {
                         {account.name}
                     </h5>
                     <h5 className="grid-text">
-                        {account.type}
+                        {account.accountType}
                     </h5>
                 </div>
                 :
@@ -35,7 +35,7 @@ const AccountLine = (props) => {
                         {account.name}
                     </h5>
                     <h5 className="grid-text">
-                        {account.type}
+                        {account.accountType}
                     </h5>
                 </div>
             }

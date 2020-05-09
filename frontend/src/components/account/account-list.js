@@ -1,6 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import "./account.scss"
+import AccountLine from './account-line';
+
+
 
 const AccountList = (props) => {
     return (
@@ -32,18 +34,18 @@ const AccountList = (props) => {
                     <div className="account-grid-outer">
                         <div>
                             {props.accounts.map(account => (
-                                <div className="account-grid-inner" key={account.id}>
-                                    <Link to={"/account/" + account.id}>
-                                        {account.id}
-                                    </Link>
+                                <div key={account.id}>
+                                    <AccountLine 
+                                        account={account}
+                                    />
                                     <hr />
                                 </div>
                             ))}
                         </div>
                         <div>
                             {props.accounts.map(account => (
-                                <div>
-                                    <div className="account-grid-right" key={account.id}>
+                                <div key={account.id}>
+                                    <div className="account-grid-right">
                                         {account.active ?
                                             <div className="account-grid-right" key={account.id}>
                                                 <h5 className="grid-text centered">
