@@ -6,21 +6,39 @@ const AccountLine = (props) => {
     const account = props.account;
     return (
         <div>
-            <div className="centered account-grid-inner">
-                <Link
-                    to={"/account/" + account.id}
-                >
+            {account.active ?
+                <div className="centered account-grid-inner">
+                    <Link
+                        to={"/account/" + account.id}
+                    >
+                        <h5 className="grid-text">
+                            {account.id}
+                        </h5>
+                    </Link>
                     <h5 className="grid-text">
-                        {account.id}
+                        {account.name}
                     </h5>
-                </Link>
-                <h5 className="grid-text">
-                    {account.name}
-                </h5>
-                <h5 className="grid-text">
-                    {account.type}
-                </h5>
-            </div>
+                    <h5 className="grid-text">
+                        {account.type}
+                    </h5>
+                </div>
+                :
+                <div className="centered account-grid-inner gray-back">
+                    <Link
+                        to={"/account/" + account.id}
+                    >
+                        <h5 className="grid-text">
+                            {account.id}
+                        </h5>
+                    </Link>
+                    <h5 className="grid-text">
+                        {account.name}
+                    </h5>
+                    <h5 className="grid-text">
+                        {account.type}
+                    </h5>
+                </div>
+            }
         </div>
     )
 }
