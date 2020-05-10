@@ -8,6 +8,7 @@ class AccountModel(db.Model):
     name = db.Column(db.String(80))
     account_type = db.Column(db.String(80))
     active = db.Column(db.Boolean)
+    balance = db.Column(db.Float)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('UserModel')
 
