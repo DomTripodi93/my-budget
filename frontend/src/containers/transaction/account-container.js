@@ -72,6 +72,7 @@ const AccountContainer = (props) => {
                 <AccountList
                     accounts={accounts}
                     single={single}
+                    page={page}
                 />
                 :
                 null

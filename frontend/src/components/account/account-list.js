@@ -18,20 +18,34 @@ const AccountList = (props) => {
                 :
                 <div>
                     <div className="account-grid-outer">
-                        <div className="account-grid-inner centered heading">
-                            <h5 className="grid-header-text">
-                                ID
-                            </h5>
-                            <h5 className="grid-header-text">
-                                Name
-                            </h5>
-                            <h5 className="grid-header-text">
-                                Type
-                            </h5>
-                            <h5 className="grid-header-text">
-                                Balance
-                            </h5>
-                        </div>
+                        {props.page === "Income" ?
+                            <div className="account-grid-income centered heading">
+                                <h5 className="grid-header-text">
+                                    ID
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Name
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Type
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Balance
+                                </h5>
+                            </div>
+                        :
+                            <div className="account-grid-inner centered heading">
+                                <h5 className="grid-header-text">
+                                    ID
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Name
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Type
+                                </h5>
+                            </div>
+                        }
                     </div>
                     <hr />
                     <div className="account-grid-outer">
@@ -40,6 +54,7 @@ const AccountList = (props) => {
                                 <div key={account.id}>
                                     <AccountLine 
                                         account={account}
+                                        page={props.page}
                                     />
                                     <hr />
                                 </div>
