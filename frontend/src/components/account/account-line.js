@@ -21,6 +21,9 @@ const AccountLine = (props) => {
                     <h5 className="grid-text">
                         {account.accountType}
                     </h5>
+                    <h5 className="grid-text">
+                        {account.balance}
+                    </h5>
                 </div>
                 :
                 <div className="centered account-grid-inner gray-back">
@@ -36,6 +39,9 @@ const AccountLine = (props) => {
                     </h5>
                     <h5 className="grid-text">
                         {account.accountType}
+                    </h5>
+                    <h5 className="grid-text">
+                        {account.balance}
                     </h5>
                 </div>
             }

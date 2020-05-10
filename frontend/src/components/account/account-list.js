@@ -28,6 +28,9 @@ const AccountList = (props) => {
                             <h5 className="grid-header-text">
                                 Type
                             </h5>
+                            <h5 className="grid-header-text">
+                                Balance
+                            </h5>
                         </div>
                     </div>
                     <hr />
