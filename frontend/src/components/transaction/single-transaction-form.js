@@ -138,7 +138,7 @@ const TransactionForm = props => {
                     type='number'
                     step='0.01'
                     name='cost'
-                    min="0.01"
+                    min='0.01'
                     value={cost}
                     onChange={handleChange}
                     required
