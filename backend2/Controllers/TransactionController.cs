@@ -38,6 +38,7 @@ namespace backend.Controllers
             var Transaction = _mapper.Map<Transaction>(TransactionForCreation);
 
             Transaction.User = creator;
+            Transaction.Reconciled = true;
 
             _repo.Add(Transaction);
 
@@ -130,6 +131,11 @@ namespace backend.Controllers
             var TransactionFromRepo = await _repo.GetTransaction(Id);
 
             _mapper.Map(TransactionForUpdateDto, TransactionFromRepo);
+
+            if (TransactionFromRepo.AccountFrom != null && TransactionFromRepo.AccountTo != null)
+            {
+                TransactionFromRepo.Reconciled = true;
+            }
 
             if (await _repo.SaveAll())
                 return CreatedAtRoute("GetTransaction", new { Id = TransactionFromRepo.Id, userId = userId }, TransactionFromRepo);
