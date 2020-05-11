@@ -17,6 +17,8 @@ namespace backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Account>()
+                .HasKey(account => new {account.userId, account.Name});
         }
     }
 }
