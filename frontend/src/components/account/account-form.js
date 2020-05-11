@@ -14,14 +14,12 @@ import {
 const AccountForm = props => {
     const [accountInfo, setAccountInfo] = useState({
         name: "",
-        accountType: "",
-        balance: 0.00
+        accountType: ""
     });
 
     const {
         name,
-        accountType,
-        balance
+        accountType
     } = accountInfo;
 
     useEffect(() => {
@@ -96,16 +94,6 @@ const AccountForm = props => {
                     name='accountType'
                     value={accountType}
                     options={accountTypes}
-                    onChange={handleChange}
-                    required
-                />
-                <FormInput
-                    label='Opening Balance'
-                    type='number'
-                    step='0.01'
-                    name='balance'
-                    min='0.00'
-                    value={balance}
                     onChange={handleChange}
                     required
                 />

@@ -38,6 +38,7 @@ namespace backend.Controllers
             var Account = _mapper.Map<Account>(AccountForCreation);
 
             Account.User = creator;
+            Account.Balance = 0;
 
             _repo.Add(Account);
 
