@@ -11,15 +11,12 @@ const AccountLine = (props) => {
                     {account.active ?
                         <div className="centered account-grid-income">
                             <Link
-                                to={"/account/" + account.id}
+                                to={"/account/" + account.name}
                             >
                                 <h5 className="grid-text">
-                                    {account.id}
+                                    {account.name}
                                 </h5>
                             </Link>
-                            <h5 className="grid-text">
-                                {account.name}
-                            </h5>
                             <h5 className="grid-text">
                                 {account.accountType}
                             </h5>
@@ -30,15 +27,12 @@ const AccountLine = (props) => {
                         :
                         <div className="centered account-grid-income gray-back">
                             <Link
-                                to={"/account/" + account.id}
+                                to={"/account/" + account.name}
                             >
                                 <h5 className="grid-text">
-                                    {account.id}
+                                    {account.name}
                                 </h5>
                             </Link>
-                            <h5 className="grid-text">
-                                {account.name}
-                            </h5>
                             <h5 className="grid-text">
                                 {account.accountType}
                             </h5>
@@ -48,20 +42,17 @@ const AccountLine = (props) => {
                         </div>
                     }
                 </div>
-            :
+                :
                 <div>
                     {account.active ?
                         <div className="centered account-grid-inner">
                             <Link
-                                to={"/account/" + account.id}
+                                to={"/account/" + account.name}
                             >
                                 <h5 className="grid-text">
-                                    {account.id}
+                                    {account.name}
                                 </h5>
                             </Link>
-                            <h5 className="grid-text">
-                                {account.name}
-                            </h5>
                             <h5 className="grid-text">
                                 {account.accountType}
                             </h5>
@@ -69,15 +60,12 @@ const AccountLine = (props) => {
                         :
                         <div className="centered account-grid-inner gray-back">
                             <Link
-                                to={"/account/" + account.id}
+                                to={"/account/" + account.name}
                             >
                                 <h5 className="grid-text">
-                                    {account.id}
+                                    {account.name}
                                 </h5>
                             </Link>
-                            <h5 className="grid-text">
-                                {account.name}
-                            </h5>
                             <h5 className="grid-text">
                                 {account.accountType}
                             </h5>
