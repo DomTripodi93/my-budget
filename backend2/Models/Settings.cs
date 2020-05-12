@@ -11,10 +11,8 @@ namespace backend.Models
 
         public bool IsNew { get; set; }
 
-        public bool SkipTutorial { get; set; }
-
         public int TransactionPageSize { get; set; }
 
-        public string AccountPageSize { get; set; }
+        public int AccountPageSize { get; set; }
     }
 }
