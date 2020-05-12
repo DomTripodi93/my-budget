@@ -15,6 +15,8 @@ namespace backend.Data
 
         public DbSet<Account> Accounts { get; set; }
 
+        public DbSet<Settings> Settings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>()

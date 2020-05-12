@@ -13,5 +13,7 @@ namespace backend.Models
         public byte[] PasswordHash { get; set; }
 
         public byte[] PasswordSalt { get; set; }
+
+        public Settings Settings { get; set; }
     }
 }
