@@ -14,7 +14,7 @@ import {
 const AccountForm = props => {
     const [accountInfo, setAccountInfo] = useState({
         name: "",
-        accountType: ""
+        accountType: "Income"
     });
 
     const {
@@ -90,7 +90,7 @@ const AccountForm = props => {
                     required
                 />
                 <FormSelect
-                    label='Account Paid By'
+                    label='Account Type'
                     name='accountType'
                     value={accountType}
                     options={accountTypes}
