@@ -21,9 +21,6 @@ const AccountList = (props) => {
                         {props.page === "Income" ?
                             <div className="account-grid-income centered heading">
                                 <h5 className="grid-header-text">
-                                    ID
-                                </h5>
-                                <h5 className="grid-header-text">
                                     Name
                                 </h5>
                                 <h5 className="grid-header-text">
@@ -36,13 +33,13 @@ const AccountList = (props) => {
                         :
                             <div className="account-grid-inner centered heading">
                                 <h5 className="grid-header-text">
-                                    ID
-                                </h5>
-                                <h5 className="grid-header-text">
                                     Name
                                 </h5>
                                 <h5 className="grid-header-text">
                                     Type
+                                </h5>
+                                <h5 className="grid-header-text">
+                                    Balance
                                 </h5>
                             </div>
                         }
