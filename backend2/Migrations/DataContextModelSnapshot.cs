@@ -18,9 +18,11 @@ namespace backend2.Migrations
 
             modelBuilder.Entity("backend.Models.Account", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("userId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AccountType")
                         .HasColumnType("TEXT");
@@ -28,15 +30,13 @@ namespace backend2.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                    b.Property<float>("Balance")
+                        .HasColumnType("REAL");
 
-                    b.Property<int>("userId")
+                    b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("userId");
+                    b.HasKey("userId", "Name");
 
                     b.ToTable("Accounts");
                 });
@@ -73,6 +73,25 @@ namespace backend2.Migrations
                     b.HasIndex("userId");
 
                     b.ToTable("RecurringTransactions");
+                });
+
+            modelBuilder.Entity("backend.Models.Settings", b =>
+                {
+                    b.Property<int>("userId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AccountPageSize")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TransactionPageSize")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("userId");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("backend.Models.Transaction", b =>
@@ -143,6 +162,15 @@ namespace backend2.Migrations
                     b.HasOne("backend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("backend.Models.Settings", b =>
+                {
+                    b.HasOne("backend.Models.User", "User")
+                        .WithOne("Settings")
+                        .HasForeignKey("backend.Models.Settings", "userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

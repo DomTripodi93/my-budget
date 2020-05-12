@@ -21,6 +21,8 @@ namespace backend.Data
         {
             modelBuilder.Entity<Account>()
                 .HasKey(account => new {account.userId, account.Name});
+            modelBuilder.Entity<Settings>()
+                .HasKey(s => s.userId);
         }
     }
 }

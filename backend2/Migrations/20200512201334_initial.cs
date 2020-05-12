@@ -27,16 +27,16 @@ namespace backend2.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
                     userId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     AccountType = table.Column<string>(nullable: true),
-                    Active = table.Column<bool>(nullable: false)
+                    Active = table.Column<bool>(nullable: false),
+                    Balance = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    table.PrimaryKey("PK_Accounts", x => new { x.userId, x.Name });
                     table.ForeignKey(
                         name: "FK_Accounts_Users_userId",
                         column: x => x.userId,
@@ -71,6 +71,26 @@ namespace backend2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    userId = table.Column<int>(nullable: false),
+                    IsNew = table.Column<bool>(nullable: false),
+                    TransactionPageSize = table.Column<int>(nullable: false),
+                    AccountPageSize = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.userId);
+                    table.ForeignKey(
+                        name: "FK_Settings_Users_userId",
+                        column: x => x.userId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -95,11 +115,6 @@ namespace backend2.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_userId",
-                table: "Accounts",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RecurringTransactions_userId",
                 table: "RecurringTransactions",
                 column: "userId");
@@ -117,6 +132,9 @@ namespace backend2.Migrations
 
             migrationBuilder.DropTable(
                 name: "RecurringTransactions");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "Transactions");
