@@ -17,6 +17,7 @@ namespace backend.Helpers
             CreateMap<AccountForCreationDto, Account>().ReverseMap();
             CreateMap<AccountForUpdateDto, Account>().ReverseMap();
             CreateMap<Account, AccountForReturnDto>();
+            CreateMap<SettingsForCreationDto, Settings>().ReverseMap();
         }
     }
 }
