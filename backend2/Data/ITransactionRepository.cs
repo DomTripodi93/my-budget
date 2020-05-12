@@ -9,7 +9,6 @@ namespace backend.Data
         void Add<T>(T entity) where T: class;
         void Delete<T>(T entity) where T: class;
         Task<bool> SaveAll();
-        Task<Account> GetAccount(int id);
         Task<Account> GetAccountByName(int userId, string name);
         Task<IEnumerable<Account>> GetAccountsByUser(int userId);
         Task<IEnumerable<Account>> GetAccountsByType(int userId, string type);

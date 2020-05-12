@@ -45,20 +45,20 @@ namespace backend.Controllers
             if (await _repo.SaveAll())
             {
                 var jobToReturn = _mapper.Map<AccountForReturnDto>(Account);
-                return CreatedAtRoute("GetAccount", new { Id = Account.Id, userId = userId }, jobToReturn);
+                return CreatedAtRoute("GetAccount", new { Name = Account.Name, userId = userId }, jobToReturn);
             }
 
             throw new Exception("Creation of Account item failed on save");
 
         }
 
-        [HttpGet("{Id}", Name = "GetAccount")]
-        public async Task<IActionResult> GetAccount(int userId, int Id)
+        [HttpGet("{Name}", Name = "GetAccount")]
+        public async Task<IActionResult> GetAccount(int userId, string Name)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var AccountFromRepo = await _repo.GetAccount(Id);
+            var AccountFromRepo = await _repo.GetAccountByName(userId, Name);
 
             AccountForReturnDto AccountForReturn = _mapper.Map<AccountForReturnDto>(AccountFromRepo);
 
@@ -94,36 +94,36 @@ namespace backend.Controllers
 
         }
 
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> UpdateAccount(int userId, int Id, AccountForCreationDto AccountForUpdateDto)
+        [HttpPut("{Name}")]
+        public async Task<IActionResult> UpdateAccount(int userId, string Name, AccountForCreationDto AccountForUpdateDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var AccountFromRepo = await _repo.GetAccount(Id);
+            var AccountFromRepo = await _repo.GetAccountByName(userId, Name);
 
             _mapper.Map(AccountForUpdateDto, AccountFromRepo);
 
             if (await _repo.SaveAll())
-                return CreatedAtRoute("GetAccount", new { Id = AccountFromRepo.Id, userId = userId }, AccountFromRepo);
+                return CreatedAtRoute("GetAccount", new { Name = AccountFromRepo.Name, userId = userId }, AccountFromRepo);
 
-            throw new Exception($"Updating Account item {Id} failed on save");
+            throw new Exception($"Updating Account item {Name} failed on save");
         }
 
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteAccount(int userId, int Id)
+        [HttpDelete("{Name}")]
+        public async Task<IActionResult> DeleteAccount(int userId, string Name)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var AccountFromRepo = await _repo.GetAccount(Id);
+            var AccountFromRepo = await _repo.GetAccountByName(userId, Name);
 
             _repo.Delete(AccountFromRepo);
 
             if (await _repo.SaveAll())
-                return Ok("Account item " + AccountFromRepo.Id + " was deleted!");
+                return Ok("Account item " + AccountFromRepo.Name + " was deleted!");
 
-            throw new Exception($"Deleting Account {Id} failed on save");
+            throw new Exception($"Deleting Account {Name} failed on save");
         }
     }
 }

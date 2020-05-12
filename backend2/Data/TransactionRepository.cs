@@ -32,15 +32,6 @@ namespace backend.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Account> GetAccount(int id)
-        {
-            var account = await _context.Accounts
-                .Where(acct => acct.Id == id)
-                .FirstOrDefaultAsync();
-            
-            return account;
-        }
-
         public async Task<Account> GetAccountByName(int userId, string name)
         {
             var account = await _context.Accounts
