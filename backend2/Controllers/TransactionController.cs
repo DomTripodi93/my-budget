@@ -42,6 +42,11 @@ namespace backend.Controllers
 
             _repo.Add(Transaction);
 
+            var AccountFromForUpdate = await _repo.GetAccountByName(userId, Transaction.AccountFrom);
+            AccountFromForUpdate.Balance -= Transaction.Cost;
+            var AccountToForUpdate = await _repo.GetAccountByName(userId, Transaction.AccountTo);
+            AccountToForUpdate.Balance += Transaction.Cost;
+
             if (await _repo.SaveAll())
             {
                 var jobToReturn = _mapper.Map<TransactionForReturnDto>(Transaction);
@@ -123,7 +128,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("{Id}")]
-        public async Task<IActionResult> UpdateTransaction(int userId, int Id, TransactionForCreationDto TransactionForUpdateDto)
+        public async Task<IActionResult> UpdateTransaction(int userId, int Id, TransactionForUpdateDto TransactionForUpdateDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -137,15 +142,22 @@ namespace backend.Controllers
                     var AccountFromRepoForUpdate = await _repo.GetAccountByName(userId, TransactionFromRepo.AccountFrom);
                     AccountFromRepoForUpdate.Balance += TransactionFromRepo.Cost;
                     var AccountFromDtoForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountFrom);
-                    AccountFromDtoForUpdate.Balance -= TransactionForUpdateDto.Cost;
+                    AccountFromDtoForUpdate.Balance -= TransactionFromRepo.Cost;
                 }
                 if (TransactionFromRepo.AccountTo != TransactionForUpdateDto.AccountTo)
                 {
                     var AccountToRepoForUpdate = await _repo.GetAccountByName(userId, TransactionFromRepo.AccountTo);
                     AccountToRepoForUpdate.Balance -= TransactionFromRepo.Cost;
                     var AccountToDtoForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountTo);
-                    AccountToDtoForUpdate.Balance += TransactionForUpdateDto.Cost;
+                    AccountToDtoForUpdate.Balance += TransactionFromRepo.Cost;
                 }
+            }
+            else
+            {
+                var AccountFromForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountFrom);
+                AccountFromForUpdate.Balance -= TransactionFromRepo.Cost;
+                var AccountToForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountTo);
+                AccountToForUpdate.Balance += TransactionFromRepo.Cost;
             }
 
             _mapper.Map(TransactionForUpdateDto, TransactionFromRepo);
