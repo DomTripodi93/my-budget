@@ -23,16 +23,16 @@ const AccountContainer = (props) => {
                 fetchAll();
             } else if (!accountTypes.includes(page)) {
                 if (called["All"]) {
-                    fetchSingleFromCache(+page)
+                    fetchSingleFromCache(page)
                 } else {
                     fetchSingle(page);
                 }
             } else {
                 fetchByType(page);
             }
-        } else if (!accountTypes.includes(page) && selectedAccount.name !== +page) {
+        } else if (!accountTypes.includes(page) && selectedAccount.name !== page) {
             if (called["All"]) {
-                fetchSingleFromCache(+page)
+                fetchSingleFromCache(page)
             } else {
                 fetchSingle(page);
             }
