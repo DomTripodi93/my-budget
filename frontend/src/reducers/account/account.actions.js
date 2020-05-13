@@ -19,9 +19,9 @@ export function addAccount(account, callback) {
 }
 //Posts new account to API
 
-export function fetchSingleAccount(id) {
+export function fetchSingleAccount(name) {
     return dispatch => {
-        http.fetchById("account", id)
+        http.fetchByValue("account", name)
             .then((account) => {
                 dispatch(setSingleAccount(account.data));
             });
@@ -29,12 +29,12 @@ export function fetchSingleAccount(id) {
 }
 //Gets specific account by name
 
-export function fetchSingleAccountFromCache(id) {
+export function fetchSingleAccountFromCache(name) {
     return dispatch => {
         dispatch(setSingleAccount(
             store.getState().account.allAccounts
                 .filter((value) => {
-                    return value.id === id;
+                    return value.name === name;
                 })[0]
         ));
     }
@@ -93,7 +93,7 @@ export function fetchAllAccounts() {
 export function updateAccountFromList(account, callback) {
     account = prepAccountValues(account);
     return dispatch => {
-        http.updateItem("account", account, account.id)
+        http.updateItem("account", account, account.name)
             .then(() => {
                 dispatch(updateAccountInState(account, account.accountType));
                 callback();
@@ -105,7 +105,7 @@ export function updateAccountFromList(account, callback) {
 export function updateSingleAccount(account, callback) {
     account = prepAccountValues(account);
     return dispatch => {
-        http.updateItem("account", account, account.id)
+        http.updateItem("account", account, account.name)
             .then(() => {
                 if (Object.keys(store.getState().account.accounts).length > 0) {
                     dispatch(updateAccountInState(account, account.accountType));
@@ -117,11 +117,11 @@ export function updateSingleAccount(account, callback) {
 }
 //Updates objective in database
 
-export function deleteAccount(id, accountType) {
+export function deleteAccount(name, accountType) {
     return dispatch => {
-        http.deleteItem("account", id)
+        http.deleteItem("account", name)
             .then(() => {
-                dispatch(deleteAccountFromState(id, accountType));
+                dispatch(deleteAccountFromState(name, accountType));
             });
     }
 }
@@ -170,10 +170,10 @@ function updateAccountInState(account, accountType) {
 }
 //Updates function for account
 
-function deleteAccountFromState(id, accountType) {
+function deleteAccountFromState(name, accountType) {
     return {
         type: AccountActionTypes.DELETE_ACCOUNT,
-        payload: id,
+        payload: name,
         accountType
     }
 }

@@ -15,18 +15,13 @@ const AccountContainer = (props) => {
     const fetchSingleFromCache = props.fetchSingleAccountFromCache;
     const selectedAccount = props.selectedAccount;
     const [single, setSingle] = useState(false);
-    const accountTypes = [
-        "Income",
-        "Expense",
-        "Asset",
-        "Liability"
-    ]
+    const accountTypes = props.accountTypes;
 
     useEffect(() => {
         if (!called[page]) {
             if (page === "All") {
                 fetchAll();
-            } else if (!accountTypes.contains(page)) {
+            } else if (!accountTypes.includes(page)) {
                 if (called["All"]) {
                     fetchSingleFromCache(+page)
                 } else {
@@ -35,7 +30,7 @@ const AccountContainer = (props) => {
             } else {
                 fetchByType(page);
             }
-        } else if (!accountTypes.contains(page) && selectedAccount.name !== +page) {
+        } else if (!accountTypes.includes(page) && selectedAccount.name !== +page) {
             if (called["All"]) {
                 fetchSingleFromCache(+page)
             } else {
@@ -60,7 +55,7 @@ const AccountContainer = (props) => {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
                 setSingle(false);
-            } else if (!accountTypes.contains(page)) {
+            } else if (!accountTypes.includes(page)) {
                 setAccounts([props.selectedAccount]);
                 setSingle(true);
             } else {
@@ -101,8 +96,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchAllAccounts: () => dispatch(fetchAllAccounts()),
         fetchAccountsByType: (accountType) => dispatch(fetchAccountsByType(accountType)),
-        fetchSingleAccount: (id) => dispatch(fetchSingleAccount(id)),
-        fetchSingleAccountFromCache: (id) => dispatch(fetchSingleAccountFromCache(id))
+        fetchSingleAccount: (name) => dispatch(fetchSingleAccount(name)),
+        fetchSingleAccountFromCache: (name) => dispatch(fetchSingleAccountFromCache(name))
     }
 }
 
@@ -110,7 +105,8 @@ const mapStateToProps = state => ({
     accountsByType: state.account.accounts,
     allAccounts: state.account.allAccounts,
     selectedAccount: state.account.selectedAccount,
-    accountCalled: state.account.called
+    accountCalled: state.account.called,
+    accountTypes: ["Income", "Expense", "Asset", "Liability", "All"]
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountContainer)

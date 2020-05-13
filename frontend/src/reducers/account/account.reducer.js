@@ -22,7 +22,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
     let calledHold = { ...state.called };
     switch (action.type) {
         case AccountActionTypes.SET_SINGLE_ACCOUNT:
-            calledHold[action.payload.id] = true;
+            calledHold[action.payload.name] = true;
             return {
                 ...state,
                 selectedAccount: action.payload,
@@ -70,7 +70,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 action.payload,
                 ...accountsHold[action.accountType]
                     .filter((value) => {
-                        return value.id !== action.payload.id;
+                        return value.name !== action.payload.name;
                     })
             ]);
             return {
@@ -81,7 +81,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             accountsHold[action.accountType] = [
                 ...accountsHold[action.accountType]
                     .filter((value) => {
-                        return value.id !== action.payload;
+                        return value.name !== action.payload;
                     })
             ]
             return {
