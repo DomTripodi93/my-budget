@@ -10,7 +10,7 @@ const AccountList = (props) => {
             {props.single ?
                 <div>
                     {props.accounts.map(account => (
-                        <div key={account.id}>
+                        <div key={account.name}>
                             {account.name}
                         </div>
                     ))}
@@ -48,7 +48,7 @@ const AccountList = (props) => {
                     <div className="account-grid-outer">
                         <div>
                             {props.accounts.map(account => (
-                                <div key={account.id}>
+                                <div key={account.name}>
                                     <AccountLine 
                                         account={account}
                                         page={props.page}
@@ -59,16 +59,16 @@ const AccountList = (props) => {
                         </div>
                         <div>
                             {props.accounts.map(account => (
-                                <div key={account.id}>
+                                <div key={account.name}>
                                     <div className="account-grid-right">
                                         {account.active ?
-                                            <div className="account-grid-right" key={account.id}>
+                                            <div className="account-grid-right" key={account.name}>
                                                 <h5 className="grid-text centered">
                                                     buttons
                                                 </h5>
                                             </div>
                                             :
-                                            <div className="account-grid-right gray-back" key={account.id}>
+                                            <div className="account-grid-right gray-back" key={account.name}>
                                                 <h5 className="grid-text centered">
                                                     buttons
                                                 </h5>

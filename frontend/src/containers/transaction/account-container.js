@@ -15,13 +15,19 @@ const AccountContainer = (props) => {
     const fetchSingleFromCache = props.fetchSingleAccountFromCache;
     const selectedAccount = props.selectedAccount;
     const [single, setSingle] = useState(false);
+    const accountTypes = [
+        "Income",
+        "Expense",
+        "Asset",
+        "Liability"
+    ]
 
     useEffect(() => {
-        if (!called[page]){
+        if (!called[page]) {
             if (page === "All") {
                 fetchAll();
-            } else if (/^\d+$/.test(page)) {
-                if (called["All"]){
+            } else if (!accountTypes.contains(page)) {
+                if (called["All"]) {
                     fetchSingleFromCache(+page)
                 } else {
                     fetchSingle(page);
@@ -29,14 +35,23 @@ const AccountContainer = (props) => {
             } else {
                 fetchByType(page);
             }
-        } else if (/^\d+$/.test(page) && selectedAccount.id !== +page){
-            if (called["All"]){
+        } else if (!accountTypes.contains(page) && selectedAccount.name !== +page) {
+            if (called["All"]) {
                 fetchSingleFromCache(+page)
             } else {
                 fetchSingle(page);
             }
         }
-    }, [fetchAll, fetchByType, fetchSingle, page, called, selectedAccount, fetchSingleFromCache])
+    }, [
+        fetchAll, 
+        fetchByType, 
+        fetchSingle, 
+        page, 
+        called, 
+        selectedAccount, 
+        fetchSingleFromCache, 
+        accountTypes
+    ])
 
     const [accounts, setAccounts] = useState([]);
 
@@ -45,7 +60,7 @@ const AccountContainer = (props) => {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
                 setSingle(false);
-            } else if (/^\d+$/.test(page)) {
+            } else if (!accountTypes.contains(page)) {
                 setAccounts([props.selectedAccount]);
                 setSingle(true);
             } else {
@@ -53,7 +68,7 @@ const AccountContainer = (props) => {
                 setSingle(false);
             }
         }
-    }, [page, props, called])
+    }, [page, props, called, accountTypes])
 
     const [addMode, setAddMode] = useState(false);
 
