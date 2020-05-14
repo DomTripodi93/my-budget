@@ -48,7 +48,7 @@ namespace backend.Controllers
                 return CreatedAtRoute("GetAccount", new { Name = Account.Name, userId = userId }, jobToReturn);
             }
 
-            throw new Exception("Creation of Account item failed on save");
+            throw new Exception("Creation of Account failed on save");
 
         }
 
@@ -107,7 +107,23 @@ namespace backend.Controllers
             if (await _repo.SaveAll())
                 return CreatedAtRoute("GetAccount", new { Name = AccountFromRepo.Name, userId = userId }, AccountFromRepo);
 
-            throw new Exception($"Updating Account item {Name} failed on save");
+            throw new Exception($"Updating Account {Name} failed on save");
+        }
+
+        [HttpPut("expense/{Name}")]
+        public async Task<IActionResult> ExpenseUpdated(int userId, string Name, AccountForExpenseUpdatedDto AccountForExpenseUpdatedDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var AccountFromRepo = await _repo.GetAccountByName(userId, Name);
+
+            _mapper.Map(AccountForExpenseUpdatedDto, AccountFromRepo);
+
+            if (await _repo.SaveAll())
+                return CreatedAtRoute("GetAccount", new { Name = AccountFromRepo.Name, userId = userId }, AccountFromRepo);
+
+            throw new Exception($"Updating Account {Name} failed on save");
         }
 
         [HttpDelete("{Name}")]
