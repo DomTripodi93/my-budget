@@ -9,7 +9,7 @@ using backend.Data;
 namespace backend2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200512201334_initial")]
+    [Migration("20200514193626_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,8 +35,8 @@ namespace backend2.Migrations
                     b.Property<float>("Balance")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Updated")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("userId", "Name");
 

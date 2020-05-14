@@ -33,8 +33,8 @@ namespace backend2.Migrations
                     b.Property<float>("Balance")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Updated")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("userId", "Name");
 

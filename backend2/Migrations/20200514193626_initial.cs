@@ -29,10 +29,10 @@ namespace backend2.Migrations
                 {
                     userId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
-                    Id = table.Column<int>(nullable: false),
                     AccountType = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Balance = table.Column<float>(nullable: false)
+                    Balance = table.Column<float>(nullable: false),
+                    Updated = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
