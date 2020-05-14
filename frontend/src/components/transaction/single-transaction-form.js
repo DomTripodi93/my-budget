@@ -27,7 +27,6 @@ const TransactionForm = props => {
         cost,
         date
     } = transactionInfo;
-    console.log(transactionInfo.date)
 
     useEffect(() => {
         if (props.editMode) {
