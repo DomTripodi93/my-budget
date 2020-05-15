@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.scss';
 import { checkUser } from './reducers/user/user.actions';
 
-import Register from './containers/registration/registration';
-import Signin from './containers/registration/signin';
-import Signout from './containers/registration/signout';
-import Home from './containers/home/home';
-import AccountContainer from './containers/transaction/account-container';
+
 import Header from './shared/header/header';
-import Dashboard from './containers/home/dashboard';
-import TransactionContainer from './containers/transaction/transaction-container';
-import RecurringTransactionContainer from './containers/transaction/recurring-transaction-container';
+
+const Register = lazy(() => import('./containers/registration/registration.component'));
+const Signin = lazy(() => import('./containers/registration/signin.component'));
+const Signout = lazy(() => import('./containers/registration/signout.component'));
+const Home = lazy(() => import('./containers/home/home.component'));
+const AccountContainer = lazy(() => import('./containers/transaction/account-container'));
+const Dashboard = lazy(() => import('./containers/home/dashboard.component'));
+const TransactionContainer = lazy(() => import('./containers/transaction/transaction-container'));
+const RecurringTransactionContainer = lazy(() => import('./containers/transaction/recurring-transaction-container'));
 
 
 
@@ -34,19 +36,23 @@ const App = (props) => {
             <Header />
             <div>
                 {authValue ?
-                    <Switch>
-                        <Route exact path='/' component={Dashboard} />
-                        <Route exact path='/account/:page' component={AccountContainer} />
-                        <Route exact path='/transaction/:page' component={TransactionContainer} />
-                        <Route exact path='/recurringTransaction/:page' component={RecurringTransactionContainer} />
-                        <Route exact path='/signout' component={Signout} />
-                    </Switch>
+                    <Suspense fallback={<div>...Loading</div>}>
+                        <Switch>
+                            <Route exact path='/' component={Dashboard} />
+                            <Route exact path='/account/:page' component={AccountContainer} />
+                            <Route exact path='/transaction/:page' component={TransactionContainer} />
+                            <Route exact path='/recurringTransaction/:page' component={RecurringTransactionContainer} />
+                            <Route exact path='/signout' component={Signout} />
+                        </Switch>
+                    </Suspense>
                     :
-                    <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route exact path='/register' component={Register} />
-                        <Route exact path='/signin' component={Signin} />
-                    </Switch>
+                    <Suspense fallback={<div>...Loading</div>}>
+                        <Switch>
+                            <Route exact path='/' component={Home} />
+                            <Route exact path='/register' component={Register} />
+                            <Route exact path='/signin' component={Signin} />
+                        </Switch>
+                    </Suspense>
                 }
             </div>
         </div>
