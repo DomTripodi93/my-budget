@@ -6,7 +6,7 @@ import store from './store';
 class rootHttp {
     store = store;
     rootUrl = 'http://localhost:5000/api/' + localStorage.getItem('id');
-    headers = { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    headers = { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
     helper = new helpers();
 
     constructor() {

@@ -7,7 +7,7 @@ import { checkUser } from './reducers/user/user.actions';
 
 
 import Header from './shared/header/header';
-
+import Spinner from './shared/elements/spinner/spinner';
 
 
 const Register = lazy(() => import('./containers/registration/registration.component'));
@@ -23,6 +23,7 @@ const App = (props) => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
 
     useEffect(() => {
+        console.log('called')
         let token = localStorage.getItem('accessToken');
         let userId = localStorage.getItem('id');
         if (!props.isAuthenticated) {
@@ -37,7 +38,7 @@ const App = (props) => {
             <div>
                 {
                     authValue ?
-                    <Suspense fallback={<div>...Loading</div>}>
+                    <Suspense fallback={<Spinner />}>
                         <Switch>
                             <Route exact path='/' component={Dashboard} />
                             <Route exact path='/account/:page' component={AccountContainer} />
@@ -47,7 +48,7 @@ const App = (props) => {
                         </Switch>
                     </Suspense>
                     :
-                    <Suspense fallback={<div>...Loading</div>}>
+                    <Suspense fallback={<Spinner />}>
                         <Switch>
                             <Route exact path='/' component={Home} />
                             <Route exact path='/register' component={Register} />
