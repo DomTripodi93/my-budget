@@ -8,16 +8,16 @@ import { checkUser } from './reducers/user/user.actions';
 
 import Header from './shared/header/header';
 
+
+
 const Register = lazy(() => import('./containers/registration/registration.component'));
 const Signin = lazy(() => import('./containers/registration/signin.component'));
 const Signout = lazy(() => import('./containers/registration/signout.component'));
 const Home = lazy(() => import('./containers/home/home.component'));
-const AccountContainer = lazy(() => import('./containers/transaction/account-container'));
+const AccountContainer = lazy(() => import('./containers/transaction/account-container.component'));
 const Dashboard = lazy(() => import('./containers/home/dashboard.component'));
-const TransactionContainer = lazy(() => import('./containers/transaction/transaction-container'));
-const RecurringTransactionContainer = lazy(() => import('./containers/transaction/recurring-transaction-container'));
-
-
+const TransactionContainer = lazy(() => import('./containers/transaction/transaction-container.component'));
+const RecurringTransactionContainer = lazy(() => import('./containers/transaction/recurring-transaction-container.component'));
 
 const App = (props) => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
@@ -35,7 +35,8 @@ const App = (props) => {
         <div id="page">
             <Header />
             <div>
-                {authValue ?
+                {
+                    authValue ?
                     <Suspense fallback={<div>...Loading</div>}>
                         <Switch>
                             <Route exact path='/' component={Dashboard} />
