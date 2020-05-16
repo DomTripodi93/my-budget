@@ -1,10 +1,12 @@
 import React from 'react';
-
+import "./spinner.scss"
 
 const Spinner = () => {
-    return(
+    return (
         <div className="mid-page">
-            ...Loading
+            <h5 className="centered">
+                ...Loading
+            </h5>
         </div>
     )
 }
