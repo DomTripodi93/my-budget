@@ -23,7 +23,6 @@ const App = (props) => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
 
     useEffect(() => {
-        console.log('called')
         let token = localStorage.getItem('accessToken');
         let userId = localStorage.getItem('id');
         if (!props.isAuthenticated) {
