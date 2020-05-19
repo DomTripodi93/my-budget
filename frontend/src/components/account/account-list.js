@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./account.scss"
 import AccountLine from './account-line';
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 
 const AccountList = (props) => {
+    const [detailsShown, setDetailsShown] = useState(0)
+    const showDetails = (id) => {
+        setDetailsShown(id);
+    }
     return (
         <div>
             {props.single ?
@@ -58,19 +63,14 @@ const AccountList = (props) => {
                             {props.accounts.map(account => (
                                 <div key={account.name}>
                                     <div className="account-grid-right">
-                                        {account.active ?
-                                            <div className="account-grid-right" key={account.name}>
-                                                <h5 className="grid-text centered">
-                                                    buttons
-                                                </h5>
-                                            </div>
-                                            :
-                                            <div className="account-grid-right gray-back" key={account.name}>
-                                                <h5 className="grid-text centered">
-                                                    buttons
-                                                </h5>
-                                            </div>
-                                        }
+                                        <div className="account-grid-right" key={account.name}>
+                                            <CustomButton
+                                                buttonStyle="soft-green"
+                                                action={showDetails}
+                                                id={account.id}
+                                                label="Details"
+                                            />
+                                        </div>
                                     </div>
                                     <hr />
                                 </div>
