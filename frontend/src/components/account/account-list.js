@@ -3,6 +3,7 @@ import "./account.scss"
 import AccountLine from './account-line';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import AccountButtonHandle from './account-button-handle';
+import SelectedAccount from './selected-account';
 
 
 
@@ -43,7 +44,9 @@ const AccountList = (props) => {
                                 <div key={account.name}>
                                     {account.name === detailsShown ?
                                         <div>
-                                            {account.name}
+                                            <SelectedAccount 
+                                                account={account}
+                                            />
                                         </div>
                                         :
                                         <div>
