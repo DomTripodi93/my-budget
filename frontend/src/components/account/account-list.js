@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import "./account.scss"
 import AccountLine from './account-line';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import AccountButtonHandle from './account-button-handle';
 
 
 
 const AccountList = (props) => {
     const [detailsShown, setDetailsShown] = useState(0)
-    const showDetails = (id) => {
-        setDetailsShown(id);
+    const showDetails = (name) => {
+        setDetailsShown(name);
     }
     return (
         <div>
@@ -40,19 +41,27 @@ const AccountList = (props) => {
                         <div>
                             {props.accounts.map(account => (
                                 <div key={account.name}>
-                                    {account.active ?
+                                    {account.name === detailsShown ?
                                         <div>
-                                            <AccountLine
-                                                account={account}
-                                                page={props.page}
-                                            />
+                                            {account.name}
                                         </div>
                                         :
-                                        <div className="gray-back">
-                                            <AccountLine
-                                                account={account}
-                                                page={props.page}
-                                            />
+                                        <div>
+                                        {account.active ?
+                                            <div>
+                                                <AccountLine
+                                                    account={account}
+                                                    page={props.page}
+                                                />
+                                            </div>
+                                            :
+                                            <div className="gray-back">
+                                                <AccountLine
+                                                    account={account}
+                                                    page={props.page}
+                                                />
+                                            </div>
+                                        }
                                         </div>
                                     }
                                     <hr />
@@ -64,11 +73,9 @@ const AccountList = (props) => {
                                 <div key={account.name}>
                                     <div className="account-grid-right">
                                         <div className="account-grid-right" key={account.name}>
-                                            <CustomButton
-                                                buttonStyle="soft-green"
+                                            <AccountButtonHandle
                                                 action={showDetails}
-                                                id={account.id}
-                                                label="Details"
+                                                name={account.name}
                                             />
                                         </div>
                                     </div>
