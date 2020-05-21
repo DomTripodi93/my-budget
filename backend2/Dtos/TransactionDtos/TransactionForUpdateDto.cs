@@ -8,6 +8,10 @@ namespace backend.Dtos
 
         public string AccountFrom { get; set; }
 
+        public string Memo { get; set; }
+
+        public string Note { get; set; }
+
         public bool Reconciled { get; set; }
     }
 }

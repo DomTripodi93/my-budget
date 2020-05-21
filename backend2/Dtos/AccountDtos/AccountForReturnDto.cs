@@ -2,8 +2,6 @@ namespace backend.Dtos
 {
     public class AccountForReturnDto
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string AccountType { get; set; }
@@ -11,7 +9,5 @@ namespace backend.Dtos
         public bool Active { get; set; }
         
         public float Balance { get; set; }
-        
-        public string Updated { get; set; }
     }
 }

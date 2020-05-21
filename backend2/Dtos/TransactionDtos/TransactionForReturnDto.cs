@@ -14,6 +14,10 @@ namespace backend.Dtos
 
         public bool Reconciled { get; set; }
 
+        public string Memo { get; set; }
+
+        public string Note { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

@@ -13,7 +13,5 @@ namespace backend.Models
         public bool Active { get; set; }
         
         public float Balance { get; set; }
-        
-        public string Updated { get; set; }
     }
 }
