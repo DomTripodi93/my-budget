@@ -57,6 +57,34 @@ namespace backend.Controllers
 
         }
 
+        [HttpPost("bill")]
+        public async Task<IActionResult> AddBill(int userId, TransactionForCreationDto TransactionForCreation)
+        {
+            var creator = await _userRepo.GetUser(userId);
+
+            if (creator.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var Transaction = _mapper.Map<Transaction>(TransactionForCreation);
+
+            Transaction.User = creator;
+            Transaction.Reconciled = true;
+
+            _repo.Add(Transaction);
+            
+            var AccountToForUpdate = await _repo.GetAccountByName(userId, Transaction.AccountTo);
+            AccountToForUpdate.Balance += Transaction.Cost;
+
+            if (await _repo.SaveAll())
+            {
+                var jobToReturn = _mapper.Map<TransactionForReturnDto>(Transaction);
+                return CreatedAtRoute("GetTransaction", new { Id = Transaction.Id, userId = userId }, jobToReturn);
+            }
+
+            throw new Exception("Creation of Transaction item failed on save");
+
+        }
+
         [HttpGet("{Id}", Name = "GetTransaction")]
         public async Task<IActionResult> GetTransaction(int userId, int Id)
         {
