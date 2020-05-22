@@ -17,9 +17,10 @@ const AccountList = (props) => {
             {props.single ?
                 <div>
                     {props.accounts.map(account => (
-                        <div key={account.name}>
-                            {account.name}
-                        </div>
+                        <SelectedAccount
+                            account={account}
+                            key={account.name}
+                        />
                     ))}
                 </div>
                 :
@@ -38,44 +39,39 @@ const AccountList = (props) => {
                         </div>
                     </div>
                     <hr />
-                    <div className="account-grid-outer">
+                    <div>
                         <div>
                             {props.accounts.map(account => (
                                 <div key={account.name}>
-                                    {account.name === detailsShown ?
+                                    <div className="account-grid-outer">
                                         <div>
-                                            <SelectedAccount 
-                                                account={account}
-                                            />
+                                            {account.name === detailsShown ?
+                                                <div>
+                                                    <SelectedAccount
+                                                        account={account}
+                                                    />
+                                                </div>
+                                                :
+                                                <div>
+                                                    {account.active ?
+                                                        <div>
+                                                            <AccountLine
+                                                                account={account}
+                                                                page={props.page}
+                                                            />
+                                                        </div>
+                                                        :
+                                                        <div className="gray-back">
+                                                            <AccountLine
+                                                                account={account}
+                                                                page={props.page}
+                                                            />
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
                                         </div>
-                                        :
-                                        <div>
-                                        {account.active ?
-                                            <div>
-                                                <AccountLine
-                                                    account={account}
-                                                    page={props.page}
-                                                />
-                                            </div>
-                                            :
-                                            <div className="gray-back">
-                                                <AccountLine
-                                                    account={account}
-                                                    page={props.page}
-                                                />
-                                            </div>
-                                        }
-                                        </div>
-                                    }
-                                    <hr />
-                                </div>
-                            ))}
-                        </div>
-                        <div>
-                            {props.accounts.map(account => (
-                                <div key={account.name}>
-                                    <div className="account-grid-right">
-                                        <div className="account-grid-right" key={account.name}>
+                                        <div className="account-grid-right">
                                             <AccountButtonHandle
                                                 action={showDetails}
                                                 name={account.name}
