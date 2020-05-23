@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const SelectedAccount = (props) => {
     const account = props.account;
     return (
-        <div className="centered account-grid-inner">
+        <div className="centered">
             <Link
                 to={"/account/" + account.name}
             >
