@@ -10,9 +10,8 @@ const AccountButtonHandle = (props) => {
     }
     return (
         <CustomButton
-            buttonStyle="soft-green"
             action={showDetails}
-            label="Details"
+            label="&#x25BD;"
         />
     )
 }
