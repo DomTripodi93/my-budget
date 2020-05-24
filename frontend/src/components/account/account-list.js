@@ -7,12 +7,17 @@ import SelectedAccount from './selected-account';
 
 
 const AccountList = (props) => {
-    const [detailsShown, setDetailsShown] = useState(0)
+    const [detailsShown, setDetailsShown] = useState([])
     const showDetails = (name) => {
-        setDetailsShown(name);
+        setDetailsShown([...detailsShown, name]);
     }
-    const hideDetails = () => {
-        setDetailsShown(0);
+    const hideDetails = (name) => {
+        setDetailsShown([
+            ...detailsShown
+                .filter((value) => {
+                    return value !== name;
+                })
+        ]);
     }
     return (
         <div>
@@ -47,7 +52,7 @@ const AccountList = (props) => {
                                 <div key={account.name}>
                                     <div className="account-grid-outer">
                                         <div>
-                                            {account.name === detailsShown ?
+                                            {detailsShown.includes(account.name) ?
                                                 <div>
                                                     <SelectedAccount
                                                         account={account}
@@ -74,7 +79,7 @@ const AccountList = (props) => {
                                             }
                                         </div>
                                         <div className="account-grid-right">
-                                            {account.name === detailsShown ?
+                                            {detailsShown.includes(account.name) ?
                                                 <AccountButtonHandle
                                                     action={hideDetails}
                                                     name={account.name}

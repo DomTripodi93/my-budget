@@ -5,12 +5,12 @@ import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 const AccountButtonHandle = (props) => {
-    const showDetails = () => {
+    const changeDetails = () => {
         props.action(props.name)
     }
     return (
         <CustomButton
-            action={showDetails}
+            action={changeDetails}
             label={props.label}
         />
     )
