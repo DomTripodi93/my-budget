@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./account.scss"
 import CustomButton from '../../shared/elements/button/custom-button.component';
 
@@ -11,7 +11,7 @@ const AccountButtonHandle = (props) => {
     return (
         <CustomButton
             action={showDetails}
-            label="&#x25BD;"
+            label={props.label}
         />
     )
 }

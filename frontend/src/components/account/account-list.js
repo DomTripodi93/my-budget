@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./account.scss"
 import AccountLine from './account-line';
-import CustomButton from '../../shared/elements/button/custom-button.component';
 import AccountButtonHandle from './account-button-handle';
 import SelectedAccount from './selected-account';
 
@@ -11,6 +10,9 @@ const AccountList = (props) => {
     const [detailsShown, setDetailsShown] = useState(0)
     const showDetails = (name) => {
         setDetailsShown(name);
+    }
+    const hideDetails = () => {
+        setDetailsShown(0);
     }
     return (
         <div>
@@ -72,10 +74,19 @@ const AccountList = (props) => {
                                             }
                                         </div>
                                         <div className="account-grid-right">
-                                            <AccountButtonHandle
-                                                action={showDetails}
-                                                name={account.name}
-                                            />
+                                            {account.name === detailsShown ?
+                                                <AccountButtonHandle
+                                                    action={hideDetails}
+                                                    name={account.name}
+                                                    label="&#x25B3;"
+                                                />
+                                                :
+                                                <AccountButtonHandle
+                                                    action={showDetails}
+                                                    name={account.name}
+                                                    label="&#x25BD;"
+                                                />
+                                            }
                                         </div>
                                     </div>
                                     <hr />
