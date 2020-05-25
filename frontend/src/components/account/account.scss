@@ -47,3 +47,8 @@
         background-color: rgb(209, 209, 209);
     }
 }
+
+.split {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
