@@ -55,16 +55,16 @@ export const CustomizedButton = styled.button`
     }
   }
 
-  @media (max-width: 400px) {
-    font-size: 4vw;
-  }
-
   @media (max-width: 950px) {
     font-size: 1.7vw;
   }
 
   @media (max-width: 770px) {
     font-size: 16px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 3.5vw;
   }
 `;
 

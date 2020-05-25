@@ -78,7 +78,7 @@ const AccountList = (props) => {
                                                 </div>
                                             }
                                         </div>
-                                        <div className="account-grid-right">
+                                        <div className="account-grid-right middle">
                                             {detailsShown.includes(account.name) ?
                                                 <AccountButtonHandle
                                                     action={hideDetails}
