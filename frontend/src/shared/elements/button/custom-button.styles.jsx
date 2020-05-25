@@ -55,6 +55,13 @@ export const CustomizedButton = styled.button`
     }
   }
 
+  &.mini{
+    font-size: 16px;
+    @media (max-width: 700px) {
+      font-size: 3vw;
+    }
+  }
+
   @media (max-width: 950px) {
     font-size: 1.7vw;
   }

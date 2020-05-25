@@ -12,6 +12,7 @@ const AccountButtonHandle = (props) => {
         <CustomButton
             action={changeDetails}
             label={props.label}
+            buttonStyle="mini"
         />
     )
 }
