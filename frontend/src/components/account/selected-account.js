@@ -1,10 +1,20 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import { deleteAccount } from '../../reducers/account/account.actions';
 
 
 
 const SelectedAccount = (props) => {
     const account = props.account;
+
+    const handleDelete = (account) => {
+        if (window.confirm(
+            "Are you sure you want to delete this account: " + account.name + "?"
+        )) {
+            props.deleteAccount(account.name, account.accountType);
+        }
+    }
+
     return (
         <div className="border centered split">
             <div>
@@ -42,10 +52,17 @@ const SelectedAccount = (props) => {
                 <CustomButton
                     label="delete"
                     buttonStyle="red large"
+                    action={() => { handleDelete(account) }}
                 />
             </div>
         </div>
     )
 }
 
-export default SelectedAccount;
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteAccount: (name) => dispatch(deleteAccount(name))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SelectedAccount);
