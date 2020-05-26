@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 
@@ -26,8 +27,22 @@ const SelectedAccount = (props) => {
                     </h5>
                 }
             </div>
-            <div>
-                buttons
+            <div className="grid100">
+            {account.active ?
+                <CustomButton
+                    label="make active"
+                    buttonStyle="blue large"
+                />
+                :
+                <CustomButton
+                    label="make inactive"
+                    buttonStyle="large"
+                />
+            }
+                <CustomButton
+                    label="delete"
+                    buttonStyle="red large"
+                />
             </div>
         </div>
     )
