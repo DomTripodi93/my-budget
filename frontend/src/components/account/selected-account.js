@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
-import { deleteAccount } from '../../reducers/account/account.actions';
+import { deleteAccount, updateSingleAccount, updateAccountFromList } from '../../reducers/account/account.actions';
 import { connect } from 'react-redux';
 
 
@@ -15,6 +15,31 @@ const SelectedAccount = (props) => {
             props.deleteAccount(account.name, account.accountType);
         }
     }
+
+    const updateAccount = (account) => {
+        if (props.single) {
+            props.updateSingle(account, )
+        } else {
+            props.updateFromList(account, )
+        }
+    }
+
+    const handleDeactivate = (account) => {
+        if (window.confirm(
+            "Are you sure you deactivate this account: " + account.name + "?"
+        )) {
+            updateAccount(account);
+        }
+    }
+
+    const handleActivate = (account) => {
+        if (window.confirm(
+            "Are you sure you activate this account: " + account.name + "?"
+        )) {
+            updateAccount(account);
+        }
+    }
+
 
     return (
         <div className="border centered split">
@@ -43,11 +68,13 @@ const SelectedAccount = (props) => {
                 <CustomButton
                     label="make active"
                     buttonStyle="blue large"
+                    action={() => { handleActivate(account) }}
                 />
                 :
                 <CustomButton
                     label="make inactive"
                     buttonStyle="large"
+                    action={() => { handleDeactivate(account) }}
                 />
             }
                 <CustomButton
@@ -62,7 +89,9 @@ const SelectedAccount = (props) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deleteAccount: (name) => dispatch(deleteAccount(name))
+        deleteAccount: (name, accountType) => dispatch(deleteAccount(name, accountType)),
+        updateSingle: (account, callback) => dispatch(updateSingleAccount(account, callback)),
+        updateFromList: (account, callback) => dispatch(updateAccountFromList(account, callback))
     }
 }
 
