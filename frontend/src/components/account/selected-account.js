@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import { deleteAccount } from '../../reducers/account/account.actions';
+import { connect } from 'react-redux';
 
 
 
