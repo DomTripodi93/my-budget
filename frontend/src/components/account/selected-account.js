@@ -66,7 +66,7 @@ const SelectedAccount = (props) => {
                 }
             </div>
             <div className="grid100">
-            {account.active ?
+            {!account.active ?
                 <CustomButton
                     label="make active"
                     buttonStyle="blue large"
