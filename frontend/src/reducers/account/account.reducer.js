@@ -78,15 +78,26 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 accounts: accountsHold
             };
         case AccountActionTypes.DELETE_ACCOUNT:
-            accountsHold[action.accountType] = [
-                ...accountsHold[action.accountType]
-                    .filter((value) => {
-                        return value.name !== action.payload;
-                    })
-            ]
+            if (calledHold[action.accountType]) {
+                accountsHold[action.accountType] = [
+                    ...accountsHold[action.accountType]
+                        .filter((value) => {
+                            return value.name !== action.payload;
+                        })
+                ]
+            }
+            if (calledHold["All"]) {
+                allAccountsHold = [
+                    ...allAccountsHold
+                        .filter((value) => {
+                            return value.name !== action.payload;
+                        })
+                ]
+            }
             return {
                 ...state,
-                accounts: accountsHold
+                accounts: accountsHold,
+                allAccounts: allAccountsHold
             };
         case AccountActionTypes.SIGNOUT_USER:
             return {
