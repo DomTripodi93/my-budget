@@ -17,11 +17,12 @@ const SelectedAccount = (props) => {
     }
 
     const updateAccount = (account) => {
-        account.active = !account.active;
+        let accountHold = {...account};
+        accountHold.active = !accountHold.active;
         if (props.single) {
-            props.updateSingle(account, )
+            props.updateSingle(accountHold);
         } else {
-            props.updateFromList(account, )
+            props.updateFromList(accountHold);
         }
     }
 
@@ -91,8 +92,8 @@ const SelectedAccount = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         deleteAccount: (name, accountType) => dispatch(deleteAccount(name, accountType)),
-        updateSingle: (account, callback) => dispatch(updateSingleAccount(account, callback)),
-        updateFromList: (account, callback) => dispatch(updateAccountFromList(account, callback))
+        updateSingle: (account) => dispatch(updateSingleAccount(account)),
+        updateFromList: (account) => dispatch(updateAccountFromList(account))
     }
 }
 

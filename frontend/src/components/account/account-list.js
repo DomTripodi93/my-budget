@@ -27,6 +27,7 @@ const AccountList = (props) => {
                         <SelectedAccount
                             account={account}
                             key={account.name}
+                            single={true}
                         />
                     ))}
                 </div>

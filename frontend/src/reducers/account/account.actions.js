@@ -90,28 +90,26 @@ export function fetchAllAccounts() {
 }
 //Gets all accounts for a user
 
-export function updateAccountFromList(account, callback) {
+export function updateAccountFromList(account) {
     account = prepAccountValues(account);
     return dispatch => {
         http.updateItem("account", account, account.name)
             .then(() => {
                 dispatch(updateAccountInState(account, account.accountType));
-                callback();
             });
     }
 }
 //Updates account in database
 
-export function updateSingleAccount(account, callback) {
+export function updateSingleAccount(account) {
     account = prepAccountValues(account);
     return dispatch => {
         http.updateItem("account", account, account.name)
             .then(() => {
-                if (Object.keys(store.getState().account.accounts).length > 0) {
+                if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
                     dispatch(updateAccountInState(account, account.accountType));
                 }
                 dispatch(setSingleAccount(account));
-                callback();
             });
     }
 }
