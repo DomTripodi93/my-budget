@@ -17,6 +17,7 @@ const SelectedAccount = (props) => {
     }
 
     const updateAccount = (account) => {
+        account.active = !account.active;
         if (props.single) {
             props.updateSingle(account, )
         } else {
