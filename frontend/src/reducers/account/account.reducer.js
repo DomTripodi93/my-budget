@@ -66,16 +66,28 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 allAccounts: allAccountsHold
             };
         case AccountActionTypes.UPDATE_ACCOUNTS:
-            accountsHold[action.accountType] = sortAccounts([
-                action.payload,
-                ...accountsHold[action.accountType]
-                    .filter((value) => {
-                        return value.name !== action.payload.name;
-                    })
-            ]);
+            if (calledHold[action.accountType]) {
+                accountsHold[action.accountType] = sortAccounts([
+                    action.payload,
+                    ...accountsHold[action.accountType]
+                        .filter((value) => {
+                            return value.name !== action.payload.name;
+                        })
+                ]);
+            }
+            if (calledHold["All"]) {
+                allAccountsHold = sortAccounts([
+                    action.payload,
+                    ...allAccountsHold
+                        .filter((value) => {
+                            return value.name !== action.payload.name;
+                        })
+                ])
+            }
             return {
                 ...state,
-                accounts: accountsHold
+                accounts: accountsHold,
+                allAccounts: allAccountsHold
             };
         case AccountActionTypes.DELETE_ACCOUNT:
             if (calledHold[action.accountType]) {
