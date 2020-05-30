@@ -6,14 +6,14 @@ import SelectedRecurringTransaction from './selected-recurring-transaction';
 
 const RecurringTransactionList = (props) => {
     const [detailsShown, setDetailsShown] = useState({})
-    const showDetails = (name) => {
+    const showDetails = (id) => {
         let detailHold = {...detailsShown};
-        detailHold[name] = true;
+        detailHold[id] = true;
         setDetailsShown(detailHold);
     }
-    const hideDetails = (name) => {
+    const hideDetails = (id) => {
         let detailHold = {...detailsShown};
-        detailHold[name] = false;
+        detailHold[id] = false;
         setDetailsShown(detailHold);
     }
     return (
