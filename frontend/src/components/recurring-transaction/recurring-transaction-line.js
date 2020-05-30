@@ -1,10 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const RecurringTransactionLine = (props) => {
     const recurringTransaction = props.recurringTransaction;
     return (
         <div className="centered recurringTransaction-grid-inner">
+            <Link
+                to={"/recurringTransaction/" + recurringTransaction.id}
+            >
+                <h5 className="grid-text">
+                    {recurringTransaction.id}
+                </h5>
+            </Link>
             <h5 className="grid-text">
                 {recurringTransaction.accountFrom}
             </h5>

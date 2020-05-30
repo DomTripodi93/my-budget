@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RecurringTransactionLine from './recurring-transaction-line';
 
 
 const RecurringTransactionList = (props) => {
@@ -7,19 +8,15 @@ const RecurringTransactionList = (props) => {
         <div>
             {props.single ?
                 <div>
-                    {props.transactions.map(transaction => (
-                        <div key={transaction.id}>
-                            {transaction.id}
-                        </div>
-                    ))}
+                    {props.transactions[0].id}
                 </div>
                 :
                 <div>
                     {props.transactions.map(transaction => (
                         <div key={transaction.id}>
-                            <Link to={"/recurringTransaction/" + transaction.id}>
-                                {transaction.id}
-                            </Link>
+                            <RecurringTransactionLine
+                                recurringTransaction={transaction}
+                            />
                         </div>
                     ))}
                 </div>
