@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import RecurringTransactionLine from './recurring-transaction-line';
 import "./recurring-transaction.scss"
+import SelectedRecurringTransaction from './selected-recurring-transaction';
 
 
 const RecurringTransactionList = (props) => {
@@ -18,9 +18,11 @@ const RecurringTransactionList = (props) => {
     }
     return (
         <div>
-            {props.single ?
+            {props.single && props.transactions.length > 0 ?
                 <div>
-                    {props.transactions[0].id}
+                    <SelectedRecurringTransaction
+                        transaction={props.transactions[0]}
+                    />
                 </div>
                 :
                 <div>
