@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./account.scss"
 import AccountLine from './account-line';
-import AccountButtonHandle from './account-button-handle';
 import SelectedAccount from './selected-account';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 
