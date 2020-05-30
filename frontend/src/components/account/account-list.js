@@ -3,6 +3,7 @@ import "./account.scss"
 import AccountLine from './account-line';
 import AccountButtonHandle from './account-button-handle';
 import SelectedAccount from './selected-account';
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 
@@ -80,16 +81,16 @@ const AccountList = (props) => {
                                         </div>
                                         <div className="account-grid-right center">
                                             {detailsShown[account.name] ?
-                                                <AccountButtonHandle
-                                                    action={hideDetails}
-                                                    name={account.name}
+                                                <CustomButton
+                                                    action={()=> hideDetails(account.name)}
                                                     label="&#x25B3;"
+                                                    buttonStyle="mini"
                                                 />
                                                 :
-                                                <AccountButtonHandle
-                                                    action={showDetails}
-                                                    name={account.name}
+                                                <CustomButton
+                                                    action={()=> showDetails(account.name)}
                                                     label="&#x25BD;"
+                                                    buttonStyle="mini"
                                                 />
                                             }
                                         </div>
