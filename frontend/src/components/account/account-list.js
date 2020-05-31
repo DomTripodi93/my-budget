@@ -8,16 +8,13 @@ import CustomButton from '../../shared/elements/button/custom-button.component';
 
 const AccountList = (props) => {
     const [detailsShown, setDetailsShown] = useState({})
-    const showDetails = (name) => {
+    
+    const detailsVisible = (name) => {
         let detailHold = {...detailsShown};
-        detailHold[name] = true;
+        detailHold[name] = !detailHold[name];
         setDetailsShown(detailHold);
     }
-    const hideDetails = (name) => {
-        let detailHold = {...detailsShown};
-        detailHold[name] = false;
-        setDetailsShown(detailHold);
-    }
+
     return (
         <div>
             {props.single ?
@@ -81,13 +78,13 @@ const AccountList = (props) => {
                                         <div className="account-grid-right center">
                                             {detailsShown[account.name] ?
                                                 <CustomButton
-                                                    action={()=> hideDetails(account.name)}
+                                                    action={()=> detailsVisible(account.name)}
                                                     label="&#x25B3;"
                                                     buttonStyle="mini"
                                                 />
                                                 :
                                                 <CustomButton
-                                                    action={()=> showDetails(account.name)}
+                                                    action={()=> detailsVisible(account.name)}
                                                     label="&#x25BD;"
                                                     buttonStyle="mini"
                                                 />
