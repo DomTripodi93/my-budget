@@ -2,20 +2,24 @@ import React, {useState} from 'react';
 import RecurringTransactionLine from './recurring-transaction-line';
 import "./recurring-transaction.scss"
 import SelectedRecurringTransaction from './selected-recurring-transaction';
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 const RecurringTransactionList = (props) => {
     const [detailsShown, setDetailsShown] = useState({})
+
     const showDetails = (id) => {
         let detailHold = {...detailsShown};
         detailHold[id] = true;
         setDetailsShown(detailHold);
     }
+    
     const hideDetails = (id) => {
         let detailHold = {...detailsShown};
         detailHold[id] = false;
         setDetailsShown(detailHold);
     }
+    
     return (
         <div>
             {props.single && props.transactions.length > 0 ?
@@ -72,9 +76,17 @@ const RecurringTransactionList = (props) => {
                                         </div>
                                         <div className="recurring-transaction-grid-right center">
                                             {detailsShown[recurringTransaction.id] ?
-                                                null
+                                                <CustomButton
+                                                    action={()=> hideDetails(recurringTransaction.id)}
+                                                    label="&#x25B3;"
+                                                    buttonStyle="mini"
+                                                />
                                                 :
-                                                null
+                                                <CustomButton
+                                                    action={()=> showDetails(recurringTransaction.id)}
+                                                    label="&#x25BD;"
+                                                    buttonStyle="mini"
+                                                />
                                             }
                                         </div>
                                     </div>
