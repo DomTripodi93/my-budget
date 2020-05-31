@@ -7,16 +7,10 @@ import CustomButton from '../../shared/elements/button/custom-button.component';
 
 const RecurringTransactionList = (props) => {
     const [detailsShown, setDetailsShown] = useState({})
-
-    const showDetails = (id) => {
-        let detailHold = {...detailsShown};
-        detailHold[id] = true;
-        setDetailsShown(detailHold);
-    }
     
-    const hideDetails = (id) => {
+    const detailsVisible = (id) => {
         let detailHold = {...detailsShown};
-        detailHold[id] = false;
+        detailHold[id] = !detailHold[id];
         setDetailsShown(detailHold);
     }
     
@@ -79,13 +73,13 @@ const RecurringTransactionList = (props) => {
                                         <div className="recurring-transaction-grid-right center">
                                             {detailsShown[recurringTransaction.id] ?
                                                 <CustomButton
-                                                    action={()=> hideDetails(recurringTransaction.id)}
+                                                    action={()=> detailsVisible(recurringTransaction.id)}
                                                     label="&#x25B3;"
                                                     buttonStyle="mini"
                                                 />
                                                 :
                                                 <CustomButton
-                                                    action={()=> showDetails(recurringTransaction.id)}
+                                                    action={()=> detailsVisible(recurringTransaction.id)}
                                                     label="&#x25BD;"
                                                     buttonStyle="mini"
                                                 />
