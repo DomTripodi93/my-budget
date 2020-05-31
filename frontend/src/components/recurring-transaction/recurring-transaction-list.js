@@ -64,7 +64,9 @@ const RecurringTransactionList = (props) => {
                                         <div>
                                             {detailsShown[recurringTransaction.id] ?
                                                 <div>
-                                                    {recurringTransaction.id}
+                                                    <SelectedRecurringTransaction
+                                                        transaction={recurringTransaction}
+                                                    />
                                                 </div>
                                                 :
                                                 <div>
