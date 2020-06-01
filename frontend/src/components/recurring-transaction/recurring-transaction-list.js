@@ -13,6 +13,14 @@ const RecurringTransactionList = (props) => {
         detailHold[id] = !detailHold[id];
         setDetailsShown(detailHold);
     }
+
+    const [editMode, setEditMode] = useState({})
+    
+    const editUpdate = (id) => {
+        let editHold = {...editMode};
+        editHold[id] = !editHold[id];
+        setEditMode(editHold);
+    }
     
     return (
         <div>
@@ -20,6 +28,7 @@ const RecurringTransactionList = (props) => {
                 <div>
                     <SelectedRecurringTransaction
                         transaction={props.transactions[0]}
+                        callback={editUpdate}
                     />
                 </div>
                 :
@@ -60,6 +69,7 @@ const RecurringTransactionList = (props) => {
                                                 <div>
                                                     <SelectedRecurringTransaction
                                                         transaction={recurringTransaction}
+                                                        callback={editUpdate}
                                                     />
                                                 </div>
                                                 :

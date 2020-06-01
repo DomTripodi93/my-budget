@@ -46,7 +46,7 @@ const SelectedRecurringTransaction = (props) => {
                 <CustomButton
                     label="Update"
                     buttonStyle="blue large"
-                    action={() => { }}
+                    action={() => { props.callback(transaction.id) }}
                 />
                 <CustomButton
                     label="Delete"
