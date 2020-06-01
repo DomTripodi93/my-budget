@@ -3,6 +3,8 @@ import RecurringTransactionLine from './recurring-transaction-line';
 import "./recurring-transaction.scss"
 import SelectedRecurringTransaction from './selected-recurring-transaction';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import RecurringTransactionForm from './recurring-transaction-form';
+
 
 
 const RecurringTransactionList = (props) => {
@@ -67,10 +69,19 @@ const RecurringTransactionList = (props) => {
                                         <div>
                                             {detailsShown[recurringTransaction.id] ?
                                                 <div>
-                                                    <SelectedRecurringTransaction
-                                                        transaction={recurringTransaction}
-                                                        callback={editUpdate}
-                                                    />
+                                                    {editMode[recurringTransaction.id] ?
+                                                        <RecurringTransactionForm
+                                                            editMode={true}
+                                                            transactionInput={recurringTransaction}
+                                                            callback={()=>{editUpdate(recurringTransaction.id)}}
+                                                            accounts={props.accounts}
+                                                        />
+                                                        :
+                                                        <SelectedRecurringTransaction
+                                                            transaction={recurringTransaction}
+                                                            callback={editUpdate}
+                                                        />
+                                                    }
                                                 </div>
                                                 :
                                                 <div>
