@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 
@@ -42,7 +43,16 @@ const SelectedRecurringTransaction = (props) => {
                 </h5>
             </div>
             <div className="grid100">
-                buttons
+                <CustomButton
+                    label="Update"
+                    buttonStyle="blue large"
+                    action={() => { }}
+                />
+                <CustomButton
+                    label="Delete"
+                    buttonStyle="red large"
+                    action={() => { }}
+                />
             </div>
         </div>
     )

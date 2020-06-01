@@ -66,19 +66,19 @@ const SelectedAccount = (props) => {
                 }
             </div>
             <div className="grid100">
-            {!account.active ?
-                <CustomButton
-                    label="make active"
-                    buttonStyle="blue large"
-                    action={() => { handleActivate(account) }}
-                />
-                :
-                <CustomButton
-                    label="make inactive"
-                    buttonStyle="large"
-                    action={() => { handleDeactivate(account) }}
-                />
-            }
+                {!account.active ?
+                    <CustomButton
+                        label="make active"
+                        buttonStyle="blue large"
+                        action={() => { handleActivate(account) }}
+                    />
+                    :
+                    <CustomButton
+                        label="make inactive"
+                        buttonStyle="large"
+                        action={() => { handleDeactivate(account) }}
+                    />
+                }
                 <CustomButton
                     label="delete"
                     buttonStyle="red large"
