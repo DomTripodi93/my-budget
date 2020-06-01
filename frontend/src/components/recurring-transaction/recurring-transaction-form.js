@@ -117,9 +117,9 @@ const RecurringTransactionForm = props => {
                     Fill out the form below to add a Recurring Transaction
                 </h3>
                 :
-                <h3 className='centered'>
+                <h4 className='centered'>
                     Fill out the form below to update your Recurring Transaction
-                </h3>
+                </h4>
             }
             <form onSubmit={handleSubmit}>
                 <FormSelect

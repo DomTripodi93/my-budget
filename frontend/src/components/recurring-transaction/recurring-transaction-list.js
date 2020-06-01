@@ -70,12 +70,14 @@ const RecurringTransactionList = (props) => {
                                             {detailsShown[recurringTransaction.id] ?
                                                 <div>
                                                     {editMode[recurringTransaction.id] ?
-                                                        <RecurringTransactionForm
-                                                            editMode={true}
-                                                            transactionInput={recurringTransaction}
-                                                            callback={()=>{editUpdate(recurringTransaction.id)}}
-                                                            accounts={props.accounts}
-                                                        />
+                                                        <div className="border">
+                                                            <RecurringTransactionForm
+                                                                editMode={true}
+                                                                transactionInput={recurringTransaction}
+                                                                callback={()=>{editUpdate(recurringTransaction.id)}}
+                                                                accounts={props.accounts}
+                                                            />
+                                                        </div>
                                                         :
                                                         <SelectedRecurringTransaction
                                                             transaction={recurringTransaction}
