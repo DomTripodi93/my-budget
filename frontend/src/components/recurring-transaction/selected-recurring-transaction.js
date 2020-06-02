@@ -1,5 +1,7 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import { deleteRecurringTransaction } from '../../reducers/recurring-transaction/recurring-transaction.actions';
+import { connect } from 'react-redux';
 
 
 
@@ -58,5 +60,11 @@ const SelectedRecurringTransaction = (props) => {
     )
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteRecurringTransaction: (id) => dispatch(deleteRecurringTransaction(id))
+    }
+}
 
-export default SelectedRecurringTransaction;
+
+export default connect(null, mapDispatchToProps)(SelectedRecurringTransaction);
