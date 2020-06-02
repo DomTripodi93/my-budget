@@ -7,6 +7,15 @@ import { connect } from 'react-redux';
 
 const SelectedRecurringTransaction = (props) => {
     const transaction = props.transaction;
+
+    const handleDelete = (id) => {
+        if (window.confirm(
+            "Are you sure you want to delete this recurring transaction?"
+        )) {
+            props.deleteRecurringTransaction(id);
+        }
+    }
+
     return (
         <div className="border centered split">
             <div>
@@ -53,7 +62,7 @@ const SelectedRecurringTransaction = (props) => {
                 <CustomButton
                     label="Delete"
                     buttonStyle="red large"
-                    action={() => { }}
+                    action={() => { handleDelete(transaction.id) }}
                 />
             </div>
         </div>
