@@ -74,7 +74,7 @@ export function updateSingleRecurringTransaction(recurringTransaction, callback)
 
 export function deleteRecurringTransaction(id) {
     return dispatch => {
-        http.deleteItem("recurringTransaction", id)
+        http.deleteItemById("recurringTransaction", id)
             .then(() => {
                 dispatch(deleteRecurringTransactionFromState(id));
             });
