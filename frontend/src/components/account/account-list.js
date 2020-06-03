@@ -19,13 +19,11 @@ const AccountList = (props) => {
         <div>
             {props.single ?
                 <div>
-                    {props.accounts.map(account => (
-                        <SelectedAccount
-                            account={account}
-                            key={account.name}
-                            single={true}
-                        />
-                    ))}
+                    <br/>
+                    <SelectedAccount
+                        account={props.accounts[0]}
+                        single={true}
+                    />
                 </div>
                 :
                 <div>
