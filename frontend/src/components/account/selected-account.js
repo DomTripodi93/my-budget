@@ -45,7 +45,7 @@ const SelectedAccount = (props) => {
 
     return (
         <div className="border centered split">
-            <div>
+            <div className="grid50">
                 <h5 className="grid-text">
                     Account: {account.name}
                 </h5>
@@ -53,7 +53,7 @@ const SelectedAccount = (props) => {
                     Type: {account.accountType}
                 </h5>
                 <h5 className="grid-text">
-                    Balance: {account.balance}
+                    Balance: ${account.balance.toFixed(2)}
                 </h5>
                 {account.active ?
                     <h5 className="grid-text">
