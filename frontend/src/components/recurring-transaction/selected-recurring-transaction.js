@@ -18,7 +18,7 @@ const SelectedRecurringTransaction = (props) => {
 
     return (
         <div className="border centered split">
-            <div>
+            <div className="grid50">
                 <h5>
                     Id: {transaction.id}
                 </h5>
