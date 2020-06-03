@@ -8,7 +8,16 @@ import { fetchAllAccounts } from '../../reducers/account/account.actions';
 
 
 const TransactionContainer = (props) => {
-    const page = props.match.params.page;
+    const [page, setPage] = useState("");
+
+    useEffect(()=>{
+        if (props.page){
+            setPage(props.page);
+        } else {
+            setPage(props.match.params.page);
+        }
+    }, [props])
+
     const fetchNotReconciled = props.fetchTransactionsNotReconciled;
     const fetchByAccount = props.fetchTransactionsByAccount;
     const fetchSingle = props.fetchSingleTransaction;
@@ -16,17 +25,20 @@ const TransactionContainer = (props) => {
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
-        if (page === "notReconciled") {
-            fetchNotReconciled();
-            setSingle(false);
-        } else if (/^\d+$/.test(page)) {
-            fetchSingle(page);
-            setSingle(true);
-        } else {
-            fetchByAccount(page);
-            setSingle(false);
+        if (page) {
+            if (page === "notReconciled") {
+                fetchNotReconciled();
+                setSingle(false);
+            } else if (/^\d+$/.test(page)) {
+                console.log("single")
+                fetchSingle(page);
+                setSingle(true);
+            } else {
+                fetchByAccount(page);
+                setSingle(false);
+            }
+            fetchAccounts();
         }
-        fetchAccounts();
     }, [fetchNotReconciled, fetchByAccount, fetchSingle, fetchAccounts, page])
 
     const [transactions, setTransactions] = useState([]);
