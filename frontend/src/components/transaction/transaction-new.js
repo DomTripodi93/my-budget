@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import TransactionForm from './single-transaction-form';
+import UploadTransactions from '../upload/upload-transactions';
 
 
 
@@ -17,9 +18,9 @@ const TransactionNew = (props) => {
                 :
                 <div>
                     {props.addBatchMode ?
-                        <div className='border'>
-                            Batch Upload
-                        </div>
+                        <UploadTransactions                         
+                            callback={props.batchAction}
+                        />
                         :
                         <div className='grid50'>
                             <CustomButton
