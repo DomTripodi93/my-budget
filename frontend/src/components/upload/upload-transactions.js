@@ -13,7 +13,8 @@ const UploadTransactions = (props) => {
         setTransactions(value);
     };
     const handleSubmit = () => {
-
+        let data = new FormData();
+        data.append('transactions', transactions);
     }
 
     return (
