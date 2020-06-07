@@ -16,6 +16,17 @@ export function addTransaction(transaction, callback) {
 }
 //Posts new transaction to API
 
+export function uploadBulkTransactions(transactions) {
+    return dispatch => {
+        http.addItem("transactions/bulk", transactions)
+            .then(()=>{
+                dispatch(fetchTransactionsNotReconciled());
+            })
+    }
+}
+//Sends CSV file of un-reconciled transactions to backend for upload,
+// then fetches updated list of un-reconciled transactions
+
 export function fetchSingleTransaction(id) {
     return dispatch => {
         http.fetchById("transaction", id)
