@@ -18,7 +18,7 @@ export function addTransaction(transaction, callback) {
 
 export function uploadBulkTransactions(transactions) {
     return dispatch => {
-        http.addItem("transactions/bulk", transactions)
+        http.addItem("transaction/bulk", transactions)
             .then(()=>{
                 dispatch(fetchTransactionsNotReconciled());
             })

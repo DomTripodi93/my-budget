@@ -6,6 +6,7 @@ using AutoMapper;
 using backend.Data;
 using backend.Dtos;
 using backend.Models;
+using CsvHelper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -82,6 +83,32 @@ namespace backend.Controllers
             }
 
             throw new Exception("Creation of Transaction item failed on save");
+        }
+
+        [HttpPost("bulk")]
+        public async Task<IActionResult> BulkUploadTransactions(int userId, TransactionForCreationDto TransactionCsv)
+        {
+            var creator = await _userRepo.GetUser(userId);
+
+            if (creator.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var TransactionFile = StreamReader(TransactionCsv);
+            var Transactions = CsvReader(TransactionFile);
+            var TransactionsForCreation = Transactions.GetRecords<TransactionForCreationDto>();
+
+            foreach (var Transaction in TransactionsForCreation)
+            {
+                var TransactionToAdd = _mapper.Map<Transaction>(Transaction);
+                _repo.Add(TransactionToAdd);
+            }
+
+            if (await _repo.SaveAll())
+            {
+                return Ok();
+            }
+
+            throw new Exception("Creation of Transactions from CSV failed on save");
 
         }
 
