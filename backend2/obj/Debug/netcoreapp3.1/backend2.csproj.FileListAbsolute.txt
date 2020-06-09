@@ -78,3 +78,4 @@
 /home/dominic/Code/Showcase/my-budget/backend2/obj/Debug/netcoreapp3.1/backend2.dll
 /home/dominic/Code/Showcase/my-budget/backend2/obj/Debug/netcoreapp3.1/backend2.pdb
 /home/dominic/Code/Showcase/my-budget/backend2/obj/Debug/netcoreapp3.1/backend2.genruntimeconfig.cache
+/home/dominic/Code/Showcase/my-budget/backend2/bin/Debug/netcoreapp3.1/CsvHelper.dll

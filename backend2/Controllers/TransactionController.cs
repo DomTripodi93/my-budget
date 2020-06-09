@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.IO;
 using AutoMapper;
 using backend.Data;
 using backend.Dtos;
@@ -9,6 +10,7 @@ using backend.Models;
 using CsvHelper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace backend.Controllers
 {
@@ -86,15 +88,15 @@ namespace backend.Controllers
         }
 
         [HttpPost("bulk")]
-        public async Task<IActionResult> BulkUploadTransactions(int userId, TransactionForCreationDto TransactionCsv)
+        public async Task<IActionResult> BulkUploadTransactions(int userId, String TransactionCsv)
         {
             var creator = await _userRepo.GetUser(userId);
 
             if (creator.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var TransactionFile = StreamReader(TransactionCsv);
-            var Transactions = CsvReader(TransactionFile);
+            var TransactionFile = new StreamReader(TransactionCsv);
+            var Transactions = new CsvReader(TransactionFile, CultureInfo.InvariantCulture);
             var TransactionsForCreation = Transactions.GetRecords<TransactionForCreationDto>();
 
             foreach (var Transaction in TransactionsForCreation)
