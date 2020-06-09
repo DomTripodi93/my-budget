@@ -16,9 +16,9 @@ namespace backend.Models
 
         public float Cost { get; set; }
 
-        public string Memo { get; set; }
+        public string Description { get; set; }
 
-        public string Note { get; set; }
+        public string AdditionalInfo { get; set; }
 
         public bool Reconciled { get; set; }
 
