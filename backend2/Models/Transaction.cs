@@ -18,7 +18,7 @@ namespace backend.Models
 
         public string Description { get; set; }
 
-        public string AdditionalInfo { get; set; }
+        public string Note { get; set; }
 
         public bool Reconciled { get; set; }
 

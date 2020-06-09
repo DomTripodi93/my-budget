@@ -16,7 +16,7 @@ namespace backend.Dtos
 
         public string Description { get; set; }
 
-        public string AdditionalInfo { get; set; }
+        public string Note { get; set; }
 
         public DateTime Date { get; set; }
     }
