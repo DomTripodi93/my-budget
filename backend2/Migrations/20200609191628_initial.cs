@@ -31,8 +31,7 @@ namespace backend2.Migrations
                     Name = table.Column<string>(nullable: false),
                     AccountType = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Balance = table.Column<float>(nullable: false),
-                    Updated = table.Column<string>(nullable: true)
+                    Balance = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,6 +99,8 @@ namespace backend2.Migrations
                     AccountTo = table.Column<string>(nullable: true),
                     AccountFrom = table.Column<string>(nullable: true),
                     Cost = table.Column<float>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     Reconciled = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false)
                 },

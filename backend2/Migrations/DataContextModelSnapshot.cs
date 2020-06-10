@@ -33,9 +33,6 @@ namespace backend2.Migrations
                     b.Property<float>("Balance")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Updated")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("userId", "Name");
 
                     b.ToTable("Accounts");
@@ -110,6 +107,12 @@ namespace backend2.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Note")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Reconciled")

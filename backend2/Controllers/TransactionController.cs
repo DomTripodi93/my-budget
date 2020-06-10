@@ -88,14 +88,13 @@ namespace backend.Controllers
         }
 
         [HttpPost("bulk")]
-        public async Task<IActionResult> BulkUploadTransactions(int userId, String TransactionCsv)
+        public async Task<IActionResult> BulkUploadTransactions(int userId, StreamReader TransactionFile)
         {
             var creator = await _userRepo.GetUser(userId);
 
             if (creator.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var TransactionFile = new StreamReader(TransactionCsv);
             var Transactions = new CsvReader(TransactionFile, CultureInfo.InvariantCulture);
             var TransactionsForCreation = Transactions.GetRecords<TransactionForCreationDto>();
 
