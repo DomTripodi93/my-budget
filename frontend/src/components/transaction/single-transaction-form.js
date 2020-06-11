@@ -54,7 +54,7 @@ const TransactionForm = props => {
                     accountTo: accounts[0].name
                 }
             })
-        }
+        } 
     }, [accounts])
 
     const handleSubmit = async event => {
