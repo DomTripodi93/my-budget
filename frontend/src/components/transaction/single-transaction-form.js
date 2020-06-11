@@ -144,7 +144,7 @@ const TransactionForm = props => {
                 />
                 <FormInput
                     label='Time of Transaction'
-                    type='datetime-local'
+                    type='date'
                     name='date'
                     value={date}
                     onChange={handleChange}
