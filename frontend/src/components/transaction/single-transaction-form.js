@@ -43,16 +43,18 @@ const TransactionForm = props => {
     const [accountOptions, setAccountOptions] = useState([])
 
     useEffect(() => {
-        setAccountOptions(accounts.map(account => {
-            return { value: account.name, label: account.name }
-        }))
-        setTransactionInfo(transactionInfo => {
-            return {
-                ...transactionInfo,
-                accountFrom: accounts[0].name,
-                accountTo: accounts[0].name
-            }
-        })
+        if (accounts.length > 0){
+            setAccountOptions(accounts.map(account => {
+                return { value: account.name, label: account.name }
+            }))
+            setTransactionInfo(transactionInfo => {
+                return {
+                    ...transactionInfo,
+                    accountFrom: accounts[0].name,
+                    accountTo: accounts[0].name
+                }
+            })
+        }
     }, [accounts])
 
     const handleSubmit = async event => {
