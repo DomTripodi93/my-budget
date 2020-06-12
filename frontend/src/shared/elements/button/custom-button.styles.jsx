@@ -6,6 +6,7 @@ export const CustomizedButton = styled.button`
   border: none;
   border-radius: 0;
   font-size: 16px;
+  cursor: pointer;
 
   &:hover {
     transform: scale(0.98);
