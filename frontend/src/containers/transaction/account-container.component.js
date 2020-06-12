@@ -78,6 +78,7 @@ const AccountContainer = (props) => {
                 addMode={addMode}
                 action={showAddForm}
             />
+            <br />
             {accounts.length > 0 ?
                 <AccountList
                     accounts={accounts}
@@ -85,8 +86,11 @@ const AccountContainer = (props) => {
                     page={page}
                 />
                 :
-                null
-
+                <div className="border centered">
+                    <h4>
+                        Add an <a onClick={showAddForm}>account</a>, or use the bulk account upload to add a whole <a>chart of accounts</a> at once. 
+                    </h4>
+                </div>
             }
         </div>
     )
