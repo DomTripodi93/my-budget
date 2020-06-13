@@ -2,6 +2,7 @@ import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import { deleteAccount, updateSingleAccount, updateAccountFromList } from '../../reducers/account/account.actions';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 
@@ -66,6 +67,12 @@ const SelectedAccount = (props) => {
                 }
             </div>
             <div className="grid100">
+                <Link className="grid100" to={"/transaction/" + account.name}>
+                    <CustomButton 
+                        label="transactions"
+                        buttonStyle="soft-green large"
+                    />
+                </Link>
                 {!account.active ?
                     <CustomButton
                         label="make active"

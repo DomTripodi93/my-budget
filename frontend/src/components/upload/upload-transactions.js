@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import FormInput from '../../shared/elements/form-input/form-input.component';
 import CustomButton from '../../shared/elements/button/custom-button.component';
+import { uploadBulkTransactions } from '../../reducers/transaction/transaction.actions';
 
 
 
@@ -15,6 +16,7 @@ const UploadTransactions = (props) => {
     const handleSubmit = () => {
         let data = new FormData();
         data.append('transactions', transactions);
+        props.uploadBulkTransactions(data);
     }
 
     return (
@@ -48,6 +50,7 @@ const UploadTransactions = (props) => {
 
 
 const mapDispatchToProps = dispatch => ({
+    uploadBulkTransactions: (csv) => {uploadBulkTransactions(csv)}    
 });
 
 
