@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchAllAccounts } from '../../reducers/account/account.actions';
+
+
 
 const Dashboard = () => {
+    
     return (
         <div className="border centered">
             <h2>Welcome to Your Dashboard!</h2>
@@ -20,4 +25,17 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchAllAccounts: () => dispatch(fetchAllAccounts())
+    }
+}
+
+const mapStateToProps = state => ({
+    allAccounts: state.account.allAccounts,
+    accountCalled: state.account.called
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
