@@ -6,21 +6,24 @@ import { fetchAllAccounts } from '../../reducers/account/account.actions';
 
 
 const Dashboard = () => {
-    
+
     return (
-        <div className="border centered">
-            <h2>Welcome to Your Dashboard!</h2>
-            <Link to="/account/All">All Accounts</Link>
-            <br />
-            <Link to="/account/Income">Income Accounts</Link>
-            <br />
-            <Link to="/account/Expense">Expense Accounts</Link>
-            <br />
-            <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
-            <br />
-            <Link to="/recurringTransaction/All">Recurring Transactions</Link>
-            <br />
-            <br />
+        <div>
+            <h2 className="centered">Welcome to Your Dashboard!</h2>
+            <div className="border centered">
+                <br />
+                <Link to="/account/All">All Accounts</Link>
+                <br />
+                <Link to="/account/Income">Income Accounts</Link>
+                <br />
+                <Link to="/account/Expense">Expense Accounts</Link>
+                <br />
+                <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
+                <br />
+                <Link to="/recurringTransaction/All">Recurring Transactions</Link>
+                <br />
+                <br />
+            </div>
         </div>
     );
 };
