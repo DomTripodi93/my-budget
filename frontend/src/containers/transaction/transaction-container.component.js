@@ -30,7 +30,6 @@ const TransactionContainer = (props) => {
                 fetchNotReconciled();
                 setSingle(false);
             } else if (/^\d+$/.test(page)) {
-                console.log("single")
                 fetchSingle(page);
                 setSingle(true);
             } else {
