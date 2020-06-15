@@ -36,23 +36,27 @@ const TransactionNew = (props) => {
                             />
                         </div>
                         :
-                        <div>
+                        <div className="button-holder">
                             {props.addBatchMode ?
                                 <UploadTransactions
                                     callback={props.batchAction}
                                 />
                                 :
                                 <div className='grid50'>
-                                    <CustomButton
-                                        buttonStyle="blue"
-                                        label="Add Single Transaction"
-                                        action={props.singleAction}
-                                    />
-                                    <CustomButton
-                                        buttonStyle="soft-green"
-                                        label="Batch Transaction Upload"
-                                        action={props.batchAction}
-                                    />
+                                    <div className="button-holder">
+                                        <CustomButton
+                                            buttonStyle="blue"
+                                            label="Add Single Transaction"
+                                            action={props.singleAction}
+                                        />
+                                    </div>
+                                    <div className="button-holder">
+                                        <CustomButton
+                                            buttonStyle="soft-green"
+                                            label="Batch Transaction Upload"
+                                            action={props.batchAction}
+                                        />
+                                    </div>
                                 </div>
                             }
                         </div>

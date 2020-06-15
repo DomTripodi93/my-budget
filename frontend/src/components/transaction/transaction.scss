@@ -38,3 +38,10 @@
         height: 45px;
     }
 }
+
+.button-holder {
+    display: grid;
+    grid-template-columns: 100%;
+    width: 95%;
+    margin: 0px 0px 2.5% 2.5%;
+}
