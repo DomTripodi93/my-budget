@@ -7,6 +7,8 @@ namespace backend.Dtos
         public string AccountType { get; set; }
 
         public bool Active { get; set; }
+
+        public bool IsBank { get; set; }
         
         public float Balance { get; set; }
     }
