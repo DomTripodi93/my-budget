@@ -42,6 +42,16 @@ namespace backend.Data
             return account;
         }
 
+        public async Task<Account> GetBankAccount(int userId)
+        {
+            var account = await _context.Accounts
+                .Where(account => account.userId == userId)
+                .Where(account => account.IsBank == true)
+                .FirstOrDefaultAsync();
+            
+            return account;
+        }
+
         public async Task<IEnumerable<Account>> GetAccountsByType(int userId, string type)
         {
             var accounts = await _context.Accounts
