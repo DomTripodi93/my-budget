@@ -33,6 +33,9 @@ namespace backend2.Migrations
                     b.Property<float>("Balance")
                         .HasColumnType("REAL");
 
+                    b.Property<bool>("IsBank")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("userId", "Name");
 
                     b.ToTable("Accounts");

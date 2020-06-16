@@ -9,7 +9,7 @@ using backend.Data;
 namespace backend2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200609191628_initial")]
+    [Migration("20200616125853_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace backend2.Migrations
 
                     b.Property<float>("Balance")
                         .HasColumnType("REAL");
+
+                    b.Property<bool>("IsBank")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("userId", "Name");
 

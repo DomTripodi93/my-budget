@@ -31,6 +31,7 @@ namespace backend2.Migrations
                     Name = table.Column<string>(nullable: false),
                     AccountType = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
+                    IsBank = table.Column<bool>(nullable: false),
                     Balance = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
