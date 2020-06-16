@@ -54,6 +54,33 @@ namespace backend.Controllers
 
         }
 
+        [HttpPost("first")]
+        public async Task<IActionResult> AddFirstAccount(int userId, AccountForCreationDto AccountForCreation)
+        {
+            var creator = await _userRepo.GetUser(userId);
+
+            if (creator.Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var Account = _mapper.Map<Account>(AccountForCreation);
+
+            Account.User = creator;
+            Account.Balance = 0;
+            Account.Active = true;
+            Account.IsBank = true;
+
+            _repo.Add(Account);
+
+            if (await _repo.SaveAll())
+            {
+                var jobToReturn = _mapper.Map<AccountForReturnDto>(Account);
+                return CreatedAtRoute("GetAccount", new { Name = Account.Name, userId = userId }, jobToReturn);
+            }
+
+            throw new Exception("Creation of Account failed on save");
+
+        }
+
         [HttpGet("{Name}", Name = "GetAccount")]
         public async Task<IActionResult> GetAccount(int userId, string Name)
         {
