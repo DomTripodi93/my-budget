@@ -40,6 +40,7 @@ namespace backend.Controllers
             Account.User = creator;
             Account.Balance = 0;
             Account.Active = true;
+            Account.IsBank = false;
 
             _repo.Add(Account);
 
