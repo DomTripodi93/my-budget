@@ -19,6 +19,18 @@ export function addAccount(account, callback) {
 }
 //Posts new account to API
 
+export function addFirstAccount(account, callback) {
+    account = prepAccountValues(account);
+    return dispatch => {
+        http.addItem("account/first", account)
+            .then(addedAccount => {
+                dispatch(addAccountToState(addedAccount.data, addedAccount.data.accountType));
+                callback();
+            });
+    }
+}
+//Posts new account to API
+
 export function fetchSingleAccount(name) {
     return dispatch => {
         http.fetchByValue("account", name)

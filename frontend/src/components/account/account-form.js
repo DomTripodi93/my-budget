@@ -5,6 +5,7 @@ import FormSelect from '../../shared/elements/form-select/form-select.component'
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import {
     addAccount,
+    addFirstAccount,
     updateAccountFromList,
     updateSingleAccount
 } from '../../reducers/account/account.actions';
@@ -60,7 +61,7 @@ const AccountForm = props => {
             }
         } else {
             if (props.first){
-                props.addAccount(accountInfo, props.callback);
+                props.addFirstAccount(accountInfo, props.callback);
             } else {
                 props.addAccount(accountInfo, props.callback);
             }
@@ -131,6 +132,9 @@ const AccountForm = props => {
 const mapDispatchToProps = dispatch => ({
     addAccount: (account, callback) => {
         dispatch(addAccount(account, callback))
+    },
+    addFirstAccount: (account, callback) => {
+        dispatch(addFirstAccount(account, callback))
     },
     updateAccountFromList: (account, callback) => {
         dispatch(updateAccountFromList(account, callback))
