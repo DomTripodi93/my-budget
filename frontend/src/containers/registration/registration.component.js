@@ -75,11 +75,13 @@ const Registration = (props) => {
                     required
                 />
                 <div className="input-width">
-                    <CustomButton
-                        buttonStyle="blue round form-button"
-                        type="submit"
-                        label="Register"
-                    />
+                    <div className="form-button">
+                        <CustomButton
+                            buttonStyle="blue round"
+                            type="submit"
+                            label="Register"
+                        />
+                    </div>
                 </div>
             </form>
         </div>

@@ -54,11 +54,13 @@ const Signin = props => {
                     required
                 />
                 <div className="input-width">
-                    <CustomButton
-                        buttonStyle="blue round form-button"
-                        type="submit"
-                        label="Sign In"
-                    />
+                    <div className="form-button">
+                        <CustomButton
+                            buttonStyle="blue round"
+                            type="submit"
+                            label="Sign In"
+                        />
+                    </div>
                 </div>
             </form>
         </div>
