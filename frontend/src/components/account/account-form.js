@@ -59,7 +59,11 @@ const AccountForm = props => {
                 props.callback();
             }
         } else {
-            props.addAccount(accountInfo, props.callback);
+            if (props.first){
+                props.addAccount(accountInfo, props.callback);
+            } else {
+                props.addAccount(accountInfo, props.callback);
+            }
         }
     };
 

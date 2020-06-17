@@ -14,7 +14,6 @@ const AccountContainer = (props) => {
     const fetchSingle = props.fetchSingleAccount;
     const fetchSingleFromCache = props.fetchSingleAccountFromCache;
     const selectedAccount = props.selectedAccount;
-    const [single, setSingle] = useState(false);
     const accountTypes = props.accountTypes;
 
     useEffect(() => {
@@ -49,11 +48,18 @@ const AccountContainer = (props) => {
     ])
 
     const [accounts, setAccounts] = useState([]);
+    const [single, setSingle] = useState(false);
+    const [first, setFirst] = useState(false);
 
     useEffect(() => {
         if (called[page]) {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
+                if (props.allAccounts.length > 0){
+                    setFirst(false);
+                } else {
+                    setFirst(true);
+                }
                 setSingle(false);
             } else if (!accountTypes.includes(page)) {
                 setAccounts([props.selectedAccount]);
@@ -77,6 +83,7 @@ const AccountContainer = (props) => {
             <AccountNew
                 addMode={addMode}
                 action={showAddForm}
+                first={first}
             />
             <br />
             {accounts.length > 0 ?
