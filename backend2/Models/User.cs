@@ -15,5 +15,7 @@ namespace backend.Models
         public byte[] PasswordSalt { get; set; }
 
         public Settings Settings { get; set; }
+
+        public Account Bank { get; set; }
     }
 }

@@ -51,6 +51,16 @@ namespace backend.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
+            user = AddSettings(user);
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        private User AddSettings(User user)
+        {
             SettingsForCreationDto settingsForCreation = new SettingsForCreationDto{
                 IsNew = true,
                 TransactionPageSize = 20,
@@ -60,9 +70,6 @@ namespace backend.Data
             Settings settings = _mapper.Map<Settings>(settingsForCreation);
 
             user.Settings = settings;
-
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
 
             return user;
         }
