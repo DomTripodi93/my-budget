@@ -52,6 +52,7 @@ namespace backend.Data
             user.PasswordSalt = passwordSalt;
 
             user = AddSettings(user);
+            user = AddBankAccount(user);
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -70,6 +71,20 @@ namespace backend.Data
             Settings settings = _mapper.Map<Settings>(settingsForCreation);
 
             user.Settings = settings;
+
+            return user;
+        }
+
+        private User AddBankAccount(User user)
+        {
+            AccountForCreationDto accountForCreation = new AccountForCreationDto{
+                Name = "Bank",
+                AccountType = "Income"
+            };
+
+            Account Bank = _mapper.Map<Account>(accountForCreation);
+
+            user.Bank = Bank;
 
             return user;
         }
