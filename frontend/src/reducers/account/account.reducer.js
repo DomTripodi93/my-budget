@@ -89,6 +89,39 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 accounts: accountsHold,
                 allAccounts: allAccountsHold
             };
+        case AccountActionTypes[UPDATE_BANK_ACCOUNT]:
+            if (calledHold[action.accountType]) {
+                let lastBank = accountsHold[action.accountType].filter(account =>{
+                    return account.isBank === true;
+                })[0];
+                lastBank.isBank = false;
+                accountsHold[action.accountType] = sortAccounts([
+                    action.payload,
+                    lastBank,
+                    ...accountsHold[action.accountType]
+                        .filter((value) => {
+                            return value.name !== action.payload.name && value.isBank !== true;
+                        })
+                ]);
+            }
+            if (calledHold["All"]) {
+                let lastBank = allAccountsHold.filter(account =>{
+                    return account.isBank === true;
+                })[0];
+                lastBank.isBank = false;
+                allAccountsHold = sortAccounts([
+                    action.payload,
+                    ...allAccountsHold
+                        .filter((value) => {
+                            return value.name !== action.payload.name && value.isBank !== true;
+                        })
+                ])
+            }
+            return {
+                ...state,
+                accounts: accountsHold,
+                allAccounts: allAccountsHold
+            };
         case AccountActionTypes.DELETE_ACCOUNT:
             if (calledHold[action.accountType]) {
                 accountsHold[action.accountType] = [

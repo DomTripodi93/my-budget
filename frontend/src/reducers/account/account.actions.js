@@ -125,7 +125,32 @@ export function updateSingleAccount(account) {
             });
     }
 }
-//Updates objective in database
+//Updates account in database
+
+export function updateAccountFromListToBank(account) {
+    account = prepAccountValues(account);
+    return dispatch => {
+        http.updateItem("account", null, account.name)
+            .then(() => {
+                dispatch(updateAccountInState(account, account.accountType));
+            });
+    }
+}
+//Updates account in database to be the bank account
+
+export function updateSingleAccountToBank(account) {
+    account = prepAccountValues(account);
+    return dispatch => {
+        http.updateItem("account/isBank", null, account.name)
+            .then(() => {
+                if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
+                    dispatch(updateAccountInState(account, account.accountType));
+                }
+                dispatch(setSingleAccount(account));
+            });
+    }
+}
+//Updates account in database to be the bank account
 
 export function deleteAccount(name, accountType) {
     return dispatch => {
@@ -174,6 +199,15 @@ function setSingleAccount(account) {
 function updateAccountInState(account, accountType) {
     return {
         type: AccountActionTypes.UPDATE_ACCOUNTS,
+        payload: account,
+        accountType
+    }
+}
+//Updates function for account
+
+function updateBankAccountInState(account, accountType) {
+    return {
+        type: AccountActionTypes.UPDATE_BANK_ACCOUNT,
         payload: account,
         accountType
     }
