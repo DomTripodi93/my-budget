@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchAllAccounts } from '../../reducers/account/account.actions';
+import { fetchAllAccounts, fetchSingleAccount } from '../../reducers/account/account.actions';
 
 
 
 const Dashboard = (props) => {
     const called = props.accountCalled;
     const fetchAll = props.fetchAllAccounts;
+    const fetchBank = props.fetchBankAccount;
     const accounts = props.allAccounts;
     const [hasAccount, setHasAccount] = useState(false);
 
@@ -16,9 +17,13 @@ const Dashboard = (props) => {
             fetchAll();
         } else if (accounts.length > 0) {
             setHasAccount(true)
+            if (!called["Bank"]){
+                fetchBank();
+            }
         }
     }, [
         fetchAll,
+        fetchBank,
         called, 
         accounts
     ])
@@ -58,13 +63,15 @@ const Dashboard = (props) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllAccounts: () => dispatch(fetchAllAccounts())
+        fetchAllAccounts: () => dispatch(fetchAllAccounts()),
+        fetchBankAccount: () => dispatch(fetchSingleAccount("Bank"))
     }
 }
 
 const mapStateToProps = state => ({
     allAccounts: state.account.allAccounts,
-    accountCalled: state.account.called
+    accountCalled: state.account.called,
+    selectedAccount: state.account.selectedAccount
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
