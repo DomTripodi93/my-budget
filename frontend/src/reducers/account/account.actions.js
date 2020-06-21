@@ -35,7 +35,7 @@ export function fetchSingleAccount(name) {
     return dispatch => {
         http.fetchByValue("account", name)
             .then((account) => {
-                dispatch(setSingleAccount(account.data));
+                dispatch(setSelectedAccount(account.data));
             });
     }
 }
@@ -43,7 +43,7 @@ export function fetchSingleAccount(name) {
 
 export function fetchSingleAccountFromCache(name) {
     return dispatch => {
-        dispatch(setSingleAccount(
+        dispatch(setSelectedAccount(
             store.getState().account.allAccounts
                 .filter((value) => {
                     return value.name === name;
@@ -106,7 +106,7 @@ export function fetchBankAccounts() {
     return dispatch => {
         http.fetchAll("account/bank")
             .then((account) => {
-                dispatch(setSingleAccount(account));
+                dispatch(setSelectedAccount(account));
             });
     }
 }
@@ -123,7 +123,7 @@ export function updateAccountFromList(account) {
 }
 //Updates account in database
 
-export function updateSingleAccount(account) {
+export function updateSelectedAccount(account) {
     account = prepAccountValues(account);
     return dispatch => {
         http.updateItem("account", account, account.name)
@@ -131,7 +131,7 @@ export function updateSingleAccount(account) {
                 if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
                     dispatch(updateAccountInState(account, account.accountType));
                 }
-                dispatch(setSingleAccount(account));
+                dispatch(setSelectedAccount(account));
             });
     }
 }
@@ -148,7 +148,7 @@ export function updateAccountFromListToBank(account) {
 }
 //Updates account in database to be the bank account
 
-export function updateSingleAccountToBank(account) {
+export function updateSelectedAccountToBank(account) {
     account = prepAccountValues(account);
     return dispatch => {
         http.updateItem("account/isBank", null, account.name)
@@ -156,7 +156,7 @@ export function updateSingleAccountToBank(account) {
                 if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
                     dispatch(updateAccountInState(account, account.accountType));
                 }
-                dispatch(setSingleAccount(account));
+                dispatch(setSelectedAccount(account));
             });
     }
 }
@@ -198,7 +198,7 @@ function setAllAccounts(accounts) {
 }
 //Sets all accounts in state
 
-function setSingleAccount(account) {
+function setSelectedAccount(account) {
     return {
         type: AccountActionTypes.SET_SINGLE_ACCOUNT,
         payload: account

@@ -7,7 +7,7 @@ import helpers from '../../shared/helpers';
 import {
     addRecurringTransaction,
     updateRecurringTransactionFromList,
-    updateSingleRecurringTransaction
+    updateSelectedRecurringTransaction
 } from '../../reducers/recurring-transaction/recurring-transaction.actions';
 
 
@@ -66,7 +66,7 @@ const RecurringTransactionForm = props => {
         if (props.editMode) {
             if (transactionInfo !== props.transactionInput) {
                 if (props.single) {
-                    props.updateSingleRecurringTransaction(
+                    props.updateSelectedRecurringTransaction(
                         transactionInfo, 
                         props.callback
                     );
@@ -199,8 +199,8 @@ const mapDispatchToProps = dispatch => ({
     updateRecurringTransactionFromList: (transaction, callback) => {
         dispatch(updateRecurringTransactionFromList(transaction, callback))
     },
-    updateSingleRecurringTransaction: (transaction, callback) => {
-        dispatch(updateSingleRecurringTransaction(transaction, callback))
+    updateSelectedRecurringTransaction: (transaction, callback) => {
+        dispatch(updateSelectedRecurringTransaction(transaction, callback))
     }
 });
 

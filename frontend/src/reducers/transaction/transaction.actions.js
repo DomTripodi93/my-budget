@@ -31,7 +31,7 @@ export function fetchSingleTransaction(id) {
     return dispatch => {
         http.fetchById("transaction", id)
             .then((transaction) => {
-                dispatch(setSingleTransaction(transaction.data));
+                dispatch(setSelectedTransaction(transaction.data));
             });
     }
 }
@@ -77,7 +77,7 @@ export function reconcileSingleTransaction(transaction, callback) {
                     dispatch(updateTransactionInState(transaction));
                 }
                 dispatch(reconcileTransactionInState(transaction.id));
-                dispatch(setSingleTransaction(transaction));
+                dispatch(setSelectedTransaction(transaction));
                 callback();
             });
     }
@@ -95,14 +95,14 @@ export function updateTransactionFromList(transaction, callback) {
 }
 //Updates transaction in database
 
-export function updateSingleTransaction(transaction, callback) {
+export function updateSelectedTransaction(transaction, callback) {
     return dispatch => {
         http.updateItem("transaction", transaction, transaction.id)
             .then(() => {
                 if (Object.keys(store.getState().transaction.accounts).length > 0) {
                     dispatch(updateTransactionInState(transaction));
                 }
-                dispatch(setSingleTransaction(transaction));
+                dispatch(setSelectedTransaction(transaction));
                 callback();
             });
     }
@@ -145,7 +145,7 @@ function setTransactionsNotReconciled(transactions) {
 }
 //Sets all transactions of a account in state
 
-function setSingleTransaction(transaction) {
+function setSelectedTransaction(transaction) {
     return {
         type: TransactionActionTypes.SET_SINGLE_TRANSACTION,
         payload: transaction

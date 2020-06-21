@@ -20,7 +20,7 @@ export function fetchSingleRecurringTransaction(id) {
     return dispatch => {
         http.fetchById("recurringTransaction", id)
             .then((recurringTransaction) => {
-                dispatch(setSingleRecurringTransaction(recurringTransaction.data));
+                dispatch(setSelectedRecurringTransaction(recurringTransaction.data));
             });
     }
 }
@@ -28,7 +28,7 @@ export function fetchSingleRecurringTransaction(id) {
 
 export function fetchSingleRecurringTransactionFromCache(id) {
     return dispatch => {
-        dispatch(setSingleRecurringTransaction(
+        dispatch(setSelectedRecurringTransaction(
             store.getState().recurringTransaction.recurringTransactions
                 .filter((value) => {
                     return value.id === id;
@@ -60,12 +60,12 @@ export function updateRecurringTransactionFromList(recurringTransaction, callbac
 }
 //Updates Recurring Transaction in database
 
-export function updateSingleRecurringTransaction(recurringTransaction, callback) {
+export function updateSelectedRecurringTransaction(recurringTransaction, callback) {
     return dispatch => {
         http.updateItem("recurringTransaction", recurringTransaction, recurringTransaction.id)
             .then(() => {
                 dispatch(updateRecurringTransactionInState(recurringTransaction));
-                dispatch(setSingleRecurringTransaction(recurringTransaction));
+                dispatch(setSelectedRecurringTransaction(recurringTransaction));
                 callback();
             });
     }
@@ -98,7 +98,7 @@ function setRecurringTransactions(recurringTransactions) {
 }
 //Sets all Recurring Transactions of a account in state
 
-function setSingleRecurringTransaction(recurringTransaction) {
+function setSelectedRecurringTransaction(recurringTransaction) {
     return {
         type: RecurringTransactionActionTypes.SET_SINGLE_RECURRING_TRANSACTION,
         payload: recurringTransaction

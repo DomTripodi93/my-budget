@@ -7,7 +7,7 @@ import {
     addAccount,
     addFirstAccount,
     updateAccountFromList,
-    updateSingleAccount
+    updateSelectedAccount
 } from '../../reducers/account/account.actions';
 
 
@@ -46,7 +46,7 @@ const AccountForm = props => {
         if (props.editMode) {
             if (accountInfo !== props.accountInput) {
                 if (props.single) {
-                    props.updateSingleAccount(
+                    props.updateSelectedAccount(
                         accountInfo,
                         props.callback
                     );
@@ -139,8 +139,8 @@ const mapDispatchToProps = dispatch => ({
     updateAccountFromList: (account, callback) => {
         dispatch(updateAccountFromList(account, callback))
     },
-    updateSingleAccount: (account, callback) => {
-        dispatch(updateSingleAccount(account, callback))
+    updateSelectedAccount: (account, callback) => {
+        dispatch(updateSelectedAccount(account, callback))
     }
 });
 

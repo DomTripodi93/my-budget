@@ -7,7 +7,7 @@ import helpers from '../../shared/helpers';
 import {
     addTransaction,
     updateTransactionFromList,
-    updateSingleTransaction
+    updateSelectedTransaction
 } from '../../reducers/transaction/transaction.actions';
 
 
@@ -62,7 +62,7 @@ const TransactionForm = props => {
         if (props.editMode) {
             if (transactionInfo !== props.transactionInput) {
                 if (props.single) {
-                    props.updateSingleTransaction(
+                    props.updateSelectedTransaction(
                         transactionInfo, 
                         props.callback
                     );
@@ -186,8 +186,8 @@ const mapDispatchToProps = dispatch => ({
     updateTransactionFromList: (transaction, callback) => {
         dispatch(updateTransactionFromList(transaction, callback))
     },
-    updateSingleTransaction: (transaction, callback) => {
-        dispatch(updateSingleTransaction(transaction, callback))
+    updateSelectedTransaction: (transaction, callback) => {
+        dispatch(updateSelectedTransaction(transaction, callback))
     }
 });
 

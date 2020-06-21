@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
-import { deleteAccount, updateSingleAccount, updateAccountFromList } from '../../reducers/account/account.actions';
+import { deleteAccount, updateSelectedAccount, updateAccountFromList } from '../../reducers/account/account.actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ const SelectedAccount = (props) => {
         let accountHold = {...account};
         accountHold.active = !accountHold.active;
         if (props.single) {
-            props.updateSingle(accountHold);
+            props.updateSelected(accountHold);
         } else {
             props.updateFromList(accountHold);
         }
@@ -99,7 +99,7 @@ const SelectedAccount = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         deleteAccount: (name, accountType) => dispatch(deleteAccount(name, accountType)),
-        updateSingle: (account) => dispatch(updateSingleAccount(account)),
+        updateSelected: (account) => dispatch(updateSelectedAccount(account)),
         updateFromList: (account) => dispatch(updateAccountFromList(account))
     }
 }
