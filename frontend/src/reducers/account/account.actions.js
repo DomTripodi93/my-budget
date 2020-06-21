@@ -102,6 +102,16 @@ export function fetchAllAccounts() {
 }
 //Gets all accounts for a user
 
+export function fetchBankAccounts() {
+    return dispatch => {
+        http.fetchAll("account/bank")
+            .then((account) => {
+                dispatch(setSingleAccount(account));
+            });
+    }
+}
+//Gets bank account for a user
+
 export function updateAccountFromList(account) {
     account = prepAccountValues(account);
     return dispatch => {
