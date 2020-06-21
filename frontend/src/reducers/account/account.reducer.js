@@ -89,7 +89,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 accounts: accountsHold,
                 allAccounts: allAccountsHold
             };
-        case AccountActionTypes[UPDATE_BANK_ACCOUNT]:
+        case AccountActionTypes["UPDATE_BANK_ACCOUNT"]:
             if (calledHold[action.accountType]) {
                 let lastBank = accountsHold[action.accountType].filter(account =>{
                     return account.isBank === true;

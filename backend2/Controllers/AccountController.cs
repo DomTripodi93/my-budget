@@ -123,6 +123,20 @@ namespace backend.Controllers
 
         }
 
+        [HttpGet("bank")]
+        public async Task<IActionResult> GetUserBankAccount(int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            Account BankAccount = await _repo.GetBankAccount(userId);
+
+            AccountForReturnDto AccountForReturn = _mapper.Map<AccountForReturnDto>(BankAccount);
+
+            return Ok(AccountForReturn);
+
+        }
+
         [HttpPut("{Name}")]
         public async Task<IActionResult> UpdateAccount(int userId, string Name, AccountForCreationDto AccountForUpdateDto)
         {
