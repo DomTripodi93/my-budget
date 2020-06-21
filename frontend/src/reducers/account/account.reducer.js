@@ -21,7 +21,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
     let accountsHold = { ...state.accounts }
     let calledHold = { ...state.called };
     switch (action.type) {
-        case AccountActionTypes.SET_SINGLE_ACCOUNT:
+        case AccountActionTypes.SET_SELECTED_ACCOUNT:
             calledHold[action.payload.name] = true;
             return {
                 ...state,

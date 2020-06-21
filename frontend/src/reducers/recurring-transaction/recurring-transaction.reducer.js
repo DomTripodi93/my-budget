@@ -21,7 +21,7 @@ const recurringTransactionReducer = (state = INITIAL_STATE, action) => {
         recurringTransactionsHold = [...state.recurringTransactions]
     }
     switch (action.type) {
-        case RecurringTransactionActionTypes.SET_SINGLE_RECURRING_TRANSACTION:
+        case RecurringTransactionActionTypes.SET_SELECTED_RECURRING_TRANSACTION:
             return {
                 ...state,
                 selectedRecurringTransaction: action.payload

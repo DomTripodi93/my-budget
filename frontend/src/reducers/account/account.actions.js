@@ -190,7 +190,7 @@ function setAllAccounts(accounts) {
 
 function setSelectedAccount(account) {
     return {
-        type: AccountActionTypes.SET_SINGLE_ACCOUNT,
+        type: AccountActionTypes.SET_SELECTED_ACCOUNT,
         payload: account
     }
 }

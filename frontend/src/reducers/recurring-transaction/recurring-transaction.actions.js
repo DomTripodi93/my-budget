@@ -100,7 +100,7 @@ function setRecurringTransactions(recurringTransactions) {
 
 function setSelectedRecurringTransaction(recurringTransaction) {
     return {
-        type: RecurringTransactionActionTypes.SET_SINGLE_RECURRING_TRANSACTION,
+        type: RecurringTransactionActionTypes.SET_SELECTED_RECURRING_TRANSACTION,
         payload: recurringTransaction
     }
 }

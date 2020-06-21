@@ -147,7 +147,7 @@ function setTransactionsNotReconciled(transactions) {
 
 function setSelectedTransaction(transaction) {
     return {
-        type: TransactionActionTypes.SET_SINGLE_TRANSACTION,
+        type: TransactionActionTypes.SET_SELECTED_TRANSACTION,
         payload: transaction
     }
 }

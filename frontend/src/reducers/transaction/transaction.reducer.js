@@ -21,7 +21,7 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
     let transactionsHold = { ...state.transactions }
     let calledHold = { ...state.called };
     switch (action.type) {
-        case TransactionActionTypes.SET_SINGLE_TRANSACTION:
+        case TransactionActionTypes.SET_SELECTED_TRANSACTION:
             calledHold[action.payload.id] = true;
             return {
                 ...state,
