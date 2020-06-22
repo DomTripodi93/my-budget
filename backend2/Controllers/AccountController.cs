@@ -166,6 +166,7 @@ namespace backend.Controllers
             BankAccount.IsBank = false;
 
             AccountFromRepo.IsBank = true;
+            AccountFromRepo.Active = true;
 
             if (await _repo.SaveAll())
                 return CreatedAtRoute("GetAccount", new { Name = AccountFromRepo.Name, userId = userId }, AccountFromRepo);
