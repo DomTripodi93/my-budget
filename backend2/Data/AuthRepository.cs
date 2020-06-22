@@ -85,6 +85,7 @@ namespace backend.Data
             Account Bank = _mapper.Map<Account>(accountForCreation);
 
             Bank.IsBank = true;
+            Bank.Active = true;
 
             user.Bank = Bank;
 

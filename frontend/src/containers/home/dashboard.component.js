@@ -50,8 +50,8 @@ const Dashboard = (props) => {
                 :
                 <div className="border centered">
                     <h4>
-                        You don't have any accounts yet, to get started add 
-                        your first <Link to="account/All">account</Link>
+                        You don't have any accounts, to get started add 
+                        your bank <Link to="account/All">account</Link>
                     </h4>
                 </div>
             }
