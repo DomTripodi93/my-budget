@@ -57,10 +57,19 @@ const AccountList = (props) => {
                                                 <div>
                                                     {account.active ?
                                                         <div>
-                                                            <AccountLine
-                                                                account={account}
-                                                                page={props.page}
-                                                            />
+                                                            {account.isBank ?
+                                                                <div className="green-back">
+                                                                    <AccountLine
+                                                                        account={account}
+                                                                        page={props.page}
+                                                                    />
+                                                                </div>
+                                                                :
+                                                                <AccountLine
+                                                                    account={account}
+                                                                    page={props.page}
+                                                                />
+                                                            }
                                                         </div>
                                                         :
                                                         <div className="gray-back">
