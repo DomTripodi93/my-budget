@@ -28,17 +28,11 @@ const SelectedAccount = (props) => {
         }
     }
 
-    const handleDeactivate = (account) => {
+    const handleChangeActive = (account) => {
         if (window.confirm(
-            "Are you sure you deactivate this account: " + account.name + "?"
-        )) {
-            updateAccount(account);
-        }
-    }
-
-    const handleActivate = (account) => {
-        if (window.confirm(
-            "Are you sure you activate this account: " + account.name + "?"
+            "Are you sure you " + 
+            (account.active ? "deactivate" : "activate") + 
+            " this account: " + account.name + "?"
         )) {
             updateAccount(account);
         }
@@ -95,13 +89,13 @@ const SelectedAccount = (props) => {
                             <CustomButton
                                 label="make active"
                                 buttonStyle="blue large"
-                                action={() => { handleActivate(account) }}
+                                action={() => { handleChangeActive(account) }}
                             />
                             :
                             <CustomButton
                                 label="make inactive"
                                 buttonStyle="large"
-                                action={() => { handleDeactivate(account) }}
+                                action={() => { handleChangeActive(account) }}
                             />
                         }
                     </div>
