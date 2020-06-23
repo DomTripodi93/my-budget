@@ -73,18 +73,24 @@ const SelectedAccount = (props) => {
                         buttonStyle="soft-green large"
                     />
                 </Link>
-                {!account.active ?
-                    <CustomButton
-                        label="make active"
-                        buttonStyle="blue large"
-                        action={() => { handleActivate(account) }}
-                    />
+                {account.isBank ?
+                    null
                     :
-                    <CustomButton
-                        label="make inactive"
-                        buttonStyle="large"
-                        action={() => { handleDeactivate(account) }}
-                    />
+                    <div className="grid100">
+                        {!account.active ?
+                            <CustomButton
+                                label="make active"
+                                buttonStyle="blue large"
+                                action={() => { handleActivate(account) }}
+                            />
+                            :
+                            <CustomButton
+                                label="make inactive"
+                                buttonStyle="large"
+                                action={() => { handleDeactivate(account) }}
+                            />
+                        }
+                    </div>
                 }
                 <CustomButton
                     label="delete"
