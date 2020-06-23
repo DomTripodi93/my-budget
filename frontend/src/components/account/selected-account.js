@@ -73,15 +73,19 @@ const SelectedAccount = (props) => {
                 </Link>
                 {account.isBank ?
                     <div className="grid100">
-                    {changeBank?
-                        null
-                        :
-                        <CustomButton
-                            label="change bank"
-                            buttonStyle="blue large"
-                            action={() => { selectNewBank() }}
-                        />
-                    }
+                        {changeBank?
+                            <CustomButton
+                                label="cancel"
+                                buttonStyle="red large"
+                                action={() => { selectNewBank() }}
+                            />
+                            :
+                            <CustomButton
+                                label="change bank"
+                                buttonStyle="blue large"
+                                action={() => { selectNewBank() }}
+                            />
+                        }
                     </div>
                     :
                     <div className="grid100">
@@ -100,11 +104,15 @@ const SelectedAccount = (props) => {
                         }
                     </div>
                 }
-                <CustomButton
-                    label="delete"
-                    buttonStyle="red large"
-                    action={() => { handleDelete(account) }}
-                />
+                {changeBank ?
+                    null
+                    :
+                    <CustomButton
+                        label="delete"
+                        buttonStyle="red large"
+                        action={() => { handleDelete(account) }}
+                    />
+                }
             </div>
         </div>
     )
