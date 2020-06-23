@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import { deleteAccount, updateSelectedAccount, updateAccountFromList } from '../../reducers/account/account.actions';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const SelectedAccount = (props) => {
     const account = props.account;
+    const [changeBank, setChangeBank] = useState(false);
 
     const handleDelete = (account) => {
         if (window.confirm(
@@ -43,6 +44,9 @@ const SelectedAccount = (props) => {
         }
     }
 
+    const selectNewBank = () => {
+        setChangeBank(!changeBank)
+    }
 
     return (
         <div className="border centered split">
@@ -74,7 +78,17 @@ const SelectedAccount = (props) => {
                     />
                 </Link>
                 {account.isBank ?
-                    null
+                    <div className="grid100">
+                    {changeBank?
+                        null
+                        :
+                        <CustomButton
+                            label="change bank"
+                            buttonStyle="blue large"
+                            action={() => { selectNewBank() }}
+                        />
+                    }
+                    </div>
                     :
                     <div className="grid100">
                         {!account.active ?
