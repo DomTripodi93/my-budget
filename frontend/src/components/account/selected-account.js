@@ -44,26 +44,31 @@ const SelectedAccount = (props) => {
 
     return (
         <div className="border centered split">
-            <div className="grid50">
-                <h5 className="grid-text">
-                    Account: {account.name}
-                </h5>
-                <h5 className="grid-text">
-                    Type: {account.accountType}
-                </h5>
-                <h5 className="grid-text">
-                    Balance: ${account.balance.toFixed(2)}
-                </h5>
-                {account.active ?
+            {changeBank ?
+                <div>
+                </div>
+                :
+                <div className="grid50">
                     <h5 className="grid-text">
-                        Active: Yes
+                        Account: {account.name}
                     </h5>
-                    :
                     <h5 className="grid-text">
-                        Active: No
+                        Type: {account.accountType}
                     </h5>
-                }
-            </div>
+                    <h5 className="grid-text">
+                        Balance: ${account.balance.toFixed(2)}
+                    </h5>
+                    {account.active ?
+                        <h5 className="grid-text">
+                            Active: Yes
+                        </h5>
+                        :
+                        <h5 className="grid-text">
+                            Active: No
+                        </h5>
+                    }
+                </div>
+            }
             <div className="grid100">
                 <Link className="grid100" to={"/transaction/" + account.name}>
                     <CustomButton 

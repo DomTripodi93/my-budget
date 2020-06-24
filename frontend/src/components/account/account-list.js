@@ -51,6 +51,7 @@ const AccountList = (props) => {
                                                 <div>
                                                     <SelectedAccount
                                                         account={account}
+                                                        accountList={props.accounts}
                                                     />
                                                 </div>
                                                 :
