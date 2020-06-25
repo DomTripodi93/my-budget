@@ -26,7 +26,7 @@ const AccountBankForm = props => {
                     accountsForList.push({value: account.name, label: account.name})
                     accountsForSubmissionList[account.name] = account;
                     setAccountList([...accountsForList]);
-                    setAccount(account);
+                    setAccount(account.name);
                     setAccountsForSubmission(accountsForSubmissionList);
                 }
             })
