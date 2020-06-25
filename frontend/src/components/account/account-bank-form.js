@@ -11,26 +11,32 @@ import {
 const AccountBankForm = props => {
     const [account, setAccount] = useState("");
     const [accountList, setAccountList] = useState([]);
+    const [accountsForSubmission, setAccountsForSubmission] = useState({});
     
     useEffect(() => {
         if ( props.accountList.length > 0 ) {
+            let accountsForList = [];
+            let accountsForSubmissionList = {};
             props.accountList.forEach(account => {
                 if (
                     !account.isBank && 
-                    account.active
+                    account.active &&
+                    account.accountType === "Income"
                 ) {
-                    setAccountList([...accountList, {value: account, label: account.name}]);
+                    accountsForList.push({value: account.name, label: account.name})
+                    accountsForSubmissionList[account.name] = account;
+                    setAccountList([...accountsForList]);
                     setAccount(account);
+                    setAccountsForSubmission(accountsForSubmissionList);
                 }
             })
         }
     }, [props])
 
     const handleSubmit = async event => {
-        console.log(account)
         event.preventDefault();
         if (account !== props.accountInput) {
-            props.updateBank(account, props.callback)
+            props.updateBank(accountsForSubmission[account], props.callback)
         } else {
             props.callback();
         }
