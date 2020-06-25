@@ -3,6 +3,7 @@ import CustomButton from '../../shared/elements/button/custom-button.component';
 import { deleteAccount, updateSelectedAccount, updateAccountFromList } from '../../reducers/account/account.actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AccountBankForm from './account-bank-form';
 
 
 
@@ -45,8 +46,10 @@ const SelectedAccount = (props) => {
     return (
         <div className="border centered split">
             {changeBank ?
-                <div>
-                </div>
+                <AccountBankForm 
+                    accountList={props.accountList}
+                    callback={selectNewBank}
+                />
                 :
                 <div className="grid50">
                     <h5 className="grid-text">

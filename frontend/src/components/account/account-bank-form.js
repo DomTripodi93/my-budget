@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import FormInput from '../../shared/elements/form-input/form-input.component';
 import FormSelect from '../../shared/elements/form-select/form-select.component';
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import {
-    addAccount,
-    addFirstAccount,
-    updateAccountFromList,
-    updateSelectedAccount
+    updateBank
 } from '../../reducers/account/account.actions';
 
 
 
-const AccountForm = props => {
+const AccountBankForm = props => {
     const [account, setAccount] = useState("");
-    const [accountList, setAccountList] = useState(props.accountList);
-
+    const [accountList, setAccountList] = useState([]);
+    
     useEffect(() => {
-        Object.keys(props.accountsList).forEach(key => {
-            if (props.accountsList[key] !== null) {
-                setTransactionInfo({ [key]: props.props.accountsList[key] });
-            }
-        })
-        setAccountList(props.props.accountsList.filter((act)=> {return act.name !== props.bank.name}));
+        if ( props.accountList.length > 0 ) {
+            props.accountList.forEach(account => {
+                if (
+                    !account.isBank && 
+                    account.active
+                ) {
+                    setAccountList([...accountList, {value: account, label: account.name}]);
+                    setAccount(account);
+                }
+            })
+        }
     }, [props])
 
-    const [account, setAccount] = useState("");
-
     const handleSubmit = async event => {
+        console.log(account)
         event.preventDefault();
-        if (accountInfo !== props.accountInput) {
-            props.updateBank(props.bank, account, props.callback)
+        if (account !== props.accountInput) {
+            props.updateBank(account, props.callback)
         } else {
             props.callback();
         }
@@ -44,42 +44,43 @@ const AccountForm = props => {
 
     return (
         <div className='middle'>
-            <h3 className='centered'>
-                Fill out the form below to update your bank account
-            </h3>
-            <form onSubmit={handleSubmit}>
-                <FormSelect
-                    label='New Bank Account'
-                    name='account'
-                    value={account}
-                    options={accountOptions}
-                    onChange={handleChange}
-                    required
-                />
-                <div className="grid50">
-                    <CustomButton
-                        buttonStyle="blue"
-                        type="submit"
-                        label="Update"
-                    />
-                    <CustomButton
-                        buttonStyle="red"
-                        action={props.callback}
-                        label="Cancel"
-                    />
+            {accountList.length > 0 ?
+                <div>
+                    <h5 className='centered'>
+                        Fill out the form below to update your bank account
+                    </h5>
+                    <form onSubmit={handleSubmit}>
+                        <FormSelect
+                            label='New Bank Account'
+                            name='account'
+                            value={account}
+                            options={accountList}
+                            onChange={handleChange}
+                            required
+                        />
+                        <div className="grid100">
+                            <CustomButton
+                                buttonStyle="blue"
+                                type="submit"
+                                label="Update"
+                            />
+                        </div>
+                    </form>
                 </div>
-            </form>
+                :
+                <h5>
+                    Please add another active income account to replace your bank 
+                    account before using this form.
+                </h5>
+            }
         </div>
     );
 }
 
-
-
 const mapDispatchToProps = dispatch => ({
-    updateBank: (bank, account, callback) => {
-        dispatch(updateBank(bank, account, callback))
+    updateBank: (account, callback) => {
+        dispatch(updateBank(account, callback))
     }
 });
 
-
-export default connect(null, mapDispatchToProps)(AccountForm);
+export default connect(null, mapDispatchToProps)(AccountBankForm);

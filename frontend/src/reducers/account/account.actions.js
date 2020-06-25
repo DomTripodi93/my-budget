@@ -127,26 +127,12 @@ export function updateSelectedAccount(account) {
 }
 //Updates account in database
 
-export function updateAccountFromListToBank(account) {
-    account = prepAccountValues(account);
+export function updateBank(newBank, callback) {
     return dispatch => {
-        http.updateItem("account", null, account.name)
+        http.updateItem("account/isBank", null, newBank.name)
             .then(() => {
-                dispatch(updateAccountInState(account, account.accountType));
-            });
-    }
-}
-//Updates account in database to be the bank account
-
-export function updateSelectedAccountToBank(account) {
-    account = prepAccountValues(account);
-    return dispatch => {
-        http.updateItem("account/isBank", null, account.name)
-            .then(() => {
-                if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
-                    dispatch(updateAccountInState(account, account.accountType));
-                }
-                dispatch(setSelectedAccount(account));
+                dispatch(updateBankAccountInState(newBank));
+                callback();
             });
     }
 }
@@ -205,11 +191,10 @@ function updateAccountInState(account, accountType) {
 }
 //Updates function for account
 
-function updateBankAccountInState(account, accountType) {
+function updateBankAccountInState(account) {
     return {
         type: AccountActionTypes.UPDATE_BANK_ACCOUNT,
-        payload: account,
-        accountType
+        payload: account
     }
 }
 //Updates function for account
