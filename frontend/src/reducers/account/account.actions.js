@@ -115,7 +115,7 @@ export function fetchAllAccounts() {
 export function updateAccountFromList(account) {
     account = prepAccountValues(account);
     return dispatch => {
-        http.updateItem("account", account, account.name)
+        http.updateItem("account/byName", account, account.name)
             .then(() => {
                 dispatch(updateAccountInState(account, account.accountType));
             });
@@ -126,7 +126,7 @@ export function updateAccountFromList(account) {
 export function updateSelectedAccount(account) {
     account = prepAccountValues(account);
     return dispatch => {
-        http.updateItem("account", account, account.name)
+        http.updateItem("account/byName", account, account.name)
             .then(() => {
                 if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
                     dispatch(updateAccountInState(account, account.accountType));
@@ -150,7 +150,7 @@ export function updateBank(newBank, callback) {
 
 export function deleteAccount(name, accountType) {
     return dispatch => {
-        http.deleteItem("account", name)
+        http.deleteItem("account/byName", name)
             .then(() => {
                 dispatch(deleteAccountFromState(name, accountType));
             });
