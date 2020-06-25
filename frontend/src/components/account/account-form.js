@@ -38,7 +38,8 @@ const AccountForm = props => {
         { value: "Income", label: "Income" },
         { value: "Expense", label: "Expense" },
         { value: "Asset", label: "Asset" },
-        { value: "Liability", label: "Liability" }
+        { value: "Liability", label: "Liability" },
+        { value: "Equity", label: "Equity" }
     ]
 
     const handleSubmit = async event => {

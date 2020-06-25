@@ -90,15 +90,15 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 allAccounts: allAccountsHold
             };
         case AccountActionTypes.UPDATE_BANK_ACCOUNT:
-            if (calledHold["Income"]) {
-                let lastBank = accountsHold["Income"].filter(account =>{
+            if (calledHold["Asset"]) {
+                let lastBank = accountsHold["Asset"].filter(account =>{
                     return account.isBank === true;
                 })[0];
                 lastBank.isBank = false;
-                accountsHold["Income"] = sortAccounts([
+                accountsHold["Asset"] = sortAccounts([
                     action.payload,
                     lastBank,
-                    ...accountsHold["Income"]
+                    ...accountsHold["Asset"]
                         .filter((value) => {
                             return value.name !== action.payload.name && value.isBank !== true;
                         })

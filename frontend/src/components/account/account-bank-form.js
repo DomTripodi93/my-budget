@@ -21,7 +21,7 @@ const AccountBankForm = props => {
                 if (
                     !account.isBank && 
                     account.active &&
-                    account.accountType === "Income"
+                    account.accountType === "Asset"
                 ) {
                     accountsForList.push({value: account.name, label: account.name})
                     accountsForSubmissionList[account.name] = account;

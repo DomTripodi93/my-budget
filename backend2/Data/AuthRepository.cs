@@ -79,7 +79,7 @@ namespace backend.Data
         {
             AccountForCreationDto accountForCreation = new AccountForCreationDto{
                 Name = "Bank",
-                AccountType = "Income"
+                AccountType = "Asset"
             };
 
             Account Bank = _mapper.Map<Account>(accountForCreation);
