@@ -81,7 +81,7 @@ namespace backend.Controllers
 
         }
 
-        [HttpGet("{Name}", Name = "GetAccount")]
+        [HttpGet("byName/{Name}", Name = "GetAccount")]
         public async Task<IActionResult> GetAccount(int userId, string Name)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -137,7 +137,7 @@ namespace backend.Controllers
 
         }
 
-        [HttpPut("{Name}")]
+        [HttpPut("byName/{Name}")]
         public async Task<IActionResult> UpdateAccount(int userId, string Name, AccountForCreationDto AccountForUpdateDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -174,7 +174,7 @@ namespace backend.Controllers
             throw new Exception($"Updating Account {Name} failed on save");
         }
 
-        [HttpDelete("{Name}")]
+        [HttpDelete("byName/{Name}")]
         public async Task<IActionResult> DeleteAccount(int userId, string Name)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))

@@ -33,7 +33,17 @@ export function addFirstAccount(account, callback) {
 
 export function fetchSingleAccount(name) {
     return dispatch => {
-        http.fetchByValue("account", name)
+        http.fetchByValue("account/byName", name)
+            .then((account) => {
+                dispatch(setSelectedAccount(account.data));
+            });
+    }
+}
+//Gets specific account by name
+
+export function fetchBankAccount() {
+    return dispatch => {
+        http.fetchByValue("account", "Bank")
             .then((account) => {
                 dispatch(setSelectedAccount(account.data));
             });
