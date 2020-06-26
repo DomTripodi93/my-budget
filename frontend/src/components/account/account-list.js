@@ -40,7 +40,7 @@ const AccountList = (props) => {
                                 </h5>
                         </div>
                     </div>
-                    <hr />
+                    <hr className="close" />
                     <div>
                         <div>
                             {props.accounts.map(account => (
@@ -99,7 +99,7 @@ const AccountList = (props) => {
                                             }
                                         </div>
                                     </div>
-                                    <hr />
+                                    <hr className="close" />
                                 </div>
                             ))}
                         </div>

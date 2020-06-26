@@ -60,7 +60,7 @@ const RecurringTransactionList = (props) => {
                             </h5>
                         </div>
                     </div>
-                    <hr />
+                    <hr className="close" />
                     <div>
                         <div>
                             {props.transactions.map(recurringTransaction => (
@@ -109,7 +109,7 @@ const RecurringTransactionList = (props) => {
                                             }
                                         </div>
                                     </div>
-                                    <hr />
+                                    <hr className="close" />
                                 </div>
                             ))}
                         </div>
