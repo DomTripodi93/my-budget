@@ -61,59 +61,55 @@ const RecurringTransactionList = (props) => {
                         </div>
                     </div>
                     <hr className="close" />
-                    <div>
-                        <div>
-                            {props.transactions.map(recurringTransaction => (
-                                <div key={recurringTransaction.id}>
-                                    <div className="recurring-transaction-grid-outer">
+                    {props.transactions.map(recurringTransaction => (
+                        <div key={recurringTransaction.id}>
+                            <div className="recurring-transaction-grid-outer">
+                                <div>
+                                    {detailsShown[recurringTransaction.id] ?
                                         <div>
-                                            {detailsShown[recurringTransaction.id] ?
-                                                <div>
-                                                    {editMode[recurringTransaction.id] ?
-                                                        <div className="border">
-                                                            <RecurringTransactionForm
-                                                                editMode={true}
-                                                                transactionInput={recurringTransaction}
-                                                                callback={()=>{editUpdate(recurringTransaction.id)}}
-                                                                accounts={props.accounts}
-                                                            />
-                                                        </div>
-                                                        :
-                                                        <SelectedRecurringTransaction
-                                                            transaction={recurringTransaction}
-                                                            callback={editUpdate}
-                                                        />
-                                                    }
-                                                </div>
-                                                :
-                                                <div>
-                                                    <RecurringTransactionLine
-                                                        recurringTransaction={recurringTransaction}
+                                            {editMode[recurringTransaction.id] ?
+                                                <div className="border">
+                                                    <RecurringTransactionForm
+                                                        editMode={true}
+                                                        transactionInput={recurringTransaction}
+                                                        callback={()=>{editUpdate(recurringTransaction.id)}}
+                                                        accounts={props.accounts}
                                                     />
                                                 </div>
-                                            }
-                                        </div>
-                                        <div className="recurring-transaction-grid-right center">
-                                            {detailsShown[recurringTransaction.id] ?
-                                                <CustomButton
-                                                    action={()=> detailsVisible(recurringTransaction.id)}
-                                                    label="&#x25B3;"
-                                                    buttonStyle="mini"
-                                                />
                                                 :
-                                                <CustomButton
-                                                    action={()=> detailsVisible(recurringTransaction.id)}
-                                                    label="&#x25BD;"
-                                                    buttonStyle="mini"
+                                                <SelectedRecurringTransaction
+                                                    transaction={recurringTransaction}
+                                                    callback={editUpdate}
                                                 />
                                             }
                                         </div>
-                                    </div>
-                                    <hr className="close" />
+                                        :
+                                        <div>
+                                            <RecurringTransactionLine
+                                                recurringTransaction={recurringTransaction}
+                                            />
+                                        </div>
+                                    }
                                 </div>
-                            ))}
+                                <div className="recurring-transaction-grid-right center">
+                                    {detailsShown[recurringTransaction.id] ?
+                                        <CustomButton
+                                            action={()=> detailsVisible(recurringTransaction.id)}
+                                            label="&#x25B3;"
+                                            buttonStyle="mini"
+                                        />
+                                        :
+                                        <CustomButton
+                                            action={()=> detailsVisible(recurringTransaction.id)}
+                                            label="&#x25BD;"
+                                            buttonStyle="mini"
+                                        />
+                                    }
+                                </div>
+                            </div>
+                            <hr className="close" />
                         </div>
-                    </div>
+                    ))}
                 </div>
             }
         </div>

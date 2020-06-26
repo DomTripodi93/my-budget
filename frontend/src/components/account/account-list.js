@@ -41,69 +41,65 @@ const AccountList = (props) => {
                         </div>
                     </div>
                     <hr className="close" />
-                    <div>
-                        <div>
-                            {props.accounts.map(account => (
-                                <div key={account.name}>
-                                    <div className="account-grid-outer">
+                    {props.accounts.map(account => (
+                        <div key={account.name}>
+                            <div className="account-grid-outer">
+                                <div>
+                                    {detailsShown[account.name] ?
                                         <div>
-                                            {detailsShown[account.name] ?
+                                            <SelectedAccount
+                                                account={account}
+                                                accountList={props.accounts}
+                                            />
+                                        </div>
+                                        :
+                                        <div>
+                                            {account.active ?
                                                 <div>
-                                                    <SelectedAccount
-                                                        account={account}
-                                                        accountList={props.accounts}
-                                                    />
-                                                </div>
-                                                :
-                                                <div>
-                                                    {account.active ?
-                                                        <div>
-                                                            {account.isBank ?
-                                                                <div className="green-back">
-                                                                    <AccountLine
-                                                                        account={account}
-                                                                        page={props.page}
-                                                                    />
-                                                                </div>
-                                                                :
-                                                                <AccountLine
-                                                                    account={account}
-                                                                    page={props.page}
-                                                                />
-                                                            }
-                                                        </div>
-                                                        :
-                                                        <div className="gray-back">
+                                                    {account.isBank ?
+                                                        <div className="green-back">
                                                             <AccountLine
                                                                 account={account}
                                                                 page={props.page}
                                                             />
                                                         </div>
+                                                        :
+                                                        <AccountLine
+                                                            account={account}
+                                                            page={props.page}
+                                                        />
                                                     }
+                                                </div>
+                                                :
+                                                <div className="gray-back">
+                                                    <AccountLine
+                                                        account={account}
+                                                        page={props.page}
+                                                    />
                                                 </div>
                                             }
                                         </div>
-                                        <div className="account-grid-right center">
-                                            {detailsShown[account.name] ?
-                                                <CustomButton
-                                                    action={()=> detailsVisible(account.name)}
-                                                    label="&#x25B3;"
-                                                    buttonStyle="mini"
-                                                />
-                                                :
-                                                <CustomButton
-                                                    action={()=> detailsVisible(account.name)}
-                                                    label="&#x25BD;"
-                                                    buttonStyle="mini"
-                                                />
-                                            }
-                                        </div>
-                                    </div>
-                                    <hr className="close" />
+                                    }
                                 </div>
-                            ))}
+                                <div className="account-grid-right center">
+                                    {detailsShown[account.name] ?
+                                        <CustomButton
+                                            action={()=> detailsVisible(account.name)}
+                                            label="&#x25B3;"
+                                            buttonStyle="mini"
+                                        />
+                                        :
+                                        <CustomButton
+                                            action={()=> detailsVisible(account.name)}
+                                            label="&#x25BD;"
+                                            buttonStyle="mini"
+                                        />
+                                    }
+                                </div>
+                            </div>
+                            <hr className="close" />
                         </div>
-                    </div>
+                    ))}
                 </div>
             }
         </div>
