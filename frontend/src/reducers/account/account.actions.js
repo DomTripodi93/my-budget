@@ -112,7 +112,7 @@ export function fetchAllAccounts() {
 }
 //Gets all accounts for a user
 
-export function updateAccountFromList(account) {
+export function updateAccount(account) {
     account = prepAccountValues(account);
     return dispatch => {
         http.updateItem("account/byName", account, account.name)
