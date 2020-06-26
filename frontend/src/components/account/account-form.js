@@ -5,9 +5,7 @@ import FormSelect from '../../shared/elements/form-select/form-select.component'
 import CustomButton from '../../shared/elements/button/custom-button.component';
 import {
     addAccount,
-    addFirstAccount,
-    updateAccountFromList,
-    updateSelectedAccount
+    addFirstAccount
 } from '../../reducers/account/account.actions';
 
 
@@ -23,17 +21,6 @@ const AccountForm = props => {
         accountType
     } = accountInfo;
 
-    useEffect(() => {
-        if (props.editMode) {
-            Object.keys(props.accountInput).forEach(key => {
-                if (props.accountInput[key] !== null) {
-                    setAccountInfo({ [key]: props.accountInput[key] });
-                }
-            })
-            setAccountInfo(props.accountInput);
-        }
-    }, [props])
-
     const accountTypes = [
         { value: "Income", label: "Income" },
         { value: "Expense", label: "Expense" },
@@ -44,28 +31,10 @@ const AccountForm = props => {
 
     const handleSubmit = async event => {
         event.preventDefault();
-        if (props.editMode) {
-            if (accountInfo !== props.accountInput) {
-                if (props.single) {
-                    props.updateSelectedAccount(
-                        accountInfo,
-                        props.callback
-                    );
-                } else {
-                    props.updateAccountFromList(
-                        accountInfo,
-                        props.callback
-                    );
-                }
-            } else {
-                props.callback();
-            }
+        if (props.first){
+            props.addFirstAccount(accountInfo, props.callback);
         } else {
-            if (props.first){
-                props.addFirstAccount(accountInfo, props.callback);
-            } else {
-                props.addAccount(accountInfo, props.callback);
-            }
+            props.addAccount(accountInfo, props.callback);
         }
     };
 
@@ -77,15 +46,9 @@ const AccountForm = props => {
 
     return (
         <div className='middle'>
-            {!props.editMode ?
-                <h3 className='centered'>
-                    Fill out the form below to add a New Account
-                </h3>
-                :
-                <h3 className='centered'>
-                    Fill out the form below to update your Account
-                </h3>
-            }
+            <h3 className='centered'>
+                Fill out the form below to add a New Account
+            </h3>
             <form onSubmit={handleSubmit}>
                 <FormInput
                     label='Account Name'
@@ -104,19 +67,11 @@ const AccountForm = props => {
                     required
                 />
                 <div className="grid50">
-                    {!props.editMode ?
-                        <CustomButton
-                            buttonStyle="blue"
-                            type="submit"
-                            label="Add"
-                        />
-                        :
-                        <CustomButton
-                            buttonStyle="blue"
-                            type="submit"
-                            label="Update"
-                        />
-                    }
+                    <CustomButton
+                        buttonStyle="blue"
+                        type="submit"
+                        label="Add"
+                    />
                     <CustomButton
                         buttonStyle="red"
                         action={props.callback}
@@ -136,12 +91,6 @@ const mapDispatchToProps = dispatch => ({
     },
     addFirstAccount: (account, callback) => {
         dispatch(addFirstAccount(account, callback))
-    },
-    updateAccountFromList: (account, callback) => {
-        dispatch(updateAccountFromList(account, callback))
-    },
-    updateSelectedAccount: (account, callback) => {
-        dispatch(updateSelectedAccount(account, callback))
     }
 });
 
