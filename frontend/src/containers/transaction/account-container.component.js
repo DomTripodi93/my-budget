@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchAllAccounts, fetchAccountsByType, fetchSingleAccount, fetchSingleAccountFromCache } from '../../reducers/account/account.actions';
 import AccountList from '../../components/account/account-list';
 import AccountNew from '../../components/account/account-new';
+import SelectedAccount from '../../components/account/selected-account';
 
 
 
@@ -87,11 +88,19 @@ const AccountContainer = (props) => {
             />
             <br />
             {accounts.length > 0 ?
-                <AccountList
-                    accounts={accounts}
-                    single={single}
-                    page={page}
-                />
+                <div>
+                    {single ?
+                        <SelectedAccount
+                            account={accounts[0]}
+                            single={true}
+                        />
+                        :
+                        <AccountList
+                            accounts={accounts}
+                            page={page}
+                        />
+                    }
+                </div>
                 :
                 <div className="border centered">
                     <h4>
