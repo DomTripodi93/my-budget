@@ -7,7 +7,7 @@ const AccountLine = (props) => {
     return (
         <div className="centered account-grid-inner">
             <Link
-                to={"/account/" + account.name}
+                to={"/account/single/" + account.name}
             >
                 <h5 className="grid-text">
                     {account.name}

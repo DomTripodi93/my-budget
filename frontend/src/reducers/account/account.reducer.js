@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     allAccounts: [],
     accounts: {},
     selectedAccount: {},
-    called: {}
+    called: { single: "" }
 }
 
 const accountReducer = (state = INITIAL_STATE, action) => {
@@ -22,7 +22,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
     let calledHold = { ...state.called };
     switch (action.type) {
         case AccountActionTypes.SET_SELECTED_ACCOUNT:
-            calledHold[action.payload.name] = true;
+            calledHold["single"] = action.payload.name;
             return {
                 ...state,
                 selectedAccount: action.payload,
@@ -91,7 +91,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             };
         case AccountActionTypes.UPDATE_BANK_ACCOUNT:
             if (calledHold["Asset"]) {
-                let lastBank = accountsHold["Asset"].filter(account =>{
+                let lastBank = accountsHold["Asset"].filter(account => {
                     return account.isBank === true;
                 })[0];
                 lastBank.isBank = false;
@@ -105,7 +105,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 ]);
             }
             if (calledHold["All"]) {
-                let lastBank = allAccountsHold.filter(account =>{
+                let lastBank = allAccountsHold.filter(account => {
                     return account.isBank === true;
                 })[0];
                 lastBank.isBank = false;

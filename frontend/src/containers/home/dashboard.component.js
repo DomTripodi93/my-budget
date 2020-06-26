@@ -35,7 +35,7 @@ const Dashboard = (props) => {
             {hasAccount ?
                 <div className="border centered">
                     <br />
-                    <Link to="/account/All">All Accounts</Link>
+                    <Link to="/account/list/All">All Accounts</Link>
                     <br />
                     <Link to="/account/Income">Income Accounts</Link>
                     <br />

@@ -40,7 +40,7 @@ const App = (props) => {
                     <Suspense fallback={<Spinner />}>
                         <Switch>
                             <Route exact path='/' component={Dashboard} />
-                            <Route exact path='/account/:page' component={AccountContainer} />
+                            <Route exact path='/account/:searchType/:page' component={AccountContainer} />
                             <Route exact path='/transaction/:page' component={TransactionContainer} />
                             <Route exact path='/recurringTransaction/:page' component={RecurringTransactionContainer} />
                             <Route exact path='/signout' component={Signout} />

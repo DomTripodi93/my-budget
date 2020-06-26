@@ -16,21 +16,18 @@ const AccountContainer = (props) => {
     const fetchSingleFromCache = props.fetchSingleAccountFromCache;
     const selectedAccount = props.selectedAccount;
     const accountTypes = props.accountTypes;
+    const searchType = props.match.params.searchType;
 
     useEffect(() => {
-        if (!called[page]) {
-            if (page === "All") {
-                fetchAll();
-            } else if (!accountTypes.includes(page)) {
-                if (called["All"]) {
-                    fetchSingleFromCache(page)
+        if (!called[page] && searchType === "list"){
+            if (searchType === "list") {
+                if (page === "All") {
+                    fetchAll();
                 } else {
-                    fetchSingle(page);
+                    fetchByType(page);
                 }
-            } else {
-                fetchByType(page);
             }
-        } else if (!accountTypes.includes(page) && selectedAccount.name !== page) {
+        } else if (searchType === "single" && called["single"] !== page) {
             if (called["All"]) {
                 fetchSingleFromCache(page)
             } else {
@@ -41,7 +38,8 @@ const AccountContainer = (props) => {
         fetchAll, 
         fetchByType, 
         fetchSingle, 
-        page, 
+        page,
+        searchType,
         called, 
         selectedAccount, 
         fetchSingleFromCache, 
@@ -53,7 +51,7 @@ const AccountContainer = (props) => {
     const [first, setFirst] = useState(false);
 
     useEffect(() => {
-        if (called[page]) {
+        if ( searchType === "list" && called[page]) {
             if (page === "All") {
                 setAccounts([...props.allAccounts]);
                 if (props.allAccounts.length > 0){
@@ -62,13 +60,13 @@ const AccountContainer = (props) => {
                     setFirst(true);
                 }
                 setSingle(false);
-            } else if (!accountTypes.includes(page)) {
-                setAccounts([props.selectedAccount]);
-                setSingle(true);
             } else {
                 setAccounts(props.accountsByType[page]);
                 setSingle(false);
             }
+        } else if (searchType === "single" && called["single"] === page) {
+            setAccounts([props.selectedAccount]);
+            setSingle(true);
         }
     }, [page, props, called, accountTypes])
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import FormInput from '../../shared/elements/form-input/form-input.component';
 import FormSelect from '../../shared/elements/form-select/form-select.component';
