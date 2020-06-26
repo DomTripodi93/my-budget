@@ -118,19 +118,6 @@ export function updateAccountFromList(account) {
         http.updateItem("account/byName", account, account.name)
             .then(() => {
                 dispatch(updateAccountInState(account, account.accountType));
-            });
-    }
-}
-//Updates account in database
-
-export function updateSelectedAccount(account) {
-    account = prepAccountValues(account);
-    return dispatch => {
-        http.updateItem("account/byName", account, account.name)
-            .then(() => {
-                if (Object.keys(store.getState().account.accounts).includes(account.accountType)) {
-                    dispatch(updateAccountInState(account, account.accountType));
-                }
                 dispatch(setSelectedAccount(account));
             });
     }
