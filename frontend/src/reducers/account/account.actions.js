@@ -45,7 +45,7 @@ export function fetchBankAccount() {
     return dispatch => {
         http.fetchByValue("account", "Bank")
             .then((account) => {
-                dispatch(setSelectedAccount(account.data));
+                dispatch(setSelectedToBankAccount(account.data));
             });
     }
 }
@@ -178,6 +178,14 @@ function setSelectedAccount(account) {
     }
 }
 //Sets selected account in state
+
+function setSelectedToBankAccount(account) {
+    return {
+        type: AccountActionTypes.SET_SELECTED_TO_BANK_ACCOUNT,
+        payload: account
+    }
+}
+//Sets selected account in state to bank account
 
 function updateAccountInState(account, accountType) {
     return {

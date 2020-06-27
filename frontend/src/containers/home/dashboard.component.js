@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchAllAccounts, fetchSingleAccount } from '../../reducers/account/account.actions';
+import { fetchAllAccounts, fetchBankAccount } from '../../reducers/account/account.actions';
 
 
 
@@ -17,21 +17,21 @@ const Dashboard = (props) => {
             fetchAll();
         } else if (accounts.length > 0) {
             setHasAccount(true)
-            if (!called["Bank"]){
+            if (called["single"] !== "Bank") {
                 fetchBank();
             }
         }
     }, [
         fetchAll,
         fetchBank,
-        called, 
+        called,
         accounts
     ])
 
     return (
         <div>
             <h2 className="centered">Welcome to Your Dashboard!</h2>
-            
+
             {hasAccount ?
                 <div className="border centered">
                     <br />
@@ -50,7 +50,7 @@ const Dashboard = (props) => {
                 :
                 <div className="border centered">
                     <h4>
-                        You don't have any accounts, to get started add 
+                        You don't have any accounts, to get started add
                         your bank <Link to="account/All">account</Link>
                     </h4>
                 </div>
@@ -64,7 +64,7 @@ const Dashboard = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchAllAccounts: () => dispatch(fetchAllAccounts()),
-        fetchBankAccount: () => dispatch(fetchSingleAccount("Bank"))
+        fetchBankAccount: () => dispatch(fetchBankAccount())
     }
 }
 

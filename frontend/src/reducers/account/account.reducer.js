@@ -28,6 +28,13 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 selectedAccount: action.payload,
                 called: calledHold
             };
+        case AccountActionTypes.SET_SELECTED_TO_BANK_ACCOUNT:
+            calledHold["single"] = "Bank";
+            return {
+                ...state,
+                selectedAccount: action.payload,
+                called: calledHold
+            };
         case AccountActionTypes.SET_ACCOUNTS:
             calledHold[action.accountType] = true;
             if (action.payload.data.length > 0) {
