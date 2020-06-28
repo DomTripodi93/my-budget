@@ -23,7 +23,7 @@ const Header = props => {
                         <Link to='/' className='route'>
                             Home
                         </Link>
-                        <Link to="/account/All">Accounts</Link>
+                        <Link to="/account/list/All">Accounts</Link>
                         <Link to="/transaction/notReconciled">Transactions</Link>
                         <Link to="/recurringTransaction/All">Recurring Transactions</Link>
                     </div>

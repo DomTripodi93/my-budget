@@ -37,9 +37,9 @@ const Dashboard = (props) => {
                     <br />
                     <Link to="/account/list/All">All Accounts</Link>
                     <br />
-                    <Link to="/account/Income">Income Accounts</Link>
+                    <Link to="/account/list/Income">Income Accounts</Link>
                     <br />
-                    <Link to="/account/Expense">Expense Accounts</Link>
+                    <Link to="/account/list/Expense">Expense Accounts</Link>
                     <br />
                     <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
                     <br />
