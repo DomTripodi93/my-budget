@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchAllAccounts, fetchBankAccount } from '../../reducers/account/account.actions';
-
+import SelectedAccount from '../../components/account/selected-account';
+import "../../components/account/account.scss";
 
 
 const Dashboard = (props) => {
@@ -31,7 +32,6 @@ const Dashboard = (props) => {
     return (
         <div>
             <h2 className="centered">Welcome to Your Dashboard!</h2>
-
             {hasAccount ?
                 <div className="border centered">
                     <br />
@@ -55,6 +55,16 @@ const Dashboard = (props) => {
                     </h4>
                 </div>
             }
+            <div className="spaced">
+                {called["single"] === "Bank" ?
+                    <SelectedAccount
+                        account={props.selectedAccount}
+                        accountList={props.accounts}
+                    />
+                    :
+                    null
+                }
+            </div>
         </div>
     );
 };
