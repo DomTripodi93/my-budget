@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import './App.scss';
 import { checkUser } from './reducers/user/user.actions';
+import logo from './shared/assets/favicon.png';
 
 
 import Header from './shared/header/header';
@@ -32,9 +33,9 @@ const App = (props) => {
     }, [props]);
 
     return (
-        <div id="page">
+        <div>
             <Header />
-            <div>
+            <div id="page">
                 {
                     authValue ?
                     <Suspense fallback={<Spinner />}>
@@ -55,6 +56,12 @@ const App = (props) => {
                         </Switch>
                     </Suspense>
                 }
+            </div>
+            <div id="footer">
+                <div className="grid-foot">
+                    <img className='logo-holder' alt='logo' src={logo}></img>
+                    <p className="middle">My Budget, Version: 0.1.0</p>
+                </div>
             </div>
         </div>
     );
