@@ -12,6 +12,8 @@ const TransactionNew = (props) => {
     useEffect(() => {
         if (props.accounts.length === 0) {
             setError("You must add accounts before uploading transactions.")
+        } else {
+            setError("")
         }
     }, [props])
 
