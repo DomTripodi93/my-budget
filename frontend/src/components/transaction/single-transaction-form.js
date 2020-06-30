@@ -51,7 +51,7 @@ const TransactionForm = props => {
                 return {
                     ...transactionInfo,
                     accountFrom: accounts[0].name,
-                    accountTo: accounts[0].name
+                    accountTo: accounts[1].name
                 }
             })
         } 
@@ -83,24 +83,16 @@ const TransactionForm = props => {
     const handleChange = event => {
         const { name, value } = event.target;
 
-        if (name === "lastDate") {
-            let dateHold = new Date(helper.getJsDateStringFromIsoDateString(value));
-            dateHold.setDate(dateHold.getDate() + +transactionInfo.recurringInterval);
-            setTransactionInfo({
-                ...transactionInfo,
-                nextDate: helper.getStringFromDate(dateHold),
-                [name]: value
-            })
-        } else if (name === "recurringInterval") {
-            let dateHold = new Date(
-                helper.getJsDateStringFromIsoDateString(transactionInfo.lastDate)
-            );
-            dateHold.setDate(dateHold.getDate() + +value);
-            setTransactionInfo({
-                ...transactionInfo,
-                nextDate: helper.getStringFromDate(dateHold),
-                [name]: value
-            })
+        if (name === "accountTo" || name === "accountFrom") {
+            let lastTo = transactionInfo["accountTo"]
+            let lastFrom = transactionInfo["accountFrom"]
+            if (value === lastFrom && name === "accountTo"){
+                setTransactionInfo({ ...transactionInfo, [name]: value, accountFrom: lastTo})
+            } else if (value === lastTo && name === "accountFrom"){
+                setTransactionInfo({ ...transactionInfo, [name]: value, accountTo: lastFrom})
+            } else {
+                setTransactionInfo({ ...transactionInfo, [name]: value });
+            }
         } else {
             setTransactionInfo({ ...transactionInfo, [name]: value });
         }
@@ -145,7 +137,7 @@ const TransactionForm = props => {
                     required
                 />
                 <FormInput
-                    label='Time of Transaction'
+                    label='Date of Transaction'
                     type='date'
                     name='date'
                     value={date}
