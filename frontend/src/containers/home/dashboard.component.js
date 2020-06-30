@@ -55,7 +55,7 @@ const Dashboard = (props) => {
                     </h4>
                 </div>
             }
-            <div className="spaced">
+            <div className="spaced-top">
                 {called["single"] === "Bank" ?
                     <SelectedAccount
                         account={props.selectedAccount}
