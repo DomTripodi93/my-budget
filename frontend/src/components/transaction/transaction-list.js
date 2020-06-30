@@ -30,7 +30,7 @@ const TransactionList = (props) => {
                                 To
                             </h5>
                             <h5 className="grid-header-text">
-                                Time
+                                Date
                             </h5>
                             <h5 className="grid-header-text">
                                 Cost
