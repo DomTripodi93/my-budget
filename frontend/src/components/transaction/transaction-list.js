@@ -39,8 +39,8 @@ const TransactionList = (props) => {
                     </div>
                     <hr className="close" />
                     {props.transactions.map(transaction => (
-                        <div className="transaction-grid-outer">
-                            <div key={transaction.id}>
+                        <div key={transaction.id} className="transaction-grid-outer">
+                            <div>
                                 <TransactionLine
                                     transaction={transaction}
                                 />

@@ -10,9 +10,10 @@ const UploadTransactions = (props) => {
     const [transactions, setTransactions] = useState()
 
     const handleChange = event => {
-        const { value } = event.target;
+        const { value } = event.target.files[0];
         setTransactions(value);
     };
+
     const handleSubmit = () => {
         let data = new FormData();
         data.append('transactions', transactions);
