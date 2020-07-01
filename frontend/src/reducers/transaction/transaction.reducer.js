@@ -62,22 +62,23 @@ const transactionReducer = (state = INITIAL_STATE, action) => {
                     action.payload,
                     ...transactionsHold[action.payload.accountTo]
                 ]);
+            } else {
+                transactionsHold[action.payload.accountTo] = [
+                    action.payload
+                ];
             }
             if (calledHold[action.payload.accountFrom]) {
                 transactionsHold[action.payload.accountFrom] = sortTransactions([
                     action.payload,
-                    ...transactionsHold[action.payload.accountTo]
+                    ...transactionsHold[action.payload.accountFrom]
                 ]);
-            }
-            if (calledHold["notReconciled"]) {
-                notReconciledHold = sortTransactions([
-                    action.payload,
-                    ...notReconciledHold
-                ])
+            } else {
+                transactionsHold[action.payload.accountFrom] = [
+                    action.payload
+                ];
             }
             return {
                 ...state,
-                transactionsNotReconciled: notReconciledHold,
                 transactions: transactionsHold,
             };
         case TransactionActionTypes.UPDATE_TRANSACTIONS:
