@@ -129,7 +129,7 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 accounts: accountsHold,
                 allAccounts: allAccountsHold
-            };
+            };            
         case AccountActionTypes.DELETE_ACCOUNT:
             if (calledHold[action.accountType]) {
                 accountsHold[action.accountType] = [

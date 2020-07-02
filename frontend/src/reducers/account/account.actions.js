@@ -135,11 +135,11 @@ export function updateBank(newBank, callback) {
 }
 //Updates account in database to be the bank account
 
-export function updateBalance(accountName, newBalance) {
+export function updateBalance(account) {
     return dispatch => {
-        http.updateItem("account/balance", {balance: newBalance}, accountName)
+        http.updateItem("account/balance", {balance: account.balance}, account.name)
             .then(() => {
-                dispatch(updateAccountBalanceInState(accountName, newBalance));
+                dispatch(updateAccountInState(account, account.accountType));
             });
     }
 }
@@ -210,15 +210,6 @@ function updateBankAccountInState(account) {
     return {
         type: AccountActionTypes.UPDATE_BANK_ACCOUNT,
         payload: account
-    }
-}
-//Updates function for account
-
-function updateAccountBalanceInState(accountName, balance) {
-    return {
-        type: AccountActionTypes.UPDATE_ACCOUNT_BALANCE,
-        name: accountName,
-        balance
     }
 }
 //Updates function for account
