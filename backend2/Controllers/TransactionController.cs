@@ -186,31 +186,6 @@ namespace backend.Controllers
 
             var TransactionFromRepo = await _repo.GetTransaction(Id);
 
-            if (TransactionFromRepo.AccountFrom != null && TransactionFromRepo.AccountTo != null)
-            {
-                if (TransactionFromRepo.AccountFrom != TransactionForUpdateDto.AccountFrom)
-                {
-                    var AccountFromRepoForUpdate = await _repo.GetAccountByName(userId, TransactionFromRepo.AccountFrom);
-                    AccountFromRepoForUpdate.Balance += TransactionFromRepo.Cost;
-                    var AccountFromDtoForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountFrom);
-                    AccountFromDtoForUpdate.Balance -= TransactionFromRepo.Cost;
-                }
-                if (TransactionFromRepo.AccountTo != TransactionForUpdateDto.AccountTo)
-                {
-                    var AccountToRepoForUpdate = await _repo.GetAccountByName(userId, TransactionFromRepo.AccountTo);
-                    AccountToRepoForUpdate.Balance -= TransactionFromRepo.Cost;
-                    var AccountToDtoForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountTo);
-                    AccountToDtoForUpdate.Balance += TransactionFromRepo.Cost;
-                }
-            }
-            else
-            {
-                var AccountFromForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountFrom);
-                AccountFromForUpdate.Balance -= TransactionFromRepo.Cost;
-                var AccountToForUpdate = await _repo.GetAccountByName(userId, TransactionForUpdateDto.AccountTo);
-                AccountToForUpdate.Balance += TransactionFromRepo.Cost;
-            }
-
             _mapper.Map(TransactionForUpdateDto, TransactionFromRepo);
 
             if (TransactionFromRepo.AccountFrom != null && TransactionFromRepo.AccountTo != null)
