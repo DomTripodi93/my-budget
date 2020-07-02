@@ -138,7 +138,7 @@ namespace backend.Controllers
         }
 
         [HttpPut("byName/{Name}")]
-        public async Task<IActionResult> UpdateAccount(int userId, string Name, AccountForCreationDto AccountForUpdateDto)
+        public async Task<IActionResult> UpdateAccount(int userId, string Name, AccountForUpdateDto AccountForUpdateDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
