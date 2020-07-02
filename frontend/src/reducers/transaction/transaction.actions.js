@@ -32,6 +32,7 @@ function updateAccountsForTransaction(transaction) {
         dispatch(updateBalance(accountTo));
     }
 }
+//Updates accounts for journaled transaction
 
 export function uploadBulkTransactions(transactions) {
     return dispatch => {
@@ -100,6 +101,26 @@ export function reconcileSingleTransaction(transaction, callback) {
     }
 }
 //Updates transaction in database
+
+function reconcileAccountsForTransaction(transaction) {
+    let accountFrom = store.getState().account.allAccounts.filter(account=>{
+        return account.name === transaction.accountFrom;
+    })[0]
+    accountFrom.balance -= transaction.cost;
+    let accountTo = store.getState().account.allAccounts.filter(account=>{
+        return account.name === transaction.accountTo;
+    })[0]
+    accountTo.balance += transaction.cost;
+    return dispatch => {
+        if (!accountFrom.isBank){
+            dispatch(updateBalance(accountFrom));
+        }
+        if (!accountTo.isBank){
+            dispatch(updateBalance(accountTo));
+        }
+    }
+}
+//Updates accounts for reconciled transaction
 
 export function updateTransactionFromList(transaction, callback) {
     return dispatch => {
