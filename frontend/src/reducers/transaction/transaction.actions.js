@@ -26,7 +26,7 @@ function updateAccountsForTransaction(transaction) {
     let accountTo = store.getState().account.allAccounts.filter(account=>{
         return account.name === transaction.accountTo;
     })[0]
-    accountTo.balance += transaction.cost;
+    accountTo.balance += +transaction.cost;
     return dispatch => {
         dispatch(updateBalance(accountFrom));
         dispatch(updateBalance(accountTo));
