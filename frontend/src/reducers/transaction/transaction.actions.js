@@ -1,6 +1,7 @@
 import rootHttp from '../root-http';
 import TransactionActionTypes from './transaction.types';
 import store from '../store';
+import { updateBalance } from '../account/account.actions';
 
 
 const http = new rootHttp();
@@ -10,11 +11,27 @@ export function addTransaction(transaction, callback) {
         http.addItem("transaction", transaction)
             .then(addedTransaction => {
                 dispatch(addTransactionToState(addedTransaction.data));
+                dispatch(updateAccountsForTransaction(transaction));
                 callback();
             });
     }
 }
 //Posts new transaction to API
+
+function updateAccountsForTransaction(transaction) {
+    let accountFrom = store.getState().account.allAccounts.filter(account=>{
+        return account.name === transaction.accountFrom;
+    })[0]
+    accountFrom.balance -= transaction.cost;
+    let accountTo = store.getState().account.allAccounts.filter(account=>{
+        return account.name === transaction.accountTo;
+    })[0]
+    accountTo.balance += transaction.cost;
+    return dispatch => {
+        dispatch(updateBalance(accountFrom));
+        dispatch(updateBalance(accountTo));
+    }
+}
 
 export function uploadBulkTransactions(transactions) {
     return dispatch => {
