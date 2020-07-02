@@ -1,8 +1,6 @@
 .transaction-grid-outer {
     display: grid;
     grid-template-columns: 80% 20%;
-    height: 50px;
-
     .grid-text {
         line-height: 0;
         font-size: 14px;
@@ -30,12 +28,18 @@
         display: grid;
         grid-template-columns: 10% 22% 22% 29% 17%;
         height: 45px;
+        @media (max-width: 700px) {
+            height: 38px;
+        }
     }
 
     .transaction-grid-right {
         display: grid;
         grid-template-columns: 100%;
         height: 45px;
+        @media (max-width: 700px) {
+            height: 38px;
+        }
     }
 }
 

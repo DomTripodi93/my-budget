@@ -39,17 +39,18 @@ const TransactionList = (props) => {
                     </div>
                     <hr className="close" />
                     {props.transactions.map(transaction => (
-                        <div key={transaction.id} className="transaction-grid-outer">
-                            <div>
-                                <TransactionLine
-                                    transaction={transaction}
-                                />
-                                <hr />
-                            </div>
-                            <div className="centered transaction-grid-right">
-                                <h5 className="grid-text">
-                                    buttons
-                                </h5>
+                        <div key={transaction.id}>
+                            <div className="transaction-grid-outer">
+                                <div>
+                                    <TransactionLine
+                                        transaction={transaction}
+                                    />
+                                </div>
+                                <div className="centered transaction-grid-right">
+                                    <h5 className="grid-text">
+                                        buttons
+                                    </h5>
+                                </div>
                             </div>
                             <hr className="close" />
                         </div>
