@@ -5,8 +5,6 @@ import helpers from '../../shared/helpers';
 
 const SelectedTransaction = (props) => {
     const transaction = props.transaction;
-    const helper = new helpers();
-    const time = helper.timeForDisplay(helper.timeFromIsoDateTime(transaction.date));
     return (
         <div className="centered border">
             <h5>
@@ -19,7 +17,7 @@ const SelectedTransaction = (props) => {
                 Account To: {transaction.accountTo}
             </h5>
             <h5>
-                Time of Transaction: {time}, {transaction.date.substring(0,10)}
+                Date of Transaction: {transaction.date.substring(0,10)}
             </h5>
             <h5>
                 Cost: {transaction.cost}
