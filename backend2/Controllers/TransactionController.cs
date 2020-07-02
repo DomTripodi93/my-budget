@@ -45,11 +45,6 @@ namespace backend.Controllers
 
             _repo.Add(Transaction);
 
-            var AccountFromForUpdate = await _repo.GetAccountByName(userId, Transaction.AccountFrom);
-            AccountFromForUpdate.Balance -= Transaction.Cost;
-            var AccountToForUpdate = await _repo.GetAccountByName(userId, Transaction.AccountTo);
-            AccountToForUpdate.Balance += Transaction.Cost;
-
             if (await _repo.SaveAll())
             {
                 var jobToReturn = _mapper.Map<TransactionForReturnDto>(Transaction);

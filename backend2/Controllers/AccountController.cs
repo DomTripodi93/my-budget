@@ -153,6 +153,22 @@ namespace backend.Controllers
             throw new Exception($"Updating Account {Name} failed on save");
         }
 
+        [HttpPut("balance/{Name}")]
+        public async Task<IActionResult> UpdateAccountBalance(int userId, string Name, AccountForBalanceUpdateDto AccountForUpdateDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var AccountFromRepo = await _repo.GetAccountByName(userId, Name);
+
+            _mapper.Map(AccountForUpdateDto, AccountFromRepo);
+
+            if (await _repo.SaveAll())
+                return CreatedAtRoute("GetAccount", new { Name = AccountFromRepo.Name, userId = userId }, AccountFromRepo);
+
+            throw new Exception($"Updating Account {Name} failed on save");
+        }
+
         [HttpPut("isBank/{Name}")]
         public async Task<IActionResult> UpdateBankAccount(int userId, string Name)
         {
