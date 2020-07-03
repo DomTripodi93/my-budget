@@ -50,11 +50,18 @@ const TransactionList = (props) => {
                     {props.transactions.map(transaction => (
                         <div key={transaction.id}>
                             <div className="transaction-grid-outer">
-                                <div>
-                                    <TransactionLine
+                                {detailsShown[transaction.id] ?
+                                    <SelectedTransaction
                                         transaction={transaction}
+                                        key={transaction.id}
                                     />
-                                </div>
+                                    :
+                                    <div>
+                                        <TransactionLine
+                                            transaction={transaction}
+                                        />
+                                    </div>
+                                }
                                 <div className="centered transaction-grid-right">
                                     {detailsShown[transaction.id] ?
                                         <CustomButton
