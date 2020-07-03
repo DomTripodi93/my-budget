@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectedTransaction from './selected-transaction';
 import TransactionLine from './transaction-line';
 import "./transaction.scss"
+import CustomButton from '../../shared/elements/button/custom-button.component';
 
 
 const TransactionList = (props) => {
+    const [detailsShown, setDetailsShown] = useState({})
+    
+    const detailsVisible = (id) => {
+        let detailHold = {...detailsShown};
+        detailHold[id] = !detailHold[id];
+        setDetailsShown(detailHold);
+    }
+
     return (
         <div>
             {props.single ?
@@ -47,9 +56,19 @@ const TransactionList = (props) => {
                                     />
                                 </div>
                                 <div className="centered transaction-grid-right">
-                                    <h5 className="grid-text">
-                                        buttons
-                                    </h5>
+                                    {detailsShown[transaction.id] ?
+                                        <CustomButton
+                                            action={()=> detailsVisible(transaction.id)}
+                                            label="&#x25B3;"
+                                            buttonStyle="mini"
+                                        />
+                                        :
+                                        <CustomButton
+                                            action={()=> detailsVisible(transaction.id)}
+                                            label="&#x25BD;"
+                                            buttonStyle="mini"
+                                        />
+                                    }
                                 </div>
                             </div>
                             <hr className="close" />
