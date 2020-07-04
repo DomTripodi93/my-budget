@@ -19,7 +19,7 @@ const TransactionForm = props => {
         accountTo: "",
         accountFrom: "",
         cost: 0.01,
-        date: helper.getDateTimeStringFromDate(today)
+        date: helper.getStringFromDate(today)
     });
     const {
         accountTo,

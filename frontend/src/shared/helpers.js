@@ -67,15 +67,13 @@ class helpers {
     getStringFromDate(date) {
         return date.toISOString().substring(0, 10);
     }
+    //Returns string value of date in yyyy-mm-dd format
 
     getJsDateStringFromIsoDateString(date) {
         let yearMonthDay = date.split("-");
         return [yearMonthDay[1], yearMonthDay[2], yearMonthDay[0]].join("-");
     }
-
-    getDateTimeStringFromDate(date) {
-        return this.getStringFromDate(date) + 'T' + date.toTimeString().substring(0, 8);
-    }
+    //Takes string of date in yyyy-mm-dd format and converts to mm-dd-yyyy format
 
     setDateForIso(year, month, day) {
         if (month < 10) {
