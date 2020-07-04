@@ -23,7 +23,7 @@ const TransactionLine = (props) => {
                 {transaction.date.substring(0, 10)}
             </h5>
             <h5 className="grid-text">
-                {transaction.cost}
+                ${transaction.cost.toFixed(2)}
             </h5>
         </div>
     )

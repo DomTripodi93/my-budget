@@ -24,7 +24,7 @@ const SelectedTransaction = (props) => {
                 <br />
                 Cost:
                 <br />
-                {transaction.cost}
+                ${transaction.cost.toFixed(2)}
             </h5>
         </div>
     )
