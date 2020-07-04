@@ -1,9 +1,10 @@
 import React from 'react';
-
+import helpers from '../../shared/helpers';
 
 
 const SelectedTransaction = (props) => {
     const transaction = props.transaction;
+    const helper = new helpers();
     return (
         <div className="centered border grid50">
             <h5>
@@ -19,7 +20,7 @@ const SelectedTransaction = (props) => {
             <h5>
                 Date of Transaction:
                 <br />
-                {transaction.date.substring(0,10)}
+                {helper.getJsDateStringFromIsoDateString(transaction.date.substring(0, 10))}
                 <br />
                 <br />
                 Cost:
