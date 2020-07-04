@@ -5,21 +5,26 @@ import React from 'react';
 const SelectedTransaction = (props) => {
     const transaction = props.transaction;
     return (
-        <div className="centered border">
+        <div className="centered border grid50">
             <h5>
-                Transaction ID: {transaction.id}
+                Account From:
+                <br />
+                {transaction.accountFrom}
+                <br />
+                <br />
+                Account To:
+                <br />
+                {transaction.accountTo}
             </h5>
             <h5>
-                Account From: {transaction.accountFrom}
-            </h5>
-            <h5>
-                Account To: {transaction.accountTo}
-            </h5>
-            <h5>
-                Date of Transaction: {transaction.date.substring(0,10)}
-            </h5>
-            <h5>
-                Cost: {transaction.cost}
+                Date of Transaction:
+                <br />
+                {transaction.date.substring(0,10)}
+                <br />
+                <br />
+                Cost:
+                <br />
+                {transaction.cost}
             </h5>
         </div>
     )
