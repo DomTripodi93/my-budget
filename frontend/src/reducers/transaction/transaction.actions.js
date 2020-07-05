@@ -19,11 +19,11 @@ export function addTransaction(transaction, callback) {
 //Posts new transaction to API
 
 function updateAccountsForTransaction(transaction) {
-    let accountFrom = store.getState().account.allAccounts.filter(account=>{
+    let accountFrom = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountFrom;
     })[0]
     accountFrom.balance -= transaction.cost;
-    let accountTo = store.getState().account.allAccounts.filter(account=>{
+    let accountTo = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountTo;
     })[0]
     accountTo.balance += +transaction.cost;
@@ -37,7 +37,7 @@ function updateAccountsForTransaction(transaction) {
 export function uploadBulkTransactions(transactions) {
     return dispatch => {
         http.addItem("transaction/bulk", transactions)
-            .then(()=>{
+            .then(() => {
                 dispatch(fetchTransactionsNotReconciled());
             })
     }
@@ -103,19 +103,19 @@ export function reconcileSingleTransaction(transaction, callback) {
 //Updates transaction in database
 
 function reconcileAccountsForTransaction(transaction) {
-    let accountFrom = store.getState().account.allAccounts.filter(account=>{
+    let accountFrom = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountFrom;
     })[0]
     accountFrom.balance -= transaction.cost;
-    let accountTo = store.getState().account.allAccounts.filter(account=>{
+    let accountTo = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountTo;
     })[0]
     accountTo.balance += transaction.cost;
     return dispatch => {
-        if (!accountFrom.isBank){
+        if (!accountFrom.isBank) {
             dispatch(updateBalance(accountFrom));
         }
-        if (!accountTo.isBank){
+        if (!accountTo.isBank) {
             dispatch(updateBalance(accountTo));
         }
     }
@@ -147,9 +147,10 @@ export function updateSelectedTransaction(transaction, callback) {
 }
 //Updates transaction in database
 
-export function deleteTransaction(id, accountTo, accountFrom) {
+export function deleteTransaction(transaction) {
+    const { id, accountTo, accountFrom } = transaction;
     return dispatch => {
-        http.deleteItem("transaction", id)
+        http.deleteItemById("transaction", id)
             .then(() => {
                 dispatch(deleteTransactionFromState(id, accountTo));
                 dispatch(deleteTransactionFromState(id, accountFrom));

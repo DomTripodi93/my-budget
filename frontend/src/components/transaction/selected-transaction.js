@@ -1,10 +1,22 @@
 import React from 'react';
 import helpers from '../../shared/helpers';
+import CustomButton from '../../shared/elements/button/custom-button.component';
+import { connect } from 'react-redux';
+import { deleteTransaction } from '../../reducers/transaction/transaction.actions';
 
 
 const SelectedTransaction = (props) => {
     const transaction = props.transaction;
     const helper = new helpers();
+
+    const handleDelete = (transaction) => {
+        if (window.confirm(
+            "Are you sure you want to delete this transaction?"
+        )) {
+            props.deleteTransaction(transaction);
+        }
+    }
+
     return (
         <div className="centered border grid50">
             <h5>
@@ -27,8 +39,24 @@ const SelectedTransaction = (props) => {
                 <br />
                 ${transaction.cost.toFixed(2)}
             </h5>
+            <CustomButton
+                label="Update"
+                buttonStyle="blue large"
+                action={() => {  }}
+            />
+            <CustomButton
+                label="Delete"
+                buttonStyle="red large"
+                action={() => { handleDelete(transaction) }}
+            />
         </div>
     )
 }
 
-export default SelectedTransaction;
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteTransaction: (transaction) => dispatch(deleteTransaction(transaction))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SelectedTransaction);
