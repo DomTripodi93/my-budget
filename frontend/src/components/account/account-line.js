@@ -17,7 +17,7 @@ const AccountLine = (props) => {
                 {account.accountType}
             </h5>
             <h5 className="grid-text">
-                {account.balance}
+                ${account.balance.toFixed(2)}
             </h5>
         </div>
     )
