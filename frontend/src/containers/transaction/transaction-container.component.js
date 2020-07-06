@@ -68,16 +68,22 @@ const TransactionContainer = (props) => {
 
     return (
         <div>
-            <h3 className='centered'>Transactions</h3>
-            <div className="grid100">
-                <TransactionNew
-                    singleAction={showAddSingleForm}
-                    addSingleMode={addSingleMode}
-                    batchAction={showAddBatchForm}
-                    addBatchMode={addBatchMode}
-                    accounts={props.allAccounts}
-                />
-            </div>
+            {!props.interior ?
+                <div>
+                    <h3 className='centered'>Transactions</h3>
+                    <div className="grid100">
+                        <TransactionNew
+                            singleAction={showAddSingleForm}
+                            addSingleMode={addSingleMode}
+                            batchAction={showAddBatchForm}
+                            addBatchMode={addBatchMode}
+                            accounts={props.allAccounts}
+                        />
+                    </div>
+                </div>
+                :
+                null
+            }
             {transactions.length > 0 ?
                 <TransactionList
                     transactions={transactions}
