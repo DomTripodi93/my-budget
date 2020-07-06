@@ -89,6 +89,8 @@ const TransactionContainer = (props) => {
                 <TransactionList
                     transactions={transactions}
                     single={single}
+                    inAccount={interior}
+                    account={page}
                 />
                 :
                 null

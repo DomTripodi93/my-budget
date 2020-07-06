@@ -24,9 +24,23 @@ const TransactionLine = (props) => {
             <h5 className="grid-text">
                 {helper.getJsDateStringFromIsoDateString(transaction.date.substring(0, 10))}
             </h5>
-            <h5 className="grid-text">
-                ${transaction.cost.toFixed(2)}
-            </h5>
+            {props.inAccount ?
+                <div>
+                    {props.green ?
+                        <h5 className="grid-text">
+                            ${transaction.cost.toFixed(2)}
+                        </h5>
+                        :
+                        <h5 className="grid-text">
+                            $-{transaction.cost.toFixed(2)}
+                        </h5>
+                    }
+                </div>
+                :
+                <h5 className="grid-text">
+                    ${transaction.cost.toFixed(2)}
+                </h5>
+            }
         </div>
     )
 }

@@ -57,9 +57,30 @@ const TransactionList = (props) => {
                                     />
                                     :
                                     <div>
-                                        <TransactionLine
-                                            transaction={transaction}
-                                        />
+                                        {props.inAccount ?
+                                            <div>
+                                                {props.account === transaction.accountTo ?
+                                                    <div className="green-back">
+                                                        <TransactionLine
+                                                            transaction={transaction}
+                                                            inAccount={props.inAccount}
+                                                            green={true}
+                                                        />
+                                                    </div>
+                                                    :
+                                                    <div className="red-back">
+                                                        <TransactionLine
+                                                            transaction={transaction}
+                                                            inAccount={props.inAccount}
+                                                        />
+                                                    </div>
+                                                }
+                                            </div>
+                                            :
+                                            <TransactionLine
+                                                transaction={transaction}
+                                            />
+                                        }
                                     </div>
                                 }
                                 <div className="centered transaction-grid-right">
