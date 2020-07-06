@@ -4,6 +4,7 @@ import { deleteAccount, updateAccount } from '../../reducers/account/account.act
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AccountBankForm from './account-bank-form';
+import TransactionContainer from '../../containers/transaction/transaction-container.component';
 
 
 
@@ -36,84 +37,90 @@ const SelectedAccount = (props) => {
     }
 
     return (
-        <div className="border centered split">
-            {changeBank ?
-                <AccountBankForm 
-                    accountList={props.accountList}
-                    callback={selectNewBank}
-                />
-                :
-                <div className="grid50">
-                    <h5 className="grid-text">
-                        Account: {account.name}
-                    </h5>
-                    <h5 className="grid-text">
-                        Type: {account.accountType}
-                    </h5>
-                    <h5 className="grid-text">
-                        Balance: ${account.balance.toFixed(2)}
-                    </h5>
-                    {account.active ?
+        <div>
+            <div className="border centered split">
+                {changeBank ?
+                    <AccountBankForm 
+                        accountList={props.accountList}
+                        callback={selectNewBank}
+                    />
+                    :
+                    <div className="grid50">
                         <h5 className="grid-text">
-                            Active: Yes
+                            Account: {account.name}
                         </h5>
+                        <h5 className="grid-text">
+                            Type: {account.accountType}
+                        </h5>
+                        <h5 className="grid-text">
+                            Balance: ${account.balance.toFixed(2)}
+                        </h5>
+                        {account.active ?
+                            <h5 className="grid-text">
+                                Active: Yes
+                            </h5>
+                            :
+                            <h5 className="grid-text">
+                                Active: No
+                            </h5>
+                        }
+                    </div>
+                }
+                <div className="grid100">
+                    <Link className="grid100" to={"/transaction/" + account.name}>
+                        <CustomButton 
+                            label="transactions"
+                            buttonStyle="soft-green large"
+                        />
+                    </Link>
+                    {account.isBank ?
+                        <div className="grid100">
+                            {changeBank?
+                                <CustomButton
+                                    label="cancel"
+                                    buttonStyle="red large"
+                                    action={() => { selectNewBank() }}
+                                />
+                                :
+                                <CustomButton
+                                    label="change bank"
+                                    buttonStyle="blue large"
+                                    action={() => { selectNewBank() }}
+                                />
+                            }
+                        </div>
                         :
-                        <h5 className="grid-text">
-                            Active: No
-                        </h5>
+                        <div className="grid100">
+                            {!account.active ?
+                                <CustomButton
+                                    label="make active"
+                                    buttonStyle="blue large"
+                                    action={() => { handleChangeActive(account) }}
+                                />
+                                :
+                                <CustomButton
+                                    label="make inactive"
+                                    buttonStyle="large"
+                                    action={() => { handleChangeActive(account) }}
+                                />
+                            }
+                        </div>
+                    }
+                    {changeBank ?
+                        null
+                        :
+                        <CustomButton
+                            label="delete"
+                            buttonStyle="red large"
+                            action={() => { handleDelete(account) }}
+                        />
                     }
                 </div>
-            }
-            <div className="grid100">
-                <Link className="grid100" to={"/transaction/" + account.name}>
-                    <CustomButton 
-                        label="transactions"
-                        buttonStyle="soft-green large"
-                    />
-                </Link>
-                {account.isBank ?
-                    <div className="grid100">
-                        {changeBank?
-                            <CustomButton
-                                label="cancel"
-                                buttonStyle="red large"
-                                action={() => { selectNewBank() }}
-                            />
-                            :
-                            <CustomButton
-                                label="change bank"
-                                buttonStyle="blue large"
-                                action={() => { selectNewBank() }}
-                            />
-                        }
-                    </div>
-                    :
-                    <div className="grid100">
-                        {!account.active ?
-                            <CustomButton
-                                label="make active"
-                                buttonStyle="blue large"
-                                action={() => { handleChangeActive(account) }}
-                            />
-                            :
-                            <CustomButton
-                                label="make inactive"
-                                buttonStyle="large"
-                                action={() => { handleChangeActive(account) }}
-                            />
-                        }
-                    </div>
-                }
-                {changeBank ?
-                    null
-                    :
-                    <CustomButton
-                        label="delete"
-                        buttonStyle="red large"
-                        action={() => { handleDelete(account) }}
-                    />
-                }
             </div>
+            <TransactionContainer
+                page={account.name}
+                interior={true}
+            />
         </div>
     )
 }

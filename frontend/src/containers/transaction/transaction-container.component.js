@@ -22,6 +22,7 @@ const TransactionContainer = (props) => {
     const fetchByAccount = props.fetchTransactionsByAccount;
     const fetchSingle = props.fetchSingleTransaction;
     const fetchAccounts = props.fetchAllAccounts;
+    const interior = props.interior;
     const [single, setSingle] = useState(false);
 
     useEffect(() => {
@@ -36,7 +37,9 @@ const TransactionContainer = (props) => {
                 fetchByAccount(page);
                 setSingle(false);
             }
-            fetchAccounts();
+            if (!interior){
+                fetchAccounts();
+            }
         }
     }, [fetchNotReconciled, fetchByAccount, fetchSingle, fetchAccounts, page])
 
@@ -68,18 +71,16 @@ const TransactionContainer = (props) => {
 
     return (
         <div>
-            {!props.interior ?
-                <div>
-                    <h3 className='centered'>Transactions</h3>
-                    <div className="grid100">
-                        <TransactionNew
-                            singleAction={showAddSingleForm}
-                            addSingleMode={addSingleMode}
-                            batchAction={showAddBatchForm}
-                            addBatchMode={addBatchMode}
-                            accounts={props.allAccounts}
-                        />
-                    </div>
+        <h3 className='centered'>Transactions</h3>
+            {!interior ?
+                <div className="grid100">
+                    <TransactionNew
+                        singleAction={showAddSingleForm}
+                        addSingleMode={addSingleMode}
+                        batchAction={showAddBatchForm}
+                        addBatchMode={addBatchMode}
+                        accounts={props.allAccounts}
+                    />
                 </div>
                 :
                 null
@@ -91,7 +92,6 @@ const TransactionContainer = (props) => {
                 />
                 :
                 null
-
             }
         </div>
     )
