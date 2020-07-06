@@ -117,10 +117,14 @@ const SelectedAccount = (props) => {
                     }
                 </div>
             </div>
-            <TransactionContainer
-                page={account.name}
-                interior={true}
-            />
+            {props.single ?
+                <TransactionContainer
+                    page={account.name}
+                    interior={true}
+                />
+                :
+                null
+            }
         </div>
     )
 }

@@ -40,7 +40,6 @@ const AccountList = (props) => {
                                     <SelectedAccount
                                         account={account}
                                         accountList={props.accounts}
-                                        single={true}
                                     />
                                 </div>
                                 :
