@@ -149,11 +149,15 @@ export function updateSelectedTransaction(transaction, callback) {
 
 export function deleteTransaction(transaction) {
     const { id, accountTo, accountFrom } = transaction;
+    const transactionHold = {...transaction};
+    transactionHold.accountTo = accountFrom;
+    transactionHold.accountFrom = accountTo;
     return dispatch => {
         http.deleteItemById("transaction", id)
             .then(() => {
                 dispatch(deleteTransactionFromState(id, accountTo));
                 dispatch(deleteTransactionFromState(id, accountFrom));
+                dispatch(updateAccountsForTransaction(transactionHold));
             });
     }
 }
