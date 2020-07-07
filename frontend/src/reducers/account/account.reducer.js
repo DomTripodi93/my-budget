@@ -17,9 +17,10 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             }
         });
     }
-    let allAccountsHold = [...state.allAccounts]
-    let accountsHold = { ...state.accounts }
+    let allAccountsHold = [...state.allAccounts];
+    let accountsHold = { ...state.accounts };
     let calledHold = { ...state.called };
+    let selectedHold = { ...state.selectedAccount }
     switch (action.type) {
         case AccountActionTypes.SET_SELECTED_ACCOUNT:
             calledHold["single"] = action.payload.name;
@@ -82,6 +83,9 @@ const accountReducer = (state = INITIAL_STATE, action) => {
                         })
                 ]);
             }
+            if (selectedHold.name === action.payload.name){
+                selectedHold = { ...action.payload };
+            }
             if (calledHold["All"]) {
                 allAccountsHold = sortAccounts([
                     action.payload,
@@ -94,7 +98,8 @@ const accountReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 accounts: accountsHold,
-                allAccounts: allAccountsHold
+                allAccounts: allAccountsHold,
+                selectedAccount: selectedHold
             };
         case AccountActionTypes.UPDATE_BANK_ACCOUNT:
             if (calledHold["Asset"]) {
