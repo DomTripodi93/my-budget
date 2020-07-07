@@ -19,20 +19,15 @@ const AccountContainer = (props) => {
     const searchType = props.match.params.searchType;
 
     useEffect(() => {
-        if (!called[page] && searchType === "list"){
-            if (searchType === "list") {
-                if (page === "All") {
-                    fetchAll();
-                } else {
-                    fetchByType(page);
-                }
-            }
+        if (!called["All"]){
+            fetchAll();
+        }
+        if (!called[page] && searchType === "list" && page !=="All"){
+            fetchByType(page);
         } else if (searchType === "single" && called["single"] !== page) {
             if (called["All"]) {
                 fetchSingleFromCache(page)
-            } else {
-                fetchSingle(page);
-            }
+            } 
         }
     }, [
         fetchAll, 
