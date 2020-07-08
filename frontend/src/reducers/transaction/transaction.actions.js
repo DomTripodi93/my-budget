@@ -19,17 +19,29 @@ export function addTransaction(transaction, callback) {
 //Posts new transaction to API
 
 function updateAccountsForTransaction(transaction) {
+    let from = false;
+    let to = false;
     let accountFrom = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountFrom;
     })[0]
-    accountFrom.balance -= transaction.cost;
+    if (accountFrom){
+        accountFrom.balance -= transaction.cost;
+        from = true;
+    }
     let accountTo = store.getState().account.allAccounts.filter(account => {
         return account.name === transaction.accountTo;
     })[0]
-    accountTo.balance += +transaction.cost;
+    if (accountTo){
+        accountTo.balance += +transaction.cost;
+        to = true
+    }
     return dispatch => {
-        dispatch(updateBalance(accountFrom));
-        dispatch(updateBalance(accountTo));
+        if (from){
+            dispatch(updateBalance(accountFrom));
+        }
+        if (to){
+            dispatch(updateBalance(accountTo));
+        }
     }
 }
 //Updates accounts for journaled transaction
