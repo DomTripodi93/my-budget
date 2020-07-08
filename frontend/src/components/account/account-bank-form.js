@@ -75,7 +75,7 @@ const AccountBankForm = props => {
                 </div>
                 :
                 <h5>
-                    Please add another active income account to replace your bank 
+                    Please add another active asset account to replace your bank 
                     account before using this form.
                 </h5>
             }
