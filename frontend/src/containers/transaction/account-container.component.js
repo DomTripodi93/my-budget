@@ -85,6 +85,7 @@ const AccountContainer = (props) => {
                     {single ?
                         <SelectedAccount
                             account={accounts[0]}
+                            accountList={props.allAccounts}
                             single={true}
                         />
                         :

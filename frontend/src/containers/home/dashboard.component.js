@@ -59,7 +59,7 @@ const Dashboard = (props) => {
                 {called["single"] === "Bank" ?
                     <SelectedAccount
                         account={props.selectedAccount}
-                        accountList={props.accounts}
+                        accountList={props.allAccounts}
                     />
                     :
                     null
