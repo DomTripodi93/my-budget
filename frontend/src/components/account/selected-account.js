@@ -9,6 +9,7 @@ import TransactionContainer from '../../containers/transaction/transaction-conta
 
 
 const SelectedAccount = (props) => {
+    console.log(props.accountList)
     const account = props.account;
     const [changeBank, setChangeBank] = useState(false);
 
@@ -106,7 +107,7 @@ const SelectedAccount = (props) => {
                             }
                         </div>
                     }
-                    {changeBank ?
+                    {account.isBank ?
                         null
                         :
                         <CustomButton
