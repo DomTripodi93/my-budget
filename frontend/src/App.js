@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import './App.scss';
 import { checkUser } from './reducers/user/user.actions';
-import logo from './shared/assets/favicon.png';
 
 
 import Header from './shared/header/header';
+import Footer from './shared/footer/footer';
 import Spinner from './shared/elements/spinner/spinner';
 
 
@@ -19,6 +19,7 @@ const AccountContainer = lazy(() => import('./containers/transaction/account-con
 const Dashboard = lazy(() => import('./containers/home/dashboard.component'));
 const TransactionContainer = lazy(() => import('./containers/transaction/transaction-container.component'));
 const RecurringTransactionContainer = lazy(() => import('./containers/transaction/recurring-transaction-container.component'));
+
 
 const App = (props) => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
@@ -58,14 +59,12 @@ const App = (props) => {
                 }
             </div>
             <div id="footer">
-                <div className="grid-foot">
-                    <img className='logo-holder' alt='logo' src={logo}></img>
-                    <p className="middle">My Budget, Version: 0.1.0</p>
-                </div>
+                <Footer />
             </div>
         </div>
     );
 };
+
 
 const mapDispatchToProps = dispatch => {
     return {
