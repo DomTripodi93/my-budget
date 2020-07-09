@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchAllAccounts, fetchBankAccount } from '../../reducers/account/account.actions';
 import SelectedAccount from '../../components/account/selected-account';
 import "../../components/account/account.scss";
+import TransactionContainer from '../transaction/transaction-container.component';
 
 
 const Dashboard = (props) => {
@@ -64,6 +65,12 @@ const Dashboard = (props) => {
                     :
                     null
                 }
+            </div>
+            <div className="border spaced-top">
+                <TransactionContainer 
+                    page="notReconciled"
+                    interior={true}
+                />
             </div>
         </div>
     );
