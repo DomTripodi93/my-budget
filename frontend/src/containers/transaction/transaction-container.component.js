@@ -93,7 +93,17 @@ const TransactionContainer = (props) => {
                     account={page}
                 />
                 :
-                null
+                <div className="middle">
+                    {page === "notReconciled" ?
+                        <h5 className="centered">
+                            No Transactions To Reconcile
+                        </h5>
+                        :
+                        <h5 className="centered">
+                            No Transactions
+                        </h5>
+                    }
+                </div>
             }
         </div>
     )
