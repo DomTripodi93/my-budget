@@ -4,13 +4,32 @@ import { connect } from 'react-redux';
 
 import logo from '../assets/favicon.png';
 import './header.styles.scss';
+import { toggleDropDown } from '../../reducers/drop-down/drop-down.reducer';
 
 const Header = props => {
     const [authValue, setAuthValue] = useState(props.isAuthenticated);
+    const [hidden, setHidden] = useState(props.hidden);
+
+    const toggleDropDown = () => {
+        if (hidden) {
+            setTimeout(() => { props.toggleDropDown() }, 1);
+        } else {
+            props.toggleDropDown();
+        }
+    };
 
     useEffect(() => {
         setAuthValue(props.isAuthenticated);
+        setHidden(props.hidden);
     }, [props]);
+
+    const accountItems = [
+        (<Link to="/account/list/All" className='drop-down-item' key='1'>All</Link>),
+        (<Link to="/account/list/Income" className='drop-down-item' key='2'>Income</Link>),
+        (<Link to="/account/list/Expense" className='drop-down-item' key='3'>Expense</Link>),
+        (<Link to="/account/list/Asset" className='drop-down-item' key='4'>Asset</Link>),
+        (<Link to="/account/list/Liability" className='drop-down-item' key='5'>Liability</Link>)
+    ]
 
     return (
         <div className='header-cover'>
@@ -23,9 +42,16 @@ const Header = props => {
                         <Link to='/' className='route'>
                             Home
                         </Link>
-                        <Link to="/account/list/All">Accounts</Link>
+                        <ul onClick={toggleDropDown}>
+                            Accounts &#x21af;
+                            {!hidden ?
+                                <div className='drop-down grid100'>{accountItems}</div>
+                                :
+                                null
+                            }
+                        </ul>
                         <Link to="/transaction/notReconciled">Transactions</Link>
-                        <Link to="/recurringTransaction/All">Recurring Transactions</Link>
+                        <Link to="/recurringTransaction/All">Recurring</Link>
                     </div>
                     <div className='edge'>
                         <Link to='/signout' className='route'>
@@ -56,8 +82,13 @@ const Header = props => {
     )
 }
 
+const mapDispatchToProps = dispatch => ({
+    toggleDropDown: () => dispatch(toggleDropDown())
+})
+
 const mapStateToProps = state => ({
-    isAuthenticated: state.user.isAuthenticated
+    isAuthenticated: state.user.isAuthenticated,
+    hidden: state.dropDown.hidden
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
