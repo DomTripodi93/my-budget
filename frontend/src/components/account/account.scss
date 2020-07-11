@@ -63,7 +63,7 @@
 
 .split {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 85% 15%;
     @media (max-width: 700px) {
         grid-template-columns: 75% 25%;
     }
