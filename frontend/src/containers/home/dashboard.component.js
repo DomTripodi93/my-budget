@@ -34,19 +34,23 @@ const Dashboard = (props) => {
         <div>
             <h2 className="centered">Welcome to Your Dashboard!</h2>
             {hasAccount ?
-                <div className="border centered">
-                    <br />
-                    <Link to="/account/list/All">All Accounts</Link>
-                    <br />
-                    <Link to="/account/list/Income">Income Accounts</Link>
-                    <br />
-                    <Link to="/account/list/Expense">Expense Accounts</Link>
-                    <br />
-                    <Link to="/transaction/notReconciled">Not Reconciled Transactions</Link>
-                    <br />
-                    <Link to="/recurringTransaction/All">Recurring Transactions</Link>
-                    <br />
-                    <br />
+                <div>
+                    <div className="spaced-top">
+                        {called["single"] === "Bank" ?
+                            <SelectedAccount
+                                account={props.selectedAccount}
+                                accountList={props.allAccounts}
+                            />
+                            :
+                            null
+                        }
+                    </div>
+                    <div className="border spaced-top">
+                        <TransactionContainer 
+                            page="notReconciled"
+                            interior={true}
+                        />
+                    </div>
                 </div>
                 :
                 <div className="border centered">
@@ -56,22 +60,6 @@ const Dashboard = (props) => {
                     </h4>
                 </div>
             }
-            <div className="spaced-top">
-                {called["single"] === "Bank" ?
-                    <SelectedAccount
-                        account={props.selectedAccount}
-                        accountList={props.allAccounts}
-                    />
-                    :
-                    null
-                }
-            </div>
-            <div className="border spaced-top">
-                <TransactionContainer 
-                    page="notReconciled"
-                    interior={true}
-                />
-            </div>
         </div>
     );
 };
