@@ -64,9 +64,9 @@ export const CustomizedButton = styled.button`
   }
 
   &.large{
-    font-size: 14px;
+    font-size: 19px;
     @media (max-width: 700px) {
-      font-size: 2.6vw;
+      font-size: 14px;
     }
   }
 
@@ -85,7 +85,7 @@ export const CustomizedButton = styled.button`
 
 CustomizedButton.displayName = 'CustomizedButton';
 
-export const ButtonText = styled.h5`
+export const ButtonText = styled.h6`
   margin: 10px 10px 10px 10px;
 
   &.small{
